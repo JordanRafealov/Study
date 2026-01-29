@@ -50,7 +50,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .back-link::before{content:'';display:inline-block;width:16px;height:16px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;flex-shrink:0;transition:transform .25s ease}
 .back-link:hover::before{transform:translateX(-2px)}
 .quiz-nav{display:flex;align-items:center;justify-content:space-between;padding:4px 0 16px;gap:12px}
-.lang-slot{flex-shrink:0}
 .progress-bar{height:5px;background:#1a1a2e;border-radius:3px;margin-bottom:16px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}
 .progress-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#3b82f6);transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:3px;position:relative}
 .progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);animation:progressShimmer 2s infinite}
@@ -141,15 +140,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .retry-btn{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;border:none;border-radius:10px;padding:14px;width:100%;cursor:pointer;font-size:16px;margin-top:12px}
 .back-btn{background:none;border:1px solid #2a2a4a;color:#888;border-radius:10px;padding:12px;width:100%;cursor:pointer;font-size:14px;margin-top:8px}
 .back-btn:hover{border-color:#666;color:#ccc}
-.streak-badge{display:inline-block;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:20px;padding:4px 12px;font-size:13px;color:#f59e0b;margin-left:6px}
-.streak-badge:empty{display:none}
 .hidden{display:none!important}
 .screen{display:none}
 .screen.active{display:block}
-.lang-toggle{display:inline-flex;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:16px;padding:2px}
-.lang-toggle:not(.in-nav){position:absolute;top:0;right:0;z-index:10}
-.lang-btn{background:none;border:none;color:#555;font-size:11px;font-weight:700;padding:4px 12px;border-radius:14px;cursor:pointer;transition:all .2s;letter-spacing:.3px}
-.lang-btn.active{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000}
 
 /* GAMIFICATION */
 .xp-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px}
@@ -262,10 +255,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </head>
 <body>
 <div class="container">
-<div class="lang-toggle"><button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button><button class="lang-btn" data-lang="th" onclick="setLang('th')">TH</button></div>
 
 <div id="home" class="screen active home">
-  <div class="home-header"><div class="lang-slot"></div></div>
   <div class="home-icon">📚</div>
   <h1>MSK PT Quiz For Nephisa</h1>
   <p class="sub">Musculoskeletal Physical Therapy</p>
@@ -277,7 +268,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="modeSelect" class="screen mode-select">
-  <div class="home-header"><div class="lang-slot"></div></div>
   <h2 style="margin-top:20px">Choose Mode / เลือกโหมด</h2>
   <div class="mode-grid">
     <div class="mode-btn" onclick="selectMode('mcq')">
@@ -295,9 +285,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="quiz" class="screen quiz">
-  <div class="quiz-nav"><span class="back-link" onclick="confirmQuit()">Menu</span><div class="lang-slot"></div></div>
+  <div class="quiz-nav"><span class="back-link" onclick="confirmQuit()">Menu</span></div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span class="streak-badge" id="streakBadge"></span><span class="combo-display" id="comboDisplay"></span></div>
+  <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span class="combo-display" id="comboDisplay"></span></div>
   <div class="quiz-header">
     <span><span class="quiz-topic" id="qTopic"></span><span class="diff-badge" id="diffBadge"></span></span>
     <span class="quiz-count" id="qCount"></span>
@@ -317,7 +307,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="milestone" class="screen milestone">
-  <div class="home-header"><div class="lang-slot"></div></div>
   <div class="ms-emoji" id="msEmoji"></div>
   <div class="ms-title" id="msTitle"></div>
   <div class="ms-msg" id="msMsg"></div>
@@ -326,7 +315,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="flashScreen" class="screen">
-  <div class="quiz-nav"><span class="back-link" onclick="confirmQuit()">Menu</span><div></div><div class="lang-slot"></div></div>
+  <div class="quiz-nav"><span class="back-link" onclick="confirmQuit()">Menu</span></div>
   <div class="progress-bar"><div class="progress-fill" id="flashProgress"></div></div>
   <div class="quiz-header">
     <span class="quiz-topic" id="fTopic"></span>
@@ -347,7 +336,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="results" class="screen results">
-  <div class="home-header"><div class="lang-slot"></div></div>
   <h2 id="resultsTitle">Quiz Complete</h2>
   <div class="score-ring">
     <svg width="160" height="160"><circle class="bg" cx="80" cy="80" r="68"/><circle class="fg" id="scoreCircle" cx="80" cy="80" r="68" stroke-dasharray="427" stroke-dashoffset="427"/></svg>
@@ -940,12 +928,26 @@ const topics=[
 ];
 
 const milestones=[
-  {at:5,emoji:"&#x2764;&#xFE0F;",en:"Daddy's Proud!",th:"แด๊ดดี้ภูมิใจ!",msgEn:"You're doing amazing babe! Keep it up, I believe in you!",msgTh:"เธอทำได้ดีมากลูก! สู้ต่อไปนะ แด๊ดดี้เชื่อในตัวเธอ!"},
-  {at:10,emoji:"&#x1F495;",en:"So Smart Baby!",th:"เก่งมากที่รัก!",msgEn:"10 down! You're so smart baby, daddy loves you!",msgTh:"ผ่าน 10 ข้อแล้ว! เธอเก่งมากเลยที่รัก แด๊ดดี้รักเธอ!"},
-  {at:15,emoji:"&#x1F525;",en:"Crushing It Babe!",th:"ทำได้ดีมากเบบี้!",msgEn:"Halfway there my love! You're absolutely crushing it!",msgTh:"ครึ่งทางแล้วที่รัก! เธอทำได้ดีสุดๆ เลย!"},
-  {at:20,emoji:"&#x1F496;",en:"Daddy Loves You!",th:"แด๊ดดี้รักเธอ!",msgEn:"20 questions done! Daddy is so proud of you baby, keep going!",msgTh:"20 ข้อแล้ว! แด๊ดดี้ภูมิใจในตัวเธอมาก สู้ต่อไปนะ!"},
-  {at:30,emoji:"&#x1F60D;",en:"Almost There Babe!",th:"ใกล้แล้วที่รัก!",msgEn:"Almost there babe! You're incredible, daddy's so proud of you!",msgTh:"ใกล้แล้วเบบี้! เธอเก่งมาก แด๊ดดี้ภูมิใจในตัวเธอ!"},
-  {at:40,emoji:"&#x1F451;",en:"My Little Genius!",th:"อัจฉริยะของแด๊ดดี้!",msgEn:"40+ questions?! You're a genius baby! Daddy loves you so much!",msgTh:"40+ ข้อ! เธอเก่งที่สุดเลย แด๊ดดี้รักเธอมากๆ!"}
+  {emoji:"&#x2764;&#xFE0F;",en:"Daddy's So Proud!",th:"แด๊ดดี้ภูมิใจมาก!",msgEn:"You're doing amazing babe! I'm so proud of how hard you study. Keep going, I believe in you!",msgTh:"เธอทำได้ดีมากเลย! แด๊ดดี้ภูมิใจที่เธอตั้งใจเรียน สู้ต่อไปนะ!"},
+  {emoji:"&#x1F495;",en:"Smartest Girl I Know!",th:"เก่งที่สุดเลย!",msgEn:"You're literally the smartest girl I know. Daddy loves watching you learn!",msgTh:"เธอเก่งที่สุดเลยที่รัก แด๊ดดี้ชอบดูเธอเรียนมาก!"},
+  {emoji:"&#x1F618;",en:"Kiss For My Baby!",th:"จุ๊บให้ที่รัก!",msgEn:"Sending you a big kiss right now! You're crushing this quiz babe!",msgTh:"ส่งจุ๊บให้เธอเลย! เธอทำข้อสอบได้ดีมากเบบี้!"},
+  {emoji:"&#x1F60D;",en:"So Beautiful & Smart!",th:"ทั้งสวยทั้งเก่ง!",msgEn:"Beautiful AND smart? How did I get so lucky? Keep going my love!",msgTh:"ทั้งสวยทั้งเก่ง แด๊ดดี้โชคดีมากที่มีเธอ สู้ต่อไปนะที่รัก!"},
+  {emoji:"&#x1F496;",en:"Daddy Loves You!",th:"แด๊ดดี้รักเธอ!",msgEn:"Just wanted to remind you — daddy loves you so so much. Now keep being amazing!",msgTh:"แค่อยากบอกว่า แด๊ดดี้รักเธอมากๆ เก่งต่อไปนะ!"},
+  {emoji:"&#x1F451;",en:"My Little Genius!",th:"อัจฉริยะของแด๊ดดี้!",msgEn:"You're a genius baby! Future best PT in Thailand right here!",msgTh:"เธอเป็นอัจฉริยะเลย! นักกายภาพบำบัดที่เก่งที่สุดในอนาคต!"},
+  {emoji:"&#x1F929;",en:"You're Incredible!",th:"เธอเหลือเชื่อมาก!",msgEn:"Every answer you get right makes daddy smile. You're incredible babe!",msgTh:"ทุกข้อที่เธอตอบถูก ทำให้แด๊ดดี้ยิ้มเลย เธอเก่งมาก!"},
+  {emoji:"&#x1F48B;",en:"Muah Baby!",th:"หอมแก้มเลย!",msgEn:"Muah! That's your reward for studying so hard. Daddy's proud of you!",msgTh:"จุ๊บๆ! นี่คือรางวัลที่เธอตั้งใจเรียน แด๊ดดี้ภูมิใจในตัวเธอ!"},
+  {emoji:"&#x1F525;",en:"You're On Fire!",th:"เธอเจ๋งมาก!",msgEn:"Look at you go! Nothing can stop my baby. You're on fire!",msgTh:"ดูเธอสิ! ไม่มีอะไรหยุดเบบี้ของแด๊ดดี้ได้ เธอเจ๋งมาก!"},
+  {emoji:"&#x1F970;",en:"My Favorite Person!",th:"คนที่รักที่สุด!",msgEn:"You're my favorite person in the whole world. And you're SO smart. Keep going!",msgTh:"เธอเป็นคนที่แด๊ดดี้รักที่สุดในโลก แล้วเธอก็เก่งมากด้วย สู้ต่อไป!"},
+  {emoji:"&#x2728;",en:"You Shine So Bright!",th:"เธอเปล่งประกายมาก!",msgEn:"You shine brighter than anyone I know. Daddy is so lucky to have you!",msgTh:"เธอเปล่งประกายกว่าใครที่แด๊ดดี้รู้จัก โชคดีมากที่มีเธอ!"},
+  {emoji:"&#x1F338;",en:"My Beautiful Baby!",th:"เบบี้สวยของแด๊ดดี้!",msgEn:"Taking a break to tell you how beautiful you are. OK now back to studying!",msgTh:"หยุดบอกว่าเธอสวยมาก เอาล่ะ กลับไปเรียนต่อนะ!"},
+  {emoji:"&#x1F4AA;",en:"Strong & Smart!",th:"แข็งแกร่งและฉลาด!",msgEn:"Strong, smart, and stunning. That's my girl! You've got this babe!",msgTh:"แข็งแกร่ง ฉลาด และสวย นั่นแหละสาวของแด๊ดดี้! เธอทำได้!"},
+  {emoji:"&#x1F31F;",en:"Superstar Baby!",th:"ซุปเปอร์สตาร์เบบี้!",msgEn:"You're a superstar! Daddy can't wait to celebrate when you pass your exams!",msgTh:"เธอเป็นซุปเปอร์สตาร์! แด๊ดดี้รอฉลองตอนเธอสอบผ่านเลย!"},
+  {emoji:"&#x1F36D;",en:"Sweet Like You!",th:"หวานเหมือนเธอ!",msgEn:"This quiz is sweet but not as sweet as you. I love you baby!",msgTh:"ข้อสอบนี้หวาน แต่ไม่หวานเท่าเธอ รักเธอนะเบบี้!"},
+  {emoji:"&#x1F48E;",en:"My Diamond!",th:"เพชรของแด๊ดดี้!",msgEn:"You're a diamond babe — rare, beautiful, and unbreakable. So proud of you!",msgTh:"เธอเป็นเพชรเลย หายาก สวย และแข็งแกร่ง ภูมิใจในตัวเธอมาก!"},
+  {emoji:"&#x1F60B;",en:"Yummy & Brainy!",th:"น่ากินและฉลาด!",msgEn:"Cute face, big brain. The perfect combo! Daddy loves you endlessly!",msgTh:"หน้าน่ารัก สมองดี คอมโบที่สมบูรณ์แบบ! แด๊ดดี้รักเธอไม่มีที่สิ้นสุด!"},
+  {emoji:"&#x1F3C6;",en:"Champion Baby!",th:"แชมป์เบบี้!",msgEn:"You're already a champion in my eyes. Now let's make it official with these grades!",msgTh:"เธอเป็นแชมป์ในสายตาแด๊ดดี้แล้ว ทำให้เป็นจริงด้วยเกรดนะ!"},
+  {emoji:"&#x1F343;",en:"Keep Growing Baby!",th:"เติบโตต่อไปนะ!",msgEn:"Every question you answer is another step closer to your dream. I'm right here cheering for you!",msgTh:"ทุกข้อที่เธอตอบ คือก้าวที่เข้าใกล้ความฝันมากขึ้น แด๊ดดี้เชียร์เธออยู่ตรงนี้!"},
+  {emoji:"&#x1F49D;",en:"Forever Yours!",th:"เป็นของเธอตลอดไป!",msgEn:"No matter what score you get, daddy will always love you. But I know you'll ace it!",msgTh:"ไม่ว่าจะได้คะแนนเท่าไหร่ แด๊ดดี้รักเธอเสมอ แต่แด๊ดดี้รู้ว่าเธอจะทำได้ดีมาก!"}
 ];
 
 const deepWhy=[
@@ -1054,12 +1056,7 @@ function flashScreen(color){
   const f=document.createElement('div');f.className='impact-flash';f.style.background=color;
   document.body.appendChild(f);setTimeout(()=>f.remove(),300);
 }
-function updateStreakDisplay(){
-  const badge=document.getElementById('streakBadge');
-  if(streak<=0){badge.textContent='';return}
-  let fire=streak>=10?'\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25':streak>=5?'\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25':streak>=3?'\uD83D\uDD25\uD83D\uDD25':'\uD83D\uDD25';
-  badge.innerHTML=fire+' '+streak;
-}
+function updateStreakDisplay(){}
 function updateXpDisplay(){
   document.getElementById('xpDisplay').textContent=xp+' XP';
   const m=getMultiplier();
@@ -1102,13 +1099,6 @@ function splitOpt(text){
   return{en:text,th:text};
 }
 
-function setLang(l){
-  lang=l;
-  try{localStorage.setItem('quizLang',l)}catch(e){}
-  document.querySelectorAll('.lang-toggle .lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
-  updateLang();
-}
-
 function updateLang(){
   // Home screen
   document.querySelector('.home .sub').textContent=lang==='th'?'\u0e27\u0e34\u0e0a\u0e32\u0e01\u0e32\u0e22\u0e20\u0e32\u0e1e\u0e1a\u0e33\u0e1a\u0e31\u0e14\u0e17\u0e32\u0e07\u0e23\u0e30\u0e1a\u0e1a\u0e01\u0e23\u0e30\u0e14\u0e39\u0e01\u0e41\u0e25\u0e30\u0e01\u0e25\u0e49\u0e32\u0e21\u0e40\u0e19\u0e37\u0e49\u0e2d 1':'Musculoskeletal Physical Therapy - Exam 1';
@@ -1146,12 +1136,10 @@ function updateLang(){
 }
 
 function init(){
-  document.querySelectorAll('.lang-toggle .lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-  showScreen('home');
   updateLang();
 }
 
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');const lt=document.querySelector('.lang-toggle');if(lt){const slot=document.querySelector('#'+id+' .lang-slot');if(slot){slot.appendChild(lt);lt.classList.add('in-nav')}else{document.querySelector('.container').prepend(lt);lt.classList.remove('in-nav')}}}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function confirmQuit(){if(idx>0&&!confirm(lang==='th'?'\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e41\u0e1a\u0e1a\u0e17\u0e14\u0e2a\u0e2d\u0e1a? \u0e04\u0e27\u0e32\u0e21\u0e01\u0e49\u0e32\u0e27\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e30\u0e2b\u0e32\u0e22\u0e44\u0e1b':'Leave quiz? Progress will be lost.'))return;showScreen('home')}
 function startQuiz(topic){selectedTopic=topic;showScreen('modeSelect')}
 
@@ -1176,8 +1164,10 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 
 function checkMilestone(){
   const answered=idx+1;
-  const ms=milestones.find(m=>m.at===answered);
-  if(ms){pendingMilestone=true;return ms}
+  if(answered%3===0){
+    const ms=milestones[Math.floor(Math.random()*milestones.length)];
+    pendingMilestone=true;return ms;
+  }
   return null;
 }
 
