@@ -11,10 +11,15 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 @media(max-width:768px){.container{zoom:1;padding:14px 16px 16px;font-size:16px}}
 
 /* HOME */
-.home{text-align:center;padding-top:40px}
-.home h1{font-size:36px;margin-bottom:6px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.home .sub{color:#888;margin-bottom:6px;font-size:16px}
-.home .sub-th{color:#555;margin-bottom:30px;font-size:15px;font-style:italic}
+.home{text-align:center;padding-top:0}
+.home-header{display:flex;justify-content:flex-end;padding:0 0 12px}
+.home-icon{font-size:44px;margin-bottom:6px;filter:drop-shadow(0 2px 8px rgba(110,231,183,.3))}
+.home h1{font-size:34px;margin-bottom:4px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
+.home .sub{color:#888;margin-bottom:4px;font-size:15px}
+.home .sub-th{color:#555;margin-bottom:0;font-size:14px;font-style:italic}
+.home-divider{width:40px;height:3px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);border-radius:2px;margin:16px auto 20px}
+.home-footer{margin-top:28px;padding:14px 0 4px;border-top:1px solid #1a1a2e;color:#333;font-size:11px;letter-spacing:.3px}
+.home-footer .hf-heart{color:#ef4444}
 .topic-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
 .topic-btn{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:14px 18px;text-align:left;cursor:pointer;transition:all .2s}
 .topic-btn:hover{border-color:#3b82f6;background:#1e1e35;transform:translateY(-1px)}
@@ -25,7 +30,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .all-btn:hover{opacity:.9}
 
 /* MODE */
-.mode-select{text-align:center;padding-top:50px}
+.mode-select{text-align:center;padding-top:0}
 .mode-select h2{font-size:24px;margin-bottom:24px}
 .mode-grid{display:flex;flex-direction:column;gap:10px}
 .mode-btn{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:all .2s}
@@ -260,15 +265,20 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 <div class="lang-toggle"><button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button><button class="lang-btn" data-lang="th" onclick="setLang('th')">TH</button></div>
 
 <div id="home" class="screen active home">
+  <div class="home-header"><div class="lang-slot"></div></div>
+  <div class="home-icon">📚</div>
   <h1>MSK PT Quiz</h1>
-  <p class="sub">Musculoskeletal Physical Therapy - Exam 1</p>
-  <p class="sub-th">วิชากายภาพบำบัดทางระบบกระดูกและกล้ามเนื้อ 1 - ข้อคำถามสอบครั้งที่ 1</p>
+  <p class="sub">Musculoskeletal Physical Therapy</p>
+  <p class="sub-th">วิชากายภาพบำบัดทางระบบกระดูกและกล้ามเนื้อ</p>
+  <div class="home-divider"></div>
   <button class="all-btn" onclick="startQuiz('all')">All Topics / ทุกหัวข้อ</button>
   <div class="topic-grid" id="topicGrid"></div>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 <div id="modeSelect" class="screen mode-select">
-  <h2>Choose Mode / เลือกโหมด</h2>
+  <div class="home-header"><div class="lang-slot"></div></div>
+  <h2 style="margin-top:20px">Choose Mode / เลือกโหมด</h2>
   <div class="mode-grid">
     <div class="mode-btn" onclick="selectMode('mcq')">
       <div class="m-icon">A B C D</div>
@@ -336,6 +346,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="results" class="screen results">
+  <div class="home-header"><div class="lang-slot"></div></div>
   <h2 id="resultsTitle">Quiz Complete</h2>
   <div class="score-ring">
     <svg width="160" height="160"><circle class="bg" cx="80" cy="80" r="68"/><circle class="fg" id="scoreCircle" cx="80" cy="80" r="68" stroke-dasharray="427" stroke-dashoffset="427"/></svg>
