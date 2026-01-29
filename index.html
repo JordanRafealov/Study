@@ -8,7 +8,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1a;color:#e0e0e0;min-height:100vh;font-size:18px}
 .container{max-width:960px;margin:0 auto;padding:28px 40px;zoom:1.25}
-@media(max-width:768px){.container{zoom:1;padding:40px 16px 16px;font-size:16px}.lang-toggle{top:6px;left:50%;right:auto;transform:translateX(-50%)}}
+@media(max-width:768px){.container{zoom:1;padding:16px;font-size:16px}}
 
 /* HOME */
 .home{text-align:center;padding-top:40px}
@@ -170,6 +170,21 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 @keyframes impactFlash{0%{opacity:0}10%{opacity:.12}100%{opacity:0}}
 .xp-summary{font-size:14px;color:#f59e0b;font-weight:700;margin-bottom:4px}
 
+/* EXTRA LIFELINES */
+.audience-bar{background:#111827;border:1px solid #2a2a4a;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:none;animation:fadeSlide .4s ease-out}
+.audience-bar.show{display:block}
+.audience-bar .ab-title{font-size:12px;color:#a78bfa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.audience-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:13px}
+.audience-row .ab-label{width:24px;font-weight:600;color:#94a3b8}
+.audience-row .ab-track{flex:1;height:22px;background:#1a1a2e;border-radius:6px;overflow:hidden;position:relative}
+.audience-row .ab-fill{height:100%;border-radius:6px;transition:width .8s cubic-bezier(.22,1,.36,1)}
+.audience-row .ab-fill.highlight{background:linear-gradient(90deg,#6ee7b7,#3b82f6)}
+.audience-row .ab-fill.dim{background:#2a2a4a}
+.audience-row .ab-pct{width:36px;text-align:right;font-weight:600;color:#94a3b8;font-size:12px}
+.option.first-letter-glow{border-color:#a78bfa;box-shadow:0 0 8px rgba(167,139,250,.2)}
+.option .fl-badge{display:inline-block;background:linear-gradient(135deg,#a78bfa,#6366f1);color:white;font-weight:700;padding:1px 7px;border-radius:5px;margin-right:4px;font-size:12px}
+.second-chance-badge{display:inline-block;background:rgba(59,130,246,.15);border:1px solid #3b82f6;color:#3b82f6;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;margin-left:8px;animation:fadeSlide .3s ease-out}
+
 /* ANIMATIONS & TRANSITIONS */
 @keyframes progressShimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
 @keyframes screenEnter{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
@@ -268,6 +283,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <div class="lifeline" id="llSecondChance" onclick="useSecondChance()"><span class="ll-icon">&#x1F504;</span> 2nd Chance</div>
     <div class="lifeline" id="llFirstLetter" onclick="useFirstLetter()"><span class="ll-icon">&#x1F524;</span> First Letter</div>
   </div>
+  <div class="audience-bar" id="audienceBar"></div>
   <div class="options" id="qOptions"></div>
   <div class="explanation" id="qExplanation"></div>
   <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
@@ -1168,6 +1184,11 @@ function renderMCQ(){
   document.getElementById('ll5050').className='lifeline'+(ll5050Used?' used':'');
   document.getElementById('llHint').className='lifeline'+(llHintUsed?' used':'');
   document.getElementById('llSkip').className='lifeline'+(llSkipUsed?' used':'');
+  document.getElementById('llAudience').className='lifeline'+(llAudienceUsed?' used':'');
+  document.getElementById('llSecondChance').className='lifeline'+(llSecondChanceUsed?' used':'');
+  document.getElementById('llFirstLetter').className='lifeline'+(llFirstLetterUsed?' used':'');
+  secondChanceActive=false;
+  document.getElementById('audienceBar').classList.remove('show');
   document.getElementById('lifelines').style.display='flex';
   const optDiv=document.getElementById('qOptions');
   optDiv.innerHTML='';
@@ -1228,6 +1249,19 @@ function pickAnswer(i){
     if(mult>1)spawnComboPopup(mult,opts[i]);
     flashScreen('rgba(110,231,183,.3)');
     msgObj=encourageMsg[Math.floor(Math.random()*encourageMsg.length)];
+  } else if(secondChanceActive){
+    // Second chance — mark this option wrong but let them try again
+    secondChanceActive=false;
+    opts[i].classList.add('wrong');opts[i].classList.add('disabled');opts[i].onclick=null;
+    flashScreen('rgba(239,68,68,.2)');
+    const scBadge=document.querySelector('.second-chance-badge');
+    if(scBadge)scBadge.remove();
+    const tryAgain=document.createElement('div');
+    tryAgain.className='encouragement negative';
+    tryAgain.textContent=lang==='th'?'ไม่ใช่! ลองอีกครั้ง...':'Not that one! Try again...';
+    document.getElementById('qOptions').after(tryAgain);
+    setTimeout(()=>tryAgain.remove(),1500);
+    return;
   } else {
     opts[i].classList.add('wrong');
     opts.forEach((o,j)=>{if(j===q.answer)o.classList.add('show-correct')});
@@ -1293,6 +1327,74 @@ function useSkip(){
   idx++;
   if(idx>=deck.length){showResults();return}
   renderMCQ();
+}
+
+function useAudience(){
+  if(llAudienceUsed)return;llAudienceUsed=true;
+  document.getElementById('llAudience').classList.add('used');
+  const q=deck[idx];
+  const letters=['A','B','C','D'];
+  // Generate weighted random percentages — correct answer gets 45-70%
+  const correctPct=45+Math.floor(Math.random()*26);
+  let remaining=100-correctPct;
+  const pcts=[];
+  q.options.forEach((_,i)=>{
+    if(i===q.answer){pcts.push(correctPct)}
+    else if(remaining<=0){pcts.push(0)}
+    else{
+      const others=q.options.length-1-pcts.filter((p,j)=>j!==q.answer&&p!==undefined).length;
+      const wrongsLeft=q.options.length-1-i+(i>q.answer?0:1);
+      let p;
+      if(wrongsLeft<=1){p=remaining}
+      else{p=Math.floor(Math.random()*(remaining*0.7));p=Math.max(p,2)}
+      p=Math.min(p,remaining);
+      pcts.push(p);remaining-=p;
+    }
+  });
+  // Fix rounding
+  const sum=pcts.reduce((a,b)=>a+b,0);
+  if(sum!==100)pcts[q.answer]+=100-sum;
+  const ab=document.getElementById('audienceBar');
+  const title=lang==='th'?'ผลโหวตจากผู้เรียน':'Student Poll Results';
+  let html='<div class="ab-title">'+title+'</div>';
+  pcts.forEach((p,i)=>{
+    const cls=i===q.answer?'highlight':'dim';
+    html+='<div class="audience-row"><span class="ab-label">'+letters[i]+'</span><div class="ab-track"><div class="ab-fill '+cls+'" style="width:0%"></div></div><span class="ab-pct">'+p+'%</span></div>';
+  });
+  ab.innerHTML=html;
+  ab.classList.add('show');
+  // Animate bars
+  setTimeout(()=>{ab.querySelectorAll('.ab-fill').forEach((bar,i)=>{bar.style.width=pcts[i]+'%'})},50);
+}
+
+function useSecondChance(){
+  if(llSecondChanceUsed)return;llSecondChanceUsed=true;
+  document.getElementById('llSecondChance').classList.add('used');
+  secondChanceActive=true;
+  const badge=document.createElement('span');
+  badge.className='second-chance-badge';
+  badge.textContent=lang==='th'?'โอกาสที่ 2 เปิดใช้':'2nd chance active';
+  document.querySelector('.quiz-header').appendChild(badge);
+}
+
+function useFirstLetter(){
+  if(llFirstLetterUsed)return;llFirstLetterUsed=true;
+  document.getElementById('llFirstLetter').classList.add('used');
+  const q=deck[idx];
+  const co=splitOpt(q.options[q.answer]);
+  const ansText=lang==='th'?co.th:q.options[q.answer];
+  // Get first meaningful character (skip "A. " prefix patterns)
+  const clean=ansText.replace(/^[A-D]\.\s*/,'');
+  const firstChar=clean.charAt(0).toUpperCase();
+  const hb=document.getElementById('hintBar');
+  const msg=lang==='th'?'ตัวอักษรแรกของคำตอบ: ':'The answer starts with: ';
+  hb.innerHTML=msg+'<strong style="color:#a78bfa;font-size:18px">'+firstChar+'</strong>';
+  hb.classList.add('show');
+  // Glow the matching options
+  document.querySelectorAll('.option').forEach(o=>{
+    const txt=o.textContent.replace(/^[A-D]\.\s*/,'');
+    if(txt.charAt(0).toUpperCase()===firstChar)o.classList.add('first-letter-glow');
+  });
 }
 
 // ─── FLASHCARDS ───
@@ -1380,7 +1482,7 @@ function showResults(){
 function retryWrong(){
   deck=[...wrongOnes];shuffle(deck);
   idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
-  ll5050Used=false;llHintUsed=false;llSkipUsed=false;
+  ll5050Used=false;llHintUsed=false;llSkipUsed=false;llAudienceUsed=false;llSecondChanceUsed=false;llFirstLetterUsed=false;secondChanceActive=false;
   xp=0;combo=0;maxCombo=0;maxStreak=0;
   qAnswered=false;pickedIdx=-1;
   if(mode==='mcq'){showScreen('quiz');renderMCQ()}
