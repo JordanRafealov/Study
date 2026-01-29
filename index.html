@@ -36,13 +36,11 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 
 /* QUIZ */
 .quiz{display:none}
-.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding:10px 14px;background:rgba(26,26,46,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(110,231,183,.08);border-radius:14px;transition:all .3s ease}
-.top-bar:hover{border-color:rgba(110,231,183,.18);background:rgba(26,26,46,.95)}
-.back-link{color:#94a3b8;font-size:13px;cursor:pointer;text-decoration:none;font-weight:500;display:flex;align-items:center;gap:6px;transition:all .25s ease;padding:4px 8px;border-radius:8px;letter-spacing:.2px}
-.back-link:hover{color:#6ee7b7;background:rgba(110,231,183,.08)}
-.back-link:active{transform:scale(.96)}
-.back-link::before{content:'';display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;flex-shrink:0;transition:transform .25s ease}
-.back-link:hover::before{transform:translateX(-3px)}
+.back-link{position:fixed;top:14px;left:14px;z-index:100;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:22px;padding:6px 14px 6px 10px;color:#94a3b8;font-size:13px;cursor:pointer;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:4px;transition:all .25s ease;letter-spacing:.3px}
+.back-link:hover{color:#6ee7b7;border-color:#6ee7b7}
+.back-link:active{transform:scale(.95)}
+.back-link::before{content:'';display:inline-block;width:16px;height:16px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;flex-shrink:0;transition:transform .25s ease}
+.back-link:hover::before{transform:translateX(-2px)}
 .progress-bar{height:5px;background:#1a1a2e;border-radius:3px;margin-bottom:16px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}
 .progress-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#3b82f6);transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:3px;position:relative}
 .progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);animation:progressShimmer 2s infinite}
@@ -263,9 +261,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="quiz" class="screen quiz">
-  <div class="top-bar"><span class="back-link" onclick="confirmQuit()">Back to menu</span><span class="streak-badge" id="streakBadge"></span></div>
-  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span class="combo-display" id="comboDisplay"></span></div>
+  <span class="back-link" onclick="confirmQuit()">Menu</span>
+  <div class="progress-bar" style="margin-top:6px"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span class="streak-badge" id="streakBadge"></span><span class="combo-display" id="comboDisplay"></span></div>
   <div class="quiz-header">
     <span><span class="quiz-topic" id="qTopic"></span><span class="diff-badge" id="diffBadge"></span></span>
     <span class="quiz-count" id="qCount"></span>
@@ -294,8 +292,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="flashScreen" class="screen">
-  <div class="top-bar"><span class="back-link" onclick="confirmQuit()">Back to menu</span><span></span></div>
-  <div class="progress-bar"><div class="progress-fill" id="flashProgress"></div></div>
+  <span class="back-link" onclick="confirmQuit()">Menu</span>
+  <div class="progress-bar" style="margin-top:6px"><div class="progress-fill" id="flashProgress"></div></div>
   <div class="quiz-header">
     <span class="quiz-topic" id="fTopic"></span>
     <span class="quiz-count" id="fCount"></span>
