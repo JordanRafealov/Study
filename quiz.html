@@ -8,7 +8,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1a;color:#e0e0e0;min-height:100vh;font-size:18px}
 .container{max-width:960px;margin:0 auto;padding:28px 40px;zoom:1.25}
-@media(max-width:768px){.container{zoom:1;padding:46px 18px 18px;font-size:16px}.lang-toggle{top:8px;right:50%;transform:translateX(50%)}}
+@media(max-width:768px){.container{zoom:1;padding:40px 16px 16px;font-size:16px}.lang-toggle{top:6px;left:50%;right:auto;transform:translateX(-50%)}}
 
 /* HOME */
 .home{text-align:center;padding-top:40px}
@@ -264,6 +264,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <div class="lifeline" id="ll5050" onclick="use5050()"><span class="ll-icon">&#xBD;</span> 50:50</div>
     <div class="lifeline" id="llHint" onclick="useHint()"><span class="ll-icon">&#x1F4A1;</span> Hint</div>
     <div class="lifeline" id="llSkip" onclick="useSkip()"><span class="ll-icon">&#x23ED;</span> Skip</div>
+    <div class="lifeline" id="llAudience" onclick="useAudience()"><span class="ll-icon">&#x1F4CA;</span> Ask Audience</div>
+    <div class="lifeline" id="llSecondChance" onclick="useSecondChance()"><span class="ll-icon">&#x1F504;</span> 2nd Chance</div>
+    <div class="lifeline" id="llFirstLetter" onclick="useFirstLetter()"><span class="ll-icon">&#x1F524;</span> First Letter</div>
   </div>
   <div class="options" id="qOptions"></div>
   <div class="explanation" id="qExplanation"></div>
@@ -873,7 +876,7 @@ const questions = [
 
 // ─── STATE ───
 let selectedTopic='all',mode='mcq',deck=[],idx=0,score=0,streak=0,wrongOnes=[],topicScores={};
-let ll5050Used=false,llHintUsed=false,llSkipUsed=false;
+let ll5050Used=false,llHintUsed=false,llSkipUsed=false,llAudienceUsed=false,llSecondChanceUsed=false,llFirstLetterUsed=false,secondChanceActive=false;
 let pendingMilestone=false;
 let lang='en';try{lang=localStorage.getItem('quizLang')||'en'}catch(e){}
 
@@ -1110,7 +1113,7 @@ function selectMode(m){
   Object.values(groups).forEach(g=>shuffle(g));
   deck=[...groups[1],...groups[2],...groups[3]];
   idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
-  ll5050Used=false;llHintUsed=false;llSkipUsed=false;pendingMilestone=false;
+  ll5050Used=false;llHintUsed=false;llSkipUsed=false;llAudienceUsed=false;llSecondChanceUsed=false;llFirstLetterUsed=false;secondChanceActive=false;pendingMilestone=false;
   xp=0;combo=0;maxCombo=0;maxStreak=0;
   qAnswered=false;pickedIdx=-1;
   if(mode==='mcq'){showScreen('quiz');renderMCQ()}
