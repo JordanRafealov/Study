@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MSK PT Quiz</title>
+<title>MSK PT Quiz For Nephisa</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1a;color:#e0e0e0;min-height:100vh;min-height:100dvh;font-size:18px;overscroll-behavior-y:none}
@@ -268,7 +268,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 <div id="home" class="screen active home">
   <div class="home-header"><div class="lang-slot"></div></div>
   <div class="home-icon">📚</div>
-  <h1>MSK PT Quiz</h1>
+  <h1>MSK PT Quiz For Nephisa</h1>
   <p class="sub">Musculoskeletal Physical Therapy</p>
   <p class="sub-th">วิชากายภาพบำบัดทางระบบกระดูกและกล้ามเนื้อ</p>
   <div class="home-divider"></div>
@@ -1148,7 +1148,7 @@ function updateLang(){
 
 function init(){
   document.querySelectorAll('.lang-toggle .lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-  const lt=document.querySelector('.lang-toggle');if(lt)document.querySelector('.container').prepend(lt);
+  showScreen('home');
   updateLang();
 }
 
