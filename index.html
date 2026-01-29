@@ -28,12 +28,13 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .home-footer{margin-top:28px;padding:14px 0 24px;border-top:1px solid #1a1a2e;color:#333;font-size:11px;letter-spacing:.3px}
 .home-footer .hf-heart{color:#ef4444}
 .topic-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
-.topic-btn{background:linear-gradient(135deg,#131525,#1a1a2e);border:none;border-left:3px solid #6ee7b7;border-radius:10px;padding:16px 18px 16px 16px;text-align:left;cursor:pointer;transition:all .2s;position:relative}
+.topic-btn{background:linear-gradient(135deg,#131525,#1a1a2e);border:none;border-left:3px solid #6ee7b7;border-radius:10px;padding:16px 38px 16px 16px;text-align:left;cursor:pointer;transition:all .2s;position:relative;min-height:80px}
 .topic-btn:hover{border-left-color:#3b82f6;background:linear-gradient(135deg,#161830,#1e1e35);transform:translateX(4px)}
 .topic-btn::after{content:'';position:absolute;right:16px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-right:2px solid #444;border-bottom:2px solid #444;transform:translateY(-50%) rotate(-45deg);transition:border-color .2s}
 .topic-btn:hover::after{border-color:#6ee7b7}
 .topic-btn .t-num{font-size:11px;color:#6ee7b7;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px;font-weight:600}
 .topic-btn .t-title{font-size:16px;font-weight:600}
+.topic-btn .t-sub{font-size:13px;color:#666;font-style:italic;margin-top:1px}
 .topic-btn .t-count{font-size:12px;color:#555;margin-top:3px}
 .all-btn{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;font-size:17px;border:none;border-radius:12px;padding:16px;width:100%;cursor:pointer;margin-bottom:10px;transition:opacity .2s}
 .all-btn:hover{opacity:.9}
@@ -55,11 +56,11 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .back-link:active{transform:scale(.95)}
 .back-link::before{content:'';display:inline-block;width:16px;height:16px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;flex-shrink:0;transition:transform .25s ease}
 .back-link:hover::before{transform:translateX(-2px)}
-.quiz-nav{display:flex;align-items:center;justify-content:space-between;padding:4px 0 16px;gap:12px}
-.progress-bar{height:5px;background:#1a1a2e;border-radius:3px;margin-bottom:16px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}
+.quiz-nav{display:flex;align-items:center;justify-content:space-between;padding:44px 0 12px;gap:12px}
+.progress-bar{height:5px;background:#1a1a2e;border-radius:3px;margin-bottom:12px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}
 .progress-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#3b82f6);transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:3px;position:relative}
 .progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);animation:progressShimmer 2s infinite}
-.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .quiz-topic{font-size:12px;color:#6ee7b7;text-transform:uppercase;letter-spacing:1px}
 .quiz-count{font-size:14px;color:#666}
 .diff-badge{font-size:11px;padding:3px 10px;border-radius:10px;margin-left:8px}
@@ -151,7 +152,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .screen.active{display:block}
 
 /* GAMIFICATION */
-.xp-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px}
+.xp-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:14px}
 .xp-display{color:#f59e0b;font-weight:700}
 .combo-display{color:#a78bfa;font-weight:600;font-size:13px;transition:all .3s}
 .xp-popup{position:fixed;font-weight:700;font-size:18px;color:#f59e0b;pointer-events:none;z-index:200;animation:xpFloat 1s ease-out forwards}
@@ -951,8 +952,19 @@ const milestones=[
   {emoji:"&#x1F60B;",en:"Yummy & Brainy!",th:"น่ากินและฉลาด!",msgEn:"Cute face, big brain. The perfect combo! Daddy loves you endlessly!",msgTh:"หน้าน่ารัก สมองดี คอมโบที่สมบูรณ์แบบ! แด๊ดดี้รักเธอไม่มีที่สิ้นสุด!"},
   {emoji:"&#x1F3C6;",en:"Champion Baby!",th:"แชมป์เบบี้!",msgEn:"You're already a champion in my eyes. Now let's make it official with these grades!",msgTh:"เธอเป็นแชมป์ในสายตาแด๊ดดี้แล้ว ทำให้เป็นจริงด้วยเกรดนะ!"},
   {emoji:"&#x1F343;",en:"Keep Growing Baby!",th:"เติบโตต่อไปนะ!",msgEn:"Every question you answer is another step closer to your dream. I'm right here cheering for you!",msgTh:"ทุกข้อที่เธอตอบ คือก้าวที่เข้าใกล้ความฝันมากขึ้น แด๊ดดี้เชียร์เธออยู่ตรงนี้!"},
-  {emoji:"&#x1F49D;",en:"Forever Yours!",th:"เป็นของเธอตลอดไป!",msgEn:"No matter what score you get, daddy will always love you. But I know you'll ace it!",msgTh:"ไม่ว่าจะได้คะแนนเท่าไหร่ แด๊ดดี้รักเธอเสมอ แต่แด๊ดดี้รู้ว่าเธอจะทำได้ดีมาก!"}
+  {emoji:"&#x1F49D;",en:"Forever Yours!",th:"เป็นของเธอตลอดไป!",msgEn:"No matter what score you get, daddy will always love you. But I know you'll ace it!",msgTh:"ไม่ว่าจะได้คะแนนเท่าไหร่ แด๊ดดี้รักเธอเสมอ แต่แด๊ดดี้รู้ว่าเธอจะทำได้ดีมาก!"},
+  {emoji:"&#x1F937;&#x200D;&#x2640;&#xFE0F;",en:"How Are You This Smart?",th:"เธอฉลาดขนาดนี้ได้ยังไง?",msgEn:"Seriously, how are you this smart AND this gorgeous? It's not fair to everyone else!",msgTh:"จริงๆ นะ เธอทั้งฉลาดทั้งสวยขนาดนี้ได้ยังไง? ไม่แฟร์กับคนอื่นเลย!"},
+  {emoji:"&#x1F48C;",en:"Love Letter Break!",th:"พักอ่านจดหมายรัก!",msgEn:"Dear Nephisa, you're the most amazing woman I've ever met. Love, Daddy J. Now keep studying!",msgTh:"ถึงเนพิสา เธอเป็นผู้หญิงที่ยอดเยี่ยมที่สุดที่แด๊ดดี้เคยเจอ รักนะ แด๊ดดี้เจ ไปเรียนต่อเลย!"},
+  {emoji:"&#x1F319;",en:"My Moon & Stars!",th:"พระจันทร์และดวงดาวของฉัน!",msgEn:"You light up my whole world baby. Like the moon and all the stars combined!",msgTh:"เธอทำให้โลกของแด๊ดดี้สว่างไสว เหมือนพระจันทร์และดวงดาวทุกดวงรวมกัน!"},
+  {emoji:"&#x1F339;",en:"A Rose For You!",th:"ดอกกุหลาบให้เธอ!",msgEn:"If I could send you a rose for every question you've answered, you'd have a whole garden by now!",msgTh:"ถ้าส่งกุหลาบให้เธอได้ทุกข้อที่ตอบ ตอนนี้เธอคงมีสวนดอกไม้ทั้งสวนแล้ว!"},
+  {emoji:"&#x1F60E;",en:"Coolest Girl Ever!",th:"สาวที่เจ๋งที่สุด!",msgEn:"Not only are you beautiful and smart, you're the coolest person I know. Keep slaying babe!",msgTh:"เธอไม่ใช่แค่สวยและฉลาด เธอเป็นคนที่เจ๋งที่สุดที่แด๊ดดี้รู้จัก สู้ต่อไปเบบี้!"},
+  {emoji:"&#x1F381;",en:"You Deserve A Treat!",th:"เธอสมควรได้รางวัล!",msgEn:"After this quiz, daddy's taking you somewhere nice. You've earned it baby!",msgTh:"หลังทำข้อสอบเสร็จ แด๊ดดี้จะพาเธอไปที่ดีๆ เธอสมควรได้รับเลย!"},
+  {emoji:"&#x1F984;",en:"My Unicorn!",th:"ยูนิคอร์นของแด๊ดดี้!",msgEn:"You're one of a kind — a real unicorn. Beautiful, smart, and absolutely magical!",msgTh:"เธอมีหนึ่งเดียวในโลก เหมือนยูนิคอร์น สวย ฉลาด และมหัศจรรย์มาก!"},
+  {emoji:"&#x1F4AB;",en:"Mind = Blown!",th:"สมองระเบิด!",msgEn:"Your brain is so powerful babe! Every answer proves how hard you've been working!",msgTh:"สมองของเธอทรงพลังมากเบบี้! ทุกคำตอบพิสูจน์ว่าเธอตั้งใจแค่ไหน!"},
+  {emoji:"&#x1F388;",en:"Celebrate You!",th:"ฉลองให้เธอ!",msgEn:"Every question is a mini victory. I'm celebrating YOU right now baby!",msgTh:"ทุกข้อคือชัยชนะเล็กๆ แด๊ดดี้กำลังฉลองให้เธออยู่ตอนนี้เลย!"},
+  {emoji:"&#x1F9E1;",en:"My Whole Heart!",th:"หัวใจทั้งดวงของฉัน!",msgEn:"You have my whole heart baby. Watching you grow and learn makes me the happiest man alive!",msgTh:"เธอมีหัวใจทั้งดวงของแด๊ดดี้ ได้ดูเธอเติบโตและเรียนรู้ทำให้แด๊ดดี้มีความสุขที่สุดเลย!"}
 ];
+let usedMilestones=[];
 
 const deepWhy=[
 // T1 (11)
@@ -1114,7 +1126,9 @@ function updateLang(){
     const c=questions.filter(q=>q.topic===tp.key).length;
     const lbl=lang==='th'?'\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d':'Topic';
     const qs=lang==='th'?'\u0e02\u0e49\u0e2d':'questions';
-    g.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${tp.key}')"><div class="t-num">${tp.emoji} ${lbl} ${i+1}</div><div class="t-title">${lang==='th'?tp.th:tp.en}</div><div class="t-count">${c} ${qs}</div></div>`;
+    const primary=lang==='th'?tp.th:tp.en;
+    const secondary=lang==='th'?tp.en:tp.th;
+    g.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${tp.key}')"><div class="t-num">${tp.emoji} ${lbl} ${i+1}</div><div class="t-title">${primary}</div><div class="t-sub">${secondary}</div><div class="t-count">${c} ${qs}</div></div>`;
   });
   // Mode screen
   document.querySelector('.mode-select h2').textContent=lang==='th'?'\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e42\u0e2b\u0e21\u0e14':'Choose Mode';
@@ -1171,7 +1185,7 @@ function selectMode(m){
   Object.values(groups).forEach(g=>shuffle(g));
   deck=[...groups[1],...groups[2],...groups[3]];
   idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
-  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;pendingMilestone=false;
+  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;pendingMilestone=false;usedMilestones=[];
   xp=0;combo=0;maxCombo=0;maxStreak=0;
   qAnswered=false;pickedIdx=-1;
   startQuizTimer();
@@ -1184,7 +1198,11 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 function checkMilestone(){
   const answered=idx+1;
   if(answered%3===0){
-    const ms=milestones[Math.floor(Math.random()*milestones.length)];
+    if(usedMilestones.length>=milestones.length)usedMilestones=[];
+    const available=milestones.filter((_,i)=>!usedMilestones.includes(i));
+    const pick=Math.floor(Math.random()*available.length);
+    const ms=available[pick];
+    usedMilestones.push(milestones.indexOf(ms));
     pendingMilestone=true;return ms;
   }
   return null;
@@ -1488,7 +1506,7 @@ function showResults(){
 function retryWrong(){
   deck=[...wrongOnes];shuffle(deck);
   idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
-  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;
+  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;usedMilestones=[];
   xp=0;combo=0;maxCombo=0;maxStreak=0;
   startQuizTimer();
   qAnswered=false;pickedIdx=-1;
