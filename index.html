@@ -6,9 +6,9 @@
 <title>MSK PT Quiz</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1a;color:#e0e0e0;min-height:100vh;font-size:18px}
-.container{max-width:960px;margin:0 auto;padding:28px 40px;zoom:1.25}
-@media(max-width:768px){.container{zoom:1;padding:16px;font-size:16px}}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1a;color:#e0e0e0;min-height:100vh;min-height:100dvh;font-size:18px;overscroll-behavior-y:none}
+.container{max-width:960px;margin:0 auto;padding:16px 40px 28px;zoom:1.25;position:relative}
+@media(max-width:768px){.container{zoom:1;padding:14px 16px 16px;font-size:16px}}
 
 /* HOME */
 .home{text-align:center;padding-top:40px}
@@ -36,11 +36,17 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 
 /* QUIZ */
 .quiz{display:none}
-.back-link{position:fixed;top:14px;left:14px;z-index:100;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:22px;padding:6px 14px 6px 10px;color:#94a3b8;font-size:13px;cursor:pointer;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:4px;transition:all .25s ease;letter-spacing:.3px}
-.back-link:hover{color:#6ee7b7;border-color:#6ee7b7}
+.back-link{background:none;border:none;color:#64748b;font-size:13px;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:2px;padding:0;white-space:nowrap;text-decoration:none;transition:color .2s}
+.back-link:hover{color:#6ee7b7}
 .back-link:active{transform:scale(.95)}
 .back-link::before{content:'';display:inline-block;width:16px;height:16px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;flex-shrink:0;transition:transform .25s ease}
 .back-link:hover::before{transform:translateX(-2px)}
+.quiz-nav{display:flex;align-items:center;justify-content:space-between;padding:4px 0 12px;gap:12px}
+.timer-display{display:flex;align-items:center;gap:4px;font-size:12px;font-variant-numeric:tabular-nums}
+.timer-display .timer-total{color:#94a3b8}
+.timer-display .timer-question{color:#f59e0b}
+.timer-display .timer-dot{color:#444}
+.lang-slot{flex-shrink:0}
 .progress-bar{height:5px;background:#1a1a2e;border-radius:3px;margin-bottom:16px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}
 .progress-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#3b82f6);transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:3px;position:relative}
 .progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);animation:progressShimmer 2s infinite}
@@ -135,8 +141,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .hidden{display:none!important}
 .screen{display:none}
 .screen.active{display:block}
-.lang-toggle{position:fixed;top:14px;right:14px;display:flex;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:22px;padding:3px;z-index:100}
-.lang-btn{background:none;border:none;color:#666;font-size:13px;font-weight:700;padding:6px 16px;border-radius:20px;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.lang-toggle{display:inline-flex;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:16px;padding:2px}
+.lang-toggle:not(.in-nav){position:absolute;top:0;right:0;z-index:10}
+.lang-btn{background:none;border:none;color:#555;font-size:11px;font-weight:700;padding:4px 12px;border-radius:14px;cursor:pointer;transition:all .2s;letter-spacing:.3px}
 .lang-btn.active{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000}
 
 /* GAMIFICATION */
@@ -180,6 +187,23 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .audience-row .ab-fill.dim{background:#2a2a4a}
 .audience-row .ab-pct{width:36px;text-align:right;font-weight:600;color:#94a3b8;font-size:12px}
 .second-chance-badge{display:inline-block;background:rgba(59,130,246,.15);border:1px solid #3b82f6;color:#3b82f6;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;margin-left:8px;animation:fadeSlide .3s ease-out}
+
+
+/* LEADERBOARD */
+.leaderboard{text-align:left;margin:16px 0;background:#111827;border:1px solid #2a2a4a;border-radius:10px;padding:14px 16px}
+.lb-title{font-size:13px;color:#a78bfa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.lb-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1a1a2e;font-size:13px}
+.lb-row:last-child{border-bottom:none}
+.lb-row.current{color:#6ee7b7;font-weight:600}
+.lb-row.past{color:#94a3b8}
+.lb-rank{width:28px;font-weight:700;color:#f59e0b}
+.lb-score{color:#6ee7b7;font-weight:600}
+.lb-time{color:#94a3b8;font-size:12px}
+.lb-date{color:#555;font-size:11px}
+.lb-faster{color:#6ee7b7;font-size:11px;font-weight:600}
+.lb-slower{color:#ef4444;font-size:11px;font-weight:600}
+.time-summary{font-size:13px;color:#94a3b8;margin-bottom:4px}
+.time-summary strong{color:#e0e0e0}
 
 /* ANIMATIONS & TRANSITIONS */
 @keyframes progressShimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
@@ -233,7 +257,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </head>
 <body>
 <div class="container">
-<div class="lang-toggle"><button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button><button class="lang-btn" id="btnTH" onclick="setLang('th')">TH</button></div>
+<div class="lang-toggle"><button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button><button class="lang-btn" data-lang="th" onclick="setLang('th')">TH</button></div>
 
 <div id="home" class="screen active home">
   <h1>MSK PT Quiz</h1>
@@ -261,8 +285,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="quiz" class="screen quiz">
-  <span class="back-link" onclick="confirmQuit()">Menu</span>
-  <div class="progress-bar" style="margin-top:6px"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="quiz-nav"><span class="back-link" onclick="confirmQuit()">Menu</span><div class="timer-display"><span class="timer-total" id="timerTotal">0:00</span><span class="timer-dot">&middot;</span><span class="timer-question" id="timerQuestion">Q: 0s</span></div><div class="lang-slot"></div></div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span class="streak-badge" id="streakBadge"></span><span class="combo-display" id="comboDisplay"></span></div>
   <div class="quiz-header">
     <span><span class="quiz-topic" id="qTopic"></span><span class="diff-badge" id="diffBadge"></span></span>
@@ -275,7 +299,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <div class="lifeline" id="ll5050" onclick="use5050()"><span class="ll-icon">&#xBD;</span> 50:50</div>
     <div class="lifeline" id="llHint" onclick="useHint()"><span class="ll-icon">&#x1F4A1;</span> Hint</div>
     <div class="lifeline" id="llAudience" onclick="useAudience()"><span class="ll-icon">&#x1F4CA;</span> Ask Audience</div>
-    <div class="lifeline" id="llSecondChance" onclick="useSecondChance()"><span class="ll-icon">&#x1F504;</span> 2nd Chance</div>
   </div>
   <div class="audience-bar" id="audienceBar"></div>
   <div class="options" id="qOptions"></div>
@@ -292,8 +315,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="flashScreen" class="screen">
-  <span class="back-link" onclick="confirmQuit()">Menu</span>
-  <div class="progress-bar" style="margin-top:6px"><div class="progress-fill" id="flashProgress"></div></div>
+  <div class="quiz-nav"><span class="back-link" onclick="confirmQuit()">Menu</span><div></div><div class="lang-slot"></div></div>
+  <div class="progress-bar"><div class="progress-fill" id="flashProgress"></div></div>
   <div class="quiz-header">
     <span class="quiz-topic" id="fTopic"></span>
     <span class="quiz-count" id="fCount"></span>
@@ -887,6 +910,14 @@ const questions = [
 // ─── STATE ───
 let selectedTopic='all',mode='mcq',deck=[],idx=0,score=0,streak=0,wrongOnes=[],topicScores={};
 let ll5050Used=false,llHintUsed=false,llAudienceUsed=false,llSecondChanceUsed=false,secondChanceActive=false;
+let quizStartTime=0,questionStartTime=0,questionTimes=[],timerInterval=null;
+function fmtTime(ms){const s=Math.floor(ms/1000),m=Math.floor(s/60);return m+':'+(s%60<10?'0':'')+(s%60)}
+function startQuizTimer(){quizStartTime=Date.now();questionStartTime=Date.now();questionTimes=[];if(timerInterval)clearInterval(timerInterval);timerInterval=setInterval(updateTimerDisplay,1000);updateTimerDisplay()}
+function updateTimerDisplay(){const te=document.getElementById('timerTotal');const qe=document.getElementById('timerQuestion');if(te)te.textContent=fmtTime(Date.now()-quizStartTime);if(qe)qe.textContent='Q: '+Math.floor((Date.now()-questionStartTime)/1000)+'s'}
+function markQuestionTime(){questionTimes.push(Date.now()-questionStartTime);questionStartTime=Date.now()}
+function stopQuizTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null}}
+function getHistory(key){try{return JSON.parse(localStorage.getItem('quizHistory_'+key)||'[]')}catch(e){return[]}}
+function saveHistory(key,entry){try{const h=getHistory(key);h.push(entry);if(h.length>20)h.shift();localStorage.setItem('quizHistory_'+key,JSON.stringify(h))}catch(e){}}
 let pendingMilestone=false;
 let lang='en';try{lang=localStorage.getItem('quizLang')||'en'}catch(e){}
 
@@ -898,12 +929,12 @@ const topics=[
 ];
 
 const milestones=[
-  {at:5,emoji:"&#x1F525;",en:"Nice Start!",th:"เริ่มต้นดี!",msgEn:"You're warming up. The first 5 are in the bag.",msgTh:"อุ่นเครื่องแล้ว! ผ่าน 5 ข้อแรกแล้ว"},
-  {at:10,emoji:"&#x1F4AA;",en:"Solid Progress!",th:"ก้าวหน้าดี!",msgEn:"10 down! Your brain is building new connections.",msgTh:"ผ่าน 10 ข้อแล้ว! สมองกำลังสร้างการเชื่อมต่อใหม่"},
-  {at:15,emoji:"&#x2B50;",en:"Halfway Hero!",th:"ฮีโร่ครึ่งทาง!",msgEn:"You're past the halfway mark. Keep the momentum.",msgTh:"ผ่านครึ่งทางแล้ว ทำต่อไปเลย!"},
-  {at:20,emoji:"&#x1F680;",en:"On Fire!",th:"เก่งมาก!",msgEn:"20 questions crushed. You're really getting this.",msgTh:"ผ่าน 20 ข้อแล้ว! คุณเข้าใจเนื้อหาดีมาก"},
-  {at:30,emoji:"&#x1F3C6;",en:"Almost There!",th:"ใกล้แล้ว!",msgEn:"The finish line is in sight. Push through!",msgTh:"เส้นชัยอยู่ตรงหน้า สู้ต่อไป!"},
-  {at:40,emoji:"&#x1F451;",en:"Champion Mode!",th:"แชมป์เปี้ยน!",msgEn:"40+ questions. You're exam-ready. Finish strong!",msgTh:"40+ ข้อแล้ว! พร้อมสอบแล้ว ทำให้จบสวยๆ!"}
+  {at:5,emoji:"&#x2764;&#xFE0F;",en:"Daddy's Proud!",th:"แด๊ดดี้ภูมิใจ!",msgEn:"You're doing amazing babe! Keep it up, I believe in you!",msgTh:"เธอทำได้ดีมากลูก! สู้ต่อไปนะ แด๊ดดี้เชื่อในตัวเธอ!"},
+  {at:10,emoji:"&#x1F495;",en:"So Smart Baby!",th:"เก่งมากที่รัก!",msgEn:"10 down! You're so smart baby, daddy loves you!",msgTh:"ผ่าน 10 ข้อแล้ว! เธอเก่งมากเลยที่รัก แด๊ดดี้รักเธอ!"},
+  {at:15,emoji:"&#x1F525;",en:"Crushing It Babe!",th:"ทำได้ดีมากเบบี้!",msgEn:"Halfway there my love! You're absolutely crushing it!",msgTh:"ครึ่งทางแล้วที่รัก! เธอทำได้ดีสุดๆ เลย!"},
+  {at:20,emoji:"&#x1F496;",en:"Daddy Loves You!",th:"แด๊ดดี้รักเธอ!",msgEn:"20 questions done! Daddy is so proud of you baby, keep going!",msgTh:"20 ข้อแล้ว! แด๊ดดี้ภูมิใจในตัวเธอมาก สู้ต่อไปนะ!"},
+  {at:30,emoji:"&#x1F60D;",en:"Almost There Babe!",th:"ใกล้แล้วที่รัก!",msgEn:"Almost there babe! You're incredible, daddy's so proud of you!",msgTh:"ใกล้แล้วเบบี้! เธอเก่งมาก แด๊ดดี้ภูมิใจในตัวเธอ!"},
+  {at:40,emoji:"&#x1F451;",en:"My Little Genius!",th:"อัจฉริยะของแด๊ดดี้!",msgEn:"40+ questions?! You're a genius baby! Daddy loves you so much!",msgTh:"40+ ข้อ! เธอเก่งที่สุดเลย แด๊ดดี้รักเธอมากๆ!"}
 ];
 
 const deepWhy=[
@@ -1063,8 +1094,7 @@ function splitOpt(text){
 function setLang(l){
   lang=l;
   try{localStorage.setItem('quizLang',l)}catch(e){}
-  document.getElementById('btnEN').className='lang-btn'+(l==='en'?' active':'');
-  document.getElementById('btnTH').className='lang-btn'+(l==='th'?' active':'');
+  document.querySelectorAll('.lang-toggle .lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
   updateLang();
 }
 
@@ -1096,7 +1126,7 @@ function updateLang(){
   document.querySelector('.retry-btn').textContent=lang==='th'?'\u0e17\u0e33\u0e02\u0e49\u0e2d\u0e17\u0e35\u0e48\u0e1c\u0e34\u0e14\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07':'Retry Wrong Answers';
   document.querySelector('#results .back-btn').textContent=lang==='th'?'\u0e01\u0e25\u0e31\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01':'Back to Topics';
   // Back links
-  document.querySelectorAll('.back-link').forEach(el=>el.textContent=lang==='th'?'\u0e01\u0e25\u0e31\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01':'Back to menu');
+  document.querySelectorAll('.back-link').forEach(el=>el.textContent=lang==='th'?'\u0e40\u0e21\u0e19\u0e39':'Menu');
   // Milestone button
   document.getElementById('msBtn').textContent=lang==='th'?'\u0e44\u0e1b\u0e15\u0e48\u0e2d\u0e40\u0e25\u0e22!':'Keep Going!';
   // Re-render active screens
@@ -1105,12 +1135,12 @@ function updateLang(){
 }
 
 function init(){
-  document.getElementById('btnEN').className='lang-btn'+(lang==='en'?' active':'');
-  document.getElementById('btnTH').className='lang-btn'+(lang==='th'?' active':'');
+  document.querySelectorAll('.lang-toggle .lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  const lt=document.querySelector('.lang-toggle');if(lt)document.querySelector('.container').prepend(lt);
   updateLang();
 }
 
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');const lt=document.querySelector('.lang-toggle');if(lt){const slot=document.querySelector('#'+id+' .lang-slot');if(slot){slot.appendChild(lt);lt.classList.add('in-nav')}else{document.querySelector('.container').prepend(lt);lt.classList.remove('in-nav')}}}
 function confirmQuit(){if(idx>0&&!confirm(lang==='th'?'\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e41\u0e1a\u0e1a\u0e17\u0e14\u0e2a\u0e2d\u0e1a? \u0e04\u0e27\u0e32\u0e21\u0e01\u0e49\u0e32\u0e27\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e30\u0e2b\u0e32\u0e22\u0e44\u0e1b':'Leave quiz? Progress will be lost.'))return;showScreen('home')}
 function startQuiz(topic){selectedTopic=topic;showScreen('modeSelect')}
 
@@ -1123,9 +1153,10 @@ function selectMode(m){
   Object.values(groups).forEach(g=>shuffle(g));
   deck=[...groups[1],...groups[2],...groups[3]];
   idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
-  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;llSecondChanceUsed=false;secondChanceActive=false;pendingMilestone=false;
+  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;pendingMilestone=false;
   xp=0;combo=0;maxCombo=0;maxStreak=0;
   qAnswered=false;pickedIdx=-1;
+  startQuizTimer();
   if(mode==='mcq'){showScreen('quiz');renderMCQ()}
   else{showScreen('flashScreen');renderFlash()}
 }
@@ -1178,8 +1209,6 @@ function renderMCQ(){
   document.getElementById('ll5050').className='lifeline'+(ll5050Used?' used':'');
   document.getElementById('llHint').className='lifeline'+(llHintUsed?' used':'');
   document.getElementById('llAudience').className='lifeline'+(llAudienceUsed?' used':'');
-  document.getElementById('llSecondChance').className='lifeline'+(llSecondChanceUsed?' used':'');
-  secondChanceActive=false;
   document.getElementById('audienceBar').classList.remove('show');
   document.getElementById('lifelines').style.display='flex';
   const optDiv=document.getElementById('qOptions');
@@ -1241,19 +1270,6 @@ function pickAnswer(i){
     if(mult>1)spawnComboPopup(mult,opts[i]);
     flashScreen('rgba(110,231,183,.3)');
     msgObj=encourageMsg[Math.floor(Math.random()*encourageMsg.length)];
-  } else if(secondChanceActive){
-    // Second chance — mark this option wrong but let them try again
-    secondChanceActive=false;
-    opts[i].classList.add('wrong');opts[i].classList.add('disabled');opts[i].onclick=null;
-    flashScreen('rgba(239,68,68,.2)');
-    const scBadge=document.querySelector('.second-chance-badge');
-    if(scBadge)scBadge.remove();
-    const tryAgain=document.createElement('div');
-    tryAgain.className='encouragement negative';
-    tryAgain.textContent=lang==='th'?'ไม่ใช่! ลองอีกครั้ง...':'Not that one! Try again...';
-    document.getElementById('qOptions').after(tryAgain);
-    setTimeout(()=>tryAgain.remove(),1500);
-    return;
   } else {
     opts[i].classList.add('wrong');
     opts.forEach((o,j)=>{if(j===q.answer)o.classList.add('show-correct')});
@@ -1284,7 +1300,7 @@ function pickAnswer(i){
 function nextQuestion(){
   const ms=checkMilestone();
   if(ms&&pendingMilestone){showMilestone(ms);return}
-  qAnswered=false;pickedIdx=-1;whyOpen=false;
+  markQuestionTime();qAnswered=false;pickedIdx=-1;whyOpen=false;
   idx++;
   if(idx>=deck.length){showResults();return}
   renderMCQ();
@@ -1349,15 +1365,6 @@ function useAudience(){
   setTimeout(()=>{ab.querySelectorAll('.ab-fill').forEach((bar,i)=>{bar.style.width=pcts[i]+'%'})},50);
 }
 
-function useSecondChance(){
-  if(llSecondChanceUsed)return;llSecondChanceUsed=true;
-  document.getElementById('llSecondChance').classList.add('used');
-  secondChanceActive=true;
-  const badge=document.createElement('span');
-  badge.className='second-chance-badge';
-  badge.textContent=lang==='th'?'โอกาสที่ 2 เปิดใช้':'2nd chance active';
-  document.querySelector('.quiz-header').appendChild(badge);
-}
 
 
 // ─── FLASHCARDS ───
@@ -1394,6 +1401,7 @@ function rateCard(r){
     if(streak>maxStreak)maxStreak=streak;if(combo>maxCombo)maxCombo=combo;
     xp+=Math.round(xpBase[q.diff]*getMultiplier());
   } else{wrongOnes.push(q);streak=0;combo=0}
+  markQuestionTime();
   const ms=checkMilestone();
   if(ms){pendingMilestone=true;showMilestone(ms);return}
   idx++;
@@ -1403,6 +1411,7 @@ function rateCard(r){
 
 // ─── RESULTS ───
 function showResults(){
+  stopQuizTimer();const totalTime=Date.now()-quizStartTime;
   showScreen('results');
   const pct=Math.round((score/deck.length)*100);
   const g=getGrade(pct);
@@ -1433,6 +1442,21 @@ function showResults(){
     const tp=Math.round((s.right/s.total)*100);
     bd+=`<div class="breakdown-row"><span>${topic}</span><span>${s.right}/${s.total} (${tp}%)</span></div>`;
   }
+  const avgQ=questionTimes.length?Math.round(questionTimes.reduce((a,b)=>a+b,0)/questionTimes.length/1000):0;
+  bd+='<div class="time-summary">'+(lang==='th'?'เวลาทั้งหมด: ':'Total: ')+'<strong>'+fmtTime(totalTime)+'</strong> &middot; '+(lang==='th'?'เฉลี่ย/ข้อ: ':'Avg/Q: ')+'<strong>'+avgQ+'s</strong></div>';
+  const histKey=selectedTopic.replace(/\s+/g,'_')+'_'+mode;
+  saveHistory(histKey,{date:new Date().toLocaleDateString(),pct:pct,time:totalTime,avg:avgQ,score:score,total:deck.length});
+  const hist=getHistory(histKey);
+  if(hist.length>1){
+    const sorted=[...hist].sort((a,b)=>b.pct-a.pct||(a.time||Infinity)-(b.time||Infinity));
+    let lb='<div class="leaderboard"><div class="lb-title">'+(lang==='th'?'สถิติของคุณ':'Your History')+'</div>';
+    sorted.slice(0,5).forEach((h,i)=>{
+      const isCurrent=h===hist[hist.length-1];
+      lb+='<div class="lb-row '+(isCurrent?'current':'past')+'"><span class="lb-rank">#'+(i+1)+'</span><span class="lb-score">'+h.pct+'%</span><span class="lb-time">'+(h.time?fmtTime(h.time):'--')+'</span><span class="lb-date">'+h.date+'</span></div>';
+    });
+    lb+='</div>';
+    bd+=lb;
+  }
   document.getElementById('breakdown').innerHTML=bd;
   const rb=document.querySelector('.retry-btn');
   if(wrongOnes.length>0){rb.textContent=lang==='th'?`\u0e17\u0e33\u0e02\u0e49\u0e2d\u0e1c\u0e34\u0e14\u0e2d\u0e35\u0e01 ${wrongOnes.length} \u0e02\u0e49\u0e2d`:`Retry ${wrongOnes.length} Wrong`;rb.style.display='block'}
@@ -1445,8 +1469,9 @@ function showResults(){
 function retryWrong(){
   deck=[...wrongOnes];shuffle(deck);
   idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
-  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;llSecondChanceUsed=false;secondChanceActive=false;
+  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;
   xp=0;combo=0;maxCombo=0;maxStreak=0;
+  startQuizTimer();
   qAnswered=false;pickedIdx=-1;
   if(mode==='mcq'){showScreen('quiz');renderMCQ()}
   else{showScreen('flashScreen');renderFlash()}
