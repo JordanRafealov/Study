@@ -12,6 +12,12 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 @media(max-width:768px){.container{zoom:1;padding:14px 16px 16px;font-size:16px}}
 
 /* HOME */
+/* LANG TOGGLE */
+.lang-toggle{position:absolute;top:14px;right:16px;display:flex;background:#1a1a2e;border-radius:20px;padding:3px;z-index:10}
+.lang-btn{padding:6px 14px;border-radius:18px;border:none;background:transparent;color:#666;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s cubic-bezier(.22,1,.36,1)}
+.lang-btn.active{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000}
+.lang-btn:active{transform:scale(.92)}
+
 .home{text-align:center;padding-top:0}
 .home-header{display:flex;justify-content:flex-end;padding:0 0 12px}
 .home-icon{font-size:44px;margin-bottom:6px;filter:drop-shadow(0 2px 8px rgba(110,231,183,.3))}
@@ -252,6 +258,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </head>
 <body>
 <div class="container">
+<div class="lang-toggle" id="langToggle"><button class="lang-btn active" onclick="setLang('en')">EN</button><button class="lang-btn" onclick="setLang('th')">TH</button></div>
 
 <div id="home" class="screen active home">
   <div class="home-icon">📚</div>
@@ -1132,11 +1139,26 @@ function updateLang(){
   if(document.getElementById('flashScreen').classList.contains('active')&&deck.length>0)renderFlash();
 }
 
-function init(){
+function setLang(l){
+  lang=l;localStorage.setItem('quizLang',l);
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===l.toUpperCase()));
   updateLang();
 }
 
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function init(){
+  const saved=localStorage.getItem('quizLang');
+  if(saved)lang=saved;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===lang.toUpperCase()));
+  showScreen('home');
+  updateLang();
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const lt=document.getElementById('langToggle');
+  if(lt) lt.style.display=(id==='milestone'||id==='results')?'none':'flex';
+}
 function confirmQuit(){if(idx>0&&!confirm(lang==='th'?'\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e41\u0e1a\u0e1a\u0e17\u0e14\u0e2a\u0e2d\u0e1a? \u0e04\u0e27\u0e32\u0e21\u0e01\u0e49\u0e32\u0e27\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e30\u0e2b\u0e32\u0e22\u0e44\u0e1b':'Leave quiz? Progress will be lost.'))return;showScreen('home')}
 function startQuiz(topic){selectedTopic=topic;showScreen('modeSelect')}
 
