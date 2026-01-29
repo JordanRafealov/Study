@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSK PT Quiz</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1a;color:#e0e0e0;min-height:100vh}
+.container{max-width:700px;margin:0 auto;padding:20px}
+
+/* HOME */
+.home{text-align:center;padding-top:40px}
+.home h1{font-size:28px;margin-bottom:4px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.home .sub{color:#888;margin-bottom:6px;font-size:14px}
+.home .sub-th{color:#555;margin-bottom:30px;font-size:13px;font-style:italic}
+.topic-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.topic-btn{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:14px 18px;text-align:left;cursor:pointer;transition:all .2s}
+.topic-btn:hover{border-color:#3b82f6;background:#1e1e35;transform:translateY(-1px)}
+.topic-btn .t-num{font-size:11px;color:#6ee7b7;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.topic-btn .t-title{font-size:14px;font-weight:600}
+.topic-btn .t-count{font-size:11px;color:#666;margin-top:2px}
+.all-btn{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;font-size:15px;border:none;border-radius:12px;padding:14px;width:100%;cursor:pointer;margin-bottom:10px;transition:opacity .2s}
+.all-btn:hover{opacity:.9}
+
+/* MODE */
+.mode-select{text-align:center;padding-top:50px}
+.mode-select h2{font-size:20px;margin-bottom:24px}
+.mode-grid{display:flex;flex-direction:column;gap:10px}
+.mode-btn{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:all .2s}
+.mode-btn:hover{border-color:#6ee7b7;background:#1e1e35}
+.mode-btn .m-icon{font-size:24px;margin-bottom:6px}
+.mode-btn .m-name{font-size:15px;font-weight:600}
+.mode-btn .m-desc{font-size:11px;color:#888;margin-top:2px}
+
+/* QUIZ */
+.quiz{display:none}
+.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.back-link{color:#666;font-size:12px;cursor:pointer;text-decoration:underline}
+.back-link:hover{color:#aaa}
+.progress-bar{height:4px;background:#1a1a2e;border-radius:2px;margin-bottom:16px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#3b82f6);transition:width .4s ease;border-radius:2px}
+.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.quiz-topic{font-size:10px;color:#6ee7b7;text-transform:uppercase;letter-spacing:1px}
+.quiz-count{font-size:12px;color:#666}
+.diff-badge{font-size:10px;padding:2px 8px;border-radius:10px;margin-left:8px}
+.diff-easy{background:#0d2d1f;color:#6ee7b7;border:1px solid #2a4a3a}
+.diff-med{background:#2d2a0d;color:#f59e0b;border:1px solid #4a3a2a}
+.diff-hard{background:#2d0d0d;color:#ef4444;border:1px solid #4a2a2a}
+.quiz-q{font-size:17px;font-weight:600;line-height:1.5;margin-bottom:6px}
+.quiz-q-th{font-size:13px;color:#777;line-height:1.5;margin-bottom:18px;font-style:italic}
+.options{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.option{background:#1a1a2e;border:2px solid #2a2a4a;border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s;font-size:13px;line-height:1.5;text-align:left;color:#e0e0e0}
+.option:hover:not(.disabled){border-color:#3b82f6;background:#1e1e35}
+.option.correct{border-color:#6ee7b7;background:#0d2d1f}
+.option.wrong{border-color:#ef4444;background:#2d0d0d}
+.option.disabled{cursor:default;opacity:.6}
+.option.disabled.show-correct{opacity:1;border-color:#6ee7b7;background:#0d2d1f}
+.option.hint-hide{display:none}
+
+/* LIFELINES */
+.lifelines{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.lifeline{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:11px;color:#e0e0e0;transition:all .2s;display:flex;align-items:center;gap:4px}
+.lifeline:hover:not(.used){border-color:#f59e0b;background:#1e1e35}
+.lifeline.used{opacity:.3;cursor:default;text-decoration:line-through}
+.lifeline .ll-icon{font-size:16px}
+
+/* HINT TOOLTIP */
+.hint-bar{background:#111827;border:1px solid #2a2a4a;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#f59e0b;line-height:1.5;display:none}
+.hint-bar.show{display:block}
+
+/* EXPLANATION */
+.explanation{background:#111827;border:1px solid #2a2a4a;border-radius:10px;padding:14px;margin-top:10px;font-size:12px;line-height:1.7;display:none}
+.explanation.show{display:block}
+.explanation strong{color:#6ee7b7}
+.explanation .th-exp{color:#888;font-style:italic;margin-top:6px;display:block}
+.why-btn{background:none;border:1px solid #3b82f6;color:#3b82f6;border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;margin-top:10px;transition:all .2s;display:inline-block}
+.why-btn:hover{background:#3b82f6;color:white}
+.why-btn.open{background:#3b82f6;color:white}
+.why-deep{background:#0f172a;border:1px solid #1e3a5f;border-radius:8px;padding:12px 14px;margin-top:10px;font-size:12px;line-height:1.7;color:#93c5fd;display:none}
+.why-deep.show{display:block}
+.why-deep .why-label{color:#60a5fa;font-weight:600;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.next-btn{background:#3b82f6;color:white;border:none;border-radius:10px;padding:12px;width:100%;font-size:14px;font-weight:600;cursor:pointer;margin-top:12px;display:none;transition:opacity .2s}
+.next-btn:hover{opacity:.9}
+.next-btn.show{display:block}
+
+/* MILESTONE SCREEN */
+.milestone{display:none;text-align:center;padding-top:60px}
+.milestone.active{display:block}
+.ms-emoji{font-size:60px;margin-bottom:16px}
+.ms-title{font-size:22px;font-weight:700;margin-bottom:8px}
+.ms-msg{color:#888;font-size:14px;margin-bottom:6px;line-height:1.6}
+.ms-stat{font-size:13px;color:#6ee7b7;margin-bottom:24px}
+.ms-btn{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;border:none;border-radius:10px;padding:14px;width:100%;cursor:pointer;font-size:15px}
+
+/* FLASHCARD */
+.flashcard-container{perspective:1000px;margin-bottom:20px}
+.flashcard{min-height:240px;position:relative;cursor:pointer;transition:transform .6s;transform-style:preserve-3d}
+.flashcard.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;top:0;left:0;right:0;min-height:240px;backface-visibility:hidden;border-radius:16px;padding:24px;display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column}
+.card-front{background:linear-gradient(145deg,#1a1a2e,#252545);border:1px solid #3a3a5a}
+.card-front p{font-size:16px;font-weight:600;line-height:1.6}
+.card-front .th-text{font-size:12px;font-weight:400;color:#888;margin-top:8px;font-style:italic}
+.card-back{background:linear-gradient(145deg,#0d2d1f,#1a2e1a);border:1px solid #2a4a3a;transform:rotateY(180deg)}
+.card-back p{font-size:13px;line-height:1.7}
+.tap-hint{font-size:11px;color:#555;text-align:center;margin-top:6px}
+.flash-btns{display:flex;gap:8px;margin-top:12px}
+.flash-btn{flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:13px;transition:opacity .2s}
+.flash-btn:hover{opacity:.85}
+.flash-btn.hard{background:#ef4444;color:white}
+.flash-btn.ok{background:#f59e0b;color:black}
+.flash-btn.easy{background:#6ee7b7;color:black}
+
+/* RESULTS */
+.results{display:none;text-align:center;padding-top:40px}
+.results h2{font-size:22px;margin-bottom:6px}
+.score-ring{width:140px;height:140px;margin:20px auto;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring circle{fill:none;stroke-width:8}
+.score-ring .bg{stroke:#1a1a2e}
+.score-ring .fg{stroke:#6ee7b7;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+.score-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:32px;font-weight:700}
+.score-label{color:#888;font-size:13px;margin-bottom:20px}
+.topic-breakdown{text-align:left;margin:16px 0}
+.breakdown-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a1a2e;font-size:12px}
+.retry-btn{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;border:none;border-radius:10px;padding:12px;width:100%;cursor:pointer;font-size:14px;margin-top:12px}
+.back-btn{background:none;border:1px solid #2a2a4a;color:#888;border-radius:10px;padding:10px;width:100%;cursor:pointer;font-size:13px;margin-top:8px}
+.back-btn:hover{border-color:#666;color:#ccc}
+.streak-badge{display:inline-block;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:20px;padding:3px 10px;font-size:11px;color:#f59e0b;margin-left:6px}
+.hidden{display:none!important}
+.screen{display:none}
+.screen.active{display:block}
+.lang-toggle{position:fixed;top:12px;right:12px;display:flex;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:20px;padding:2px;z-index:100}
+.lang-btn{background:none;border:none;color:#666;font-size:12px;font-weight:700;padding:4px 14px;border-radius:18px;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.lang-btn.active{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000}
+
+/* GAMIFICATION */
+.xp-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px}
+.xp-display{color:#f59e0b;font-weight:700}
+.combo-display{color:#a78bfa;font-weight:600;font-size:11px;transition:all .3s}
+.xp-popup{position:fixed;font-weight:700;font-size:18px;color:#f59e0b;pointer-events:none;z-index:200;animation:xpFloat 1s ease-out forwards}
+@keyframes xpFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.3)}}
+.combo-popup{position:fixed;font-weight:700;font-size:14px;color:#a78bfa;pointer-events:none;z-index:200;animation:xpFloat .8s ease-out forwards}
+@keyframes correctPulse{0%{box-shadow:0 0 0 0 rgba(110,231,183,.6)}50%{box-shadow:0 0 0 14px rgba(110,231,183,0)}100%{box-shadow:0 0 0 0 rgba(110,231,183,0)}}
+@keyframes wrongShake{0%,100%{transform:translateX(0)}15%,45%,75%{transform:translateX(-6px)}30%,60%,90%{transform:translateX(6px)}}
+.option.correct{animation:correctPulse .6s ease-out}
+.option.wrong{animation:wrongShake .5s ease-out}
+.encouragement{text-align:center;font-size:13px;padding:8px;margin-top:8px;border-radius:8px;animation:fadeSlide .4s ease-out}
+.encouragement.positive{color:#6ee7b7;background:rgba(110,231,183,.08)}
+.encouragement.negative{color:#f59e0b;background:rgba(245,158,11,.08)}
+@keyframes fadeSlide{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+.confetti-piece{position:fixed;width:8px;height:8px;z-index:300;pointer-events:none;border-radius:2px;animation:confettiFall var(--duration) ease-in forwards}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0deg) scale(1)}50%{opacity:1}100%{opacity:0;transform:translateY(100vh) rotate(var(--spin)) scale(.5)}}
+.grade-tier{font-size:48px;font-weight:900;margin:10px 0;letter-spacing:4px}
+.grade-S{background:linear-gradient(135deg,#fbbf24,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.grade-A{color:#6ee7b7}
+.grade-B{color:#3b82f6}
+.grade-C{color:#f59e0b}
+.grade-D{color:#ef4444}
+.pb-badge{display:inline-block;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;margin-top:6px;animation:pbPop .5s ease-out}
+@keyframes pbPop{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+.impact-flash{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:150;animation:impactFlash .3s ease-out}
+@keyframes impactFlash{0%{opacity:0}10%{opacity:.12}100%{opacity:0}}
+.xp-summary{font-size:14px;color:#f59e0b;font-weight:700;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="lang-toggle"><button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button><button class="lang-btn" id="btnTH" onclick="setLang('th')">TH</button></div>
+
+<div id="home" class="screen active home">
+  <h1>MSK PT Quiz</h1>
+  <p class="sub">Musculoskeletal Physical Therapy - Exam 1</p>
+  <p class="sub-th">วิชากายภาพบำบัดทางระบบกระดูกและกล้ามเนื้อ 1 - ข้อคำถามสอบครั้งที่ 1</p>
+  <button class="all-btn" onclick="startQuiz('all')">All Topics / ทุกหัวข้อ</button>
+  <div class="topic-grid" id="topicGrid"></div>
+</div>
+
+<div id="modeSelect" class="screen mode-select">
+  <h2>Choose Mode / เลือกโหมด</h2>
+  <div class="mode-grid">
+    <div class="mode-btn" onclick="selectMode('mcq')">
+      <div class="m-icon">A B C D</div>
+      <div class="m-name">Multiple Choice / ปรนัย</div>
+      <div class="m-desc">Pick the correct answer from 4 options</div>
+    </div>
+    <div class="mode-btn" onclick="selectMode('flash')">
+      <div class="m-icon">&#x1F500;</div>
+      <div class="m-name">Flashcards / บัตรคำ</div>
+      <div class="m-desc">Flip to reveal, rate your confidence</div>
+    </div>
+  </div>
+  <button class="back-btn" style="margin-top:20px" onclick="showScreen('home')">Back</button>
+</div>
+
+<div id="quiz" class="screen quiz">
+  <div class="top-bar"><span class="back-link" onclick="confirmQuit()">Back to menu</span><span class="streak-badge" id="streakBadge"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span class="combo-display" id="comboDisplay"></span></div>
+  <div class="quiz-header">
+    <span><span class="quiz-topic" id="qTopic"></span><span class="diff-badge" id="diffBadge"></span></span>
+    <span class="quiz-count" id="qCount"></span>
+  </div>
+  <div class="quiz-q" id="qText"></div>
+  <div class="quiz-q-th" id="qTextTh"></div>
+  <div class="hint-bar" id="hintBar"></div>
+  <div class="lifelines" id="lifelines">
+    <div class="lifeline" id="ll5050" onclick="use5050()"><span class="ll-icon">&#xBD;</span> 50:50</div>
+    <div class="lifeline" id="llHint" onclick="useHint()"><span class="ll-icon">&#x1F4A1;</span> Hint</div>
+    <div class="lifeline" id="llSkip" onclick="useSkip()"><span class="ll-icon">&#x23ED;</span> Skip</div>
+  </div>
+  <div class="options" id="qOptions"></div>
+  <div class="explanation" id="qExplanation"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="milestone" class="screen milestone">
+  <div class="ms-emoji" id="msEmoji"></div>
+  <div class="ms-title" id="msTitle"></div>
+  <div class="ms-msg" id="msMsg"></div>
+  <div class="ms-stat" id="msStat"></div>
+  <button class="ms-btn" id="msBtn" onclick="continuePlaying()">Keep Going!</button>
+</div>
+
+<div id="flashScreen" class="screen">
+  <div class="top-bar"><span class="back-link" onclick="confirmQuit()">Back to menu</span><span></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="flashProgress"></div></div>
+  <div class="quiz-header">
+    <span class="quiz-topic" id="fTopic"></span>
+    <span class="quiz-count" id="fCount"></span>
+  </div>
+  <div class="flashcard-container" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="card-face card-front"><p id="fFront"></p></div>
+      <div class="card-face card-back"><p id="fBack"></p></div>
+    </div>
+  </div>
+  <div class="tap-hint" id="tapHint">Tap to reveal / แตะเพื่อดูคำตอบ</div>
+  <div class="flash-btns hidden" id="flashBtns">
+    <button class="flash-btn hard" onclick="rateCard('hard')">Hard / ยาก</button>
+    <button class="flash-btn ok" onclick="rateCard('ok')">Got It / เข้าใจ</button>
+    <button class="flash-btn easy" onclick="rateCard('easy')">Easy / ง่าย</button>
+  </div>
+</div>
+
+<div id="results" class="screen results">
+  <h2 id="resultsTitle">Quiz Complete</h2>
+  <div class="score-ring">
+    <svg width="140" height="140"><circle class="bg" cx="70" cy="70" r="60"/><circle class="fg" id="scoreCircle" cx="70" cy="70" r="60" stroke-dasharray="377" stroke-dashoffset="377"/></svg>
+    <div class="score-text" id="scoreText">0%</div>
+  </div>
+  <div class="score-label" id="scoreLabel"></div>
+  <div class="topic-breakdown" id="breakdown"></div>
+  <button class="retry-btn" onclick="retryWrong()">Retry Wrong Answers / ทำข้อที่ผิดอีกครั้ง</button>
+  <button class="back-btn" onclick="showScreen('home')">Back to Topics / กลับหน้าหลัก</button>
+</div>
+
+</div>
+
+<script>
+const questions = [
+  // ══════ TOPIC 1 ══════
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:1,
+    q:"Which type of pain follows a specific dermatomal pattern and is accompanied by neurological symptoms like numbness and tingling?",
+    th:"อาการปวดชนิดใดที่เป็นไปตามแนว dermatome และมีอาการทางระบบประสาทร่วม เช่น ชา และเหน็บ?",
+    options:["Local pain (ปวดเฉพาะที่)","Referred pain (ปวดร้าว)","Radiated pain (ปวดแผ่/ปวดตามแนวเส้นประสาท)","Visceral pain (ปวดอวัยวะภายใน)"],
+    answer:2,
+    hint:"This pain type involves nerve compression and follows a specific nerve path — think sciatica.",
+    explain:"Radiated pain (ปวดแผ่ตามแนวเส้นประสาท) travels along a nerve pathway in a dermatomal pattern with neurological symptoms (numbness/ชา, tingling/เหน็บ, weakness/อ่อนแรง). Referred pain is diffuse with NO neuro symptoms. Local pain stays at the injury site.",
+    explainTh:"ปวดแผ่ (radiate pain) เดินทางตามแนวเส้นประสาทในแบบ dermatome มีอาการชา เหน็บ อ่อนแรงร่วม ต่างจากปวดร้าว (referred pain) ที่ไม่มีอาการทางระบบประสาท"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:1,
+    q:"A patient has dull, aching pain far from the injury site, with NO numbness or tingling. What type of pain is this?",
+    th:"ผู้ป่วยมีอาการปวดตื้อๆ ห่างจากตำแหน่งที่บาดเจ็บ ไม่มีอาการชาหรือเหน็บ นี่คืออาการปวดชนิดใด?",
+    options:["Local pain (ปวดเฉพาะที่)","Radiated pain (ปวดแผ่)","Referred pain (ปวดร้าว)","Neuropathic pain (ปวดจากระบบประสาท)"],
+    answer:2,
+    hint:"No nerve symptoms, but the pain is felt away from the source. Think convergence of signals in the spinal cord.",
+    explain:"Referred pain (ปวดร้าว) is felt away from the source, dull/aching/diffuse, does NOT follow a nerve path, and has NO neurological symptoms. Mechanism: convergence of nociceptive inputs on shared dorsal horn neurons.",
+    explainTh:"ปวดร้าว (referred pain) รู้สึกปวดไกลจากจุดบาดเจ็บจริง เป็นปวดตื้อ กระจาย ไม่ตามแนวเส้นประสาท ไม่มีอาการชาหรืออ่อนแรง เกิดจาก convergence ของสัญญาณปวดที่ dorsal horn"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:2,
+    q:"Which pain characteristic is most associated with bone (periosteum) injury?",
+    th:"ลักษณะอาการปวดแบบใดที่สัมพันธ์กับการบาดเจ็บของกระดูก (เยื่อหุ้มกระดูก)?",
+    options:["Sharp, well-localized, worse with movement (ปวดแหลม ระบุตำแหน่งได้ชัด)","Deep, dull, aching, worst at night (ปวดลึก ตื้อ แย่ลงตอนกลางคืน)","Burning, shooting along a dermatome (ปวดแสบร้อน แผ่ตาม dermatome)","Cramping, worse with contraction (ปวดเกร็ง แย่ลงเมื่อหดตัว)"],
+    answer:1,
+    hint:"This structure's pain gets worse at night and feels deep inside.",
+    explain:"Bone/periosteal pain (ปวดกระดูก/เยื่อหุ้มกระดูก) is deep, dull, aching, throbbing, poorly localized, and characteristically worst at night. Periosteum is the most pain-sensitive deep structure.",
+    explainTh:"ปวดจากกระดูก/เยื่อหุ้มกระดูก (periosteum) มีลักษณะปวดลึก ตื้อ ตุบๆ ระบุตำแหน่งไม่ชัด และปวดมากที่สุดตอนกลางคืน เยื่อหุ้มกระดูกเป็นโครงสร้างลึกที่ไวต่อความปวดมากที่สุด"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:2,
+    q:"What distinguishes a mechanical problem from a non-mechanical problem?",
+    th:"อะไรคือสิ่งที่แยก mechanical problem ออกจาก non-mechanical problem?",
+    options:["Mechanical pain changes with movement/position; non-mechanical does not (ปวดจาก mechanical เปลี่ยนตามท่า; non-mechanical ไม่เปลี่ยน)","Mechanical pain is always more severe (ปวดจาก mechanical รุนแรงกว่าเสมอ)","Non-mechanical pain only occurs at night (non-mechanical ปวดเฉพาะกลางคืน)","Mechanical problems always involve fractures (mechanical มีกระดูกหักเสมอ)"],
+    answer:0,
+    hint:"One type responds to movement and rest patterns. The other doesn't change with position and may have systemic symptoms.",
+    explain:"Mechanical pain: reproducible with movements, worsens with activity, improves with rest, morning stiffness <30 min. Non-mechanical: doesn't change with position, may worsen at night/rest, stiffness >60 min, systemic symptoms possible.",
+    explainTh:"ปวดจาก mechanical: เปลี่ยนตามท่าทาง แย่ลงเมื่อเคลื่อนไหว ดีขึ้นเมื่อพัก ข้อฝืดตอนเช้า <30 นาที / Non-mechanical: ไม่เปลี่ยนตามท่า อาจแย่ลงตอนกลางคืน ข้อฝืด >60 นาที อาจมีอาการทั่วร่างกาย"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:2,
+    q:"In the ICF model, 'Activity Limitation' refers to:",
+    th:"ใน ICF model คำว่า 'Activity Limitation' (ข้อจำกัดด้านกิจกรรม) หมายถึง:",
+    options:["Loss of body structure or function (การสูญเสียโครงสร้างหรือหน้าที่ของร่างกาย)","Difficulty executing a task or action (ความยากลำบากในการทำกิจกรรม)","Barriers in the physical environment (อุปสรรคทางสิ่งแวดล้อม)","Problems with involvement in life situations (ปัญหาการมีส่วนร่วมในสังคม)"],
+    answer:1,
+    hint:"Think about tasks like walking, climbing stairs, or getting dressed — can the person DO them?",
+    explain:"ICF: Body Functions/Structures = impairments, Activity = limitations in task execution (walking, dressing), Participation = restrictions in life situations (work, sports), Environmental Factors = barriers/facilitators, Personal Factors = age, gender, coping.",
+    explainTh:"ICF: โครงสร้างและหน้าที่ร่างกาย = ความบกพร่อง, กิจกรรม = ข้อจำกัดในการทำงาน (เดิน แต่งตัว), การมีส่วนร่วม = ข้อจำกัดในสถานการณ์ชีวิต (ทำงาน กีฬา), ปัจจัยสิ่งแวดล้อม, ปัจจัยส่วนบุคคล"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:1,
+    q:"Which ICF component includes factors like family support, workplace accessibility, and assistive devices?",
+    th:"องค์ประกอบใดของ ICF ที่รวมถึงปัจจัยเช่น การสนับสนุนจากครอบครัว การเข้าถึงสถานที่ทำงาน และอุปกรณ์ช่วย?",
+    options:["Body Functions (หน้าที่ร่างกาย)","Activity (กิจกรรม)","Participation (การมีส่วนร่วม)","Environmental Factors (ปัจจัยสิ่งแวดล้อม)"],
+    answer:3,
+    hint:"These are external factors OUTSIDE the person — things in their world that help or hinder them.",
+    explain:"Environmental Factors (code: e) include physical, social, and attitudinal environment. Can be barriers or facilitators. Examples: ramps, family support, laws, climate.",
+    explainTh:"ปัจจัยสิ่งแวดล้อม (รหัส: e) รวมสิ่งแวดล้อมทางกายภาพ สังคม และทัศนคติ อาจเป็นอุปสรรคหรือตัวเอื้อ เช่น ทางลาด การสนับสนุนครอบครัว กฎหมาย"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:2,
+    q:"A muscle graded '3' on the MRC scale means the patient can:",
+    th:"กล้ามเนื้อที่ได้เกรด '3' ตามมาตรา MRC หมายความว่าผู้ป่วยสามารถ:",
+    options:["Show visible contraction but no joint movement (หดตัวให้เห็นแต่ข้อไม่ขยับ)","Move through full ROM only with gravity eliminated (เคลื่อนไหวได้เต็มพิสัยเมื่อไม่มีแรงโน้มถ่วง)","Move through full ROM against gravity but with no added resistance (เคลื่อนไหวได้เต็มพิสัยต้านแรงโน้มถ่วง แต่ไม่มีแรงต้านเพิ่ม)","Move through full ROM against moderate resistance (เคลื่อนไหวได้เต็มพิสัยต้านแรงต้านปานกลาง)"],
+    answer:2,
+    hint:"Grade 3 = the gravity threshold. Can they move against gravity or not?",
+    explain:"MRC: 0=No contraction, 1=Trace, 2=Full ROM gravity eliminated, 3=Full ROM against gravity (no resistance), 4=Moderate resistance, 5=Normal.",
+    explainTh:"MRC: 0=ไม่มีการหดตัว, 1=Trace (เห็น/คลำได้), 2=เคลื่อนเต็มพิสัยเมื่อไม่มีแรงโน้มถ่วง, 3=ต้านแรงโน้มถ่วงได้ (ไม่มีแรงต้านเพิ่ม), 4=ต้านแรงต้านปานกลาง, 5=ปกติ"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:2,
+    q:"A Grade II ligament sprain is characterized by:",
+    th:"การบาดเจ็บเอ็นยึดข้อ (ligament sprain) ระดับ II มีลักษณะ:",
+    options:["Microscopic tears with no laxity and firm end-point (ฉีกขนาดเล็ก ไม่หลวม มีจุดสิ้นสุดแน่น)","Partial tear with moderate laxity and soft end-point (ฉีกบางส่วน หลวมปานกลาง จุดสิ้นสุดนิ่ม)","Complete rupture with significant laxity and no end-point (ฉีกขาดหมด หลวมมาก ไม่มีจุดสิ้นสุด)","Normal ligament with pain only on palpation (เอ็นปกติ ปวดเมื่อคลำเท่านั้น)"],
+    answer:1,
+    hint:"It's the middle grade — not micro-tears, not a complete rupture. Think partial.",
+    explain:"Grade I: micro tears, no laxity, firm end-point. Grade II: partial tear, moderate laxity (6-10mm), soft but present end-point. Grade III: complete rupture, significant laxity, no end-point.",
+    explainTh:"Grade I: ฉีกเล็กน้อย ไม่หลวม จุดสิ้นสุดแน่น (2-3 สัปดาห์) / Grade II: ฉีกบางส่วน หลวมปานกลาง (6-10mm) จุดสิ้นสุดนิ่ม (4-6 สัปดาห์) / Grade III: ขาดหมด หลวมมาก ไม่มีจุดสิ้นสุด (3+ เดือน)"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:2,
+    q:"Pain on resisted isometric contraction most likely indicates pathology of the:",
+    th:"อาการปวดเมื่อทำ resisted isometric contraction บ่งชี้พยาธิสภาพของ:",
+    options:["Ligament (เอ็นยึดข้อ)","Joint capsule (เยื่อหุ้มข้อ)","Muscle or tendon (กล้ามเนื้อหรือเอ็นกล้ามเนื้อ)","Nerve root (รากประสาท)"],
+    answer:2,
+    hint:"Resisted isometric testing isolates contractile tissues — structures that actively generate force.",
+    explain:"Resisted isometric testing isolates contractile tissues (muscle/tendon). Pain = muscle or tendon pathology. Passive stress tests assess ligaments.",
+    explainTh:"การทดสอบ resisted isometric แยกเนื้อเยื่อที่หดตัวได้ (กล้ามเนื้อ/เอ็น) ปวด = พยาธิสภาพกล้ามเนื้อหรือเอ็น ส่วนการทดสอบ passive stress ใช้ตรวจเอ็นยึดข้อ"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:3,
+    q:"Which deep structure is the MOST pain-sensitive?",
+    th:"โครงสร้างลึกใดที่ไวต่อความปวดมากที่สุด?",
+    options:["Fascia (พังผืด)","Tendon (เอ็นกล้ามเนื้อ)","Periosteum (เยื่อหุ้มกระดูก)","Muscle (กล้ามเนื้อ)"],
+    answer:2,
+    hint:"It's the outer covering of bone — loaded with nociceptors.",
+    explain:"Pain sensitivity ranking: Periosteum > Ligament > Joint capsule > Tendon > Fascia > Muscle.",
+    explainTh:"ลำดับความไวต่อปวด: เยื่อหุ้มกระดูก > เอ็นยึดข้อ > เยื่อหุ้มข้อ > เอ็นกล้ามเนื้อ > พังผืด > กล้ามเนื้อ"
+  },
+  {
+    topic:"Topic 1: Clinical Reasoning",diff:2,
+    q:"In the ICF model, which component is NOT formally coded?",
+    th:"ใน ICF model องค์ประกอบใดที่ไม่มีรหัสอย่างเป็นทางการ?",
+    options:["Body Functions (หน้าที่ร่างกาย)","Environmental Factors (ปัจจัยสิ่งแวดล้อม)","Personal Factors (ปัจจัยส่วนบุคคล)","Activity and Participation (กิจกรรมและการมีส่วนร่วม)"],
+    answer:2,
+    hint:"All the main components have letter codes (b, s, d, e) except one category that's too individual to standardize.",
+    explain:"Personal Factors (age, gender, education, coping styles) are NOT formally coded. Body Functions (b), Body Structures (s), Activity/Participation (d), Environmental Factors (e) all have codes.",
+    explainTh:"ปัจจัยส่วนบุคคล (อายุ เพศ การศึกษา วิธีรับมือ) ไม่มีรหัส ส่วน หน้าที่ (b), โครงสร้าง (s), กิจกรรม/การมีส่วนร่วม (d), สิ่งแวดล้อม (e) มีรหัสทั้งหมด"
+  },
+  // ══════ TOPIC 2 ══════
+  {
+    topic:"Topic 2: Bone & Joint",diff:1,
+    q:"What is the most abundant substance in bone tissue by weight?",
+    th:"สารใดที่เป็นองค์ประกอบในเนื้อกระดูกและพบมากที่สุด (โดยน้ำหนัก)?",
+    options:["Type I collagen (คอลลาเจนชนิด I)","Hydroxyapatite / calcium phosphate (ไฮดรอกซีอะพาไทต์)","Water (น้ำ)","Proteoglycans (โปรตีโอไกลแคน)"],
+    answer:1,
+    hint:"It's the mineral component that gives bone its hardness — think calcium.",
+    explain:"Bone by weight: Hydroxyapatite (inorganic mineral) = 60-70% (most abundant), Type I collagen (organic) = 25-30%, Water = 5-10%.",
+    explainTh:"องค์ประกอบกระดูกตามน้ำหนัก: ไฮดรอกซีอะพาไทต์ (สารอนินทรีย์) = 60-70% (มากที่สุด ให้ความแข็ง), คอลลาเจนชนิด I = 25-30% (ให้ความยืดหยุ่น), น้ำ = 5-10%"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:2,
+    q:"How long does the bone remodeling cycle take in cancellous (trabecular) bone?",
+    th:"Bone remodeling process ของ cancellous bone ใช้ระยะเวลากี่วัน?",
+    options:["About 50 days (ประมาณ 50 วัน)","About 120 days (ประมาณ 120 วัน)","About 200 days (ประมาณ 200 วัน)","About 365 days (ประมาณ 365 วัน)"],
+    answer:2,
+    hint:"Cortical bone is ~120 days. Cancellous takes longer because the formation phase is ~150 days alone.",
+    explain:"Cancellous bone remodeling ≈ 200 days. Cortical ≈ 120 days. Phases: Activation, Resorption (30-40 days), Reversal, Formation (~150 days), Termination.",
+    explainTh:"Cancellous bone remodeling ≈ 200 วัน (Cortical ≈ 120 วัน) ขั้นตอน: Activation, Resorption (30-40 วัน โดย osteoclast), Reversal, Formation (~150 วัน โดย osteoblast), Termination"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:2,
+    q:"Which is NOT a characteristic of hyaline cartilage?",
+    th:"ข้อใดไม่ใช่ลักษณะของ hyaline cartilage (กระดูกอ่อนใส)?",
+    options:["Avascular — no blood vessels (ไม่มีหลอดเลือด)","Contains Type II collagen (มีคอลลาเจนชนิด II)","Has excellent regenerative capacity (ซ่อมแซมตัวเองได้ดีมาก)","Covered by perichondrium except articular surfaces (มีเยื่อหุ้มกระดูกอ่อน ยกเว้นผิวข้อ)"],
+    answer:2,
+    hint:"Because it has no blood supply, this tissue actually heals very poorly.",
+    explain:"Hyaline cartilage has LIMITED healing capacity due to avascularity. Repairs with inferior fibrocartilage. Contains Type II collagen, aggrecan, avascular, aneural.",
+    explainTh:"กระดูกอ่อนใส (hyaline cartilage) มีความสามารถในการซ่อมแซมจำกัดเนื่องจากไม่มีหลอดเลือด ซ่อมด้วย fibrocartilage ที่ด้อยกว่า มี Type II collagen, aggrecan"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:1,
+    q:"Synovitis is inflammation of which structure?",
+    th:"Synovitis เป็นการอักเสบของโครงสร้างใด?",
+    options:["Tendon insertion into bone (จุดเกาะเอ็นที่กระดูก)","Synovial membrane lining the joint (เยื่อหุ้มข้อชนิด synovial)","Articular cartilage (กระดูกอ่อนผิวข้อ)","Periosteum (เยื่อหุ้มกระดูก)"],
+    answer:1,
+    hint:"The name gives it away — 'synov-' refers to the synovial membrane.",
+    explain:"Synovitis = inflammation of synovial membrane (เยื่อหุ้มข้อ), causing thickening and joint effusion. Enthesitis = inflammation at enthesis (จุดเกาะ) where tendons/ligaments attach to bone.",
+    explainTh:"Synovitis = การอักเสบของเยื่อหุ้มข้อชนิด synovial ทำให้หนาตัวและมีน้ำในข้อ (joint effusion) / Enthesitis = การอักเสบที่จุดเกาะเอ็นหรือเอ็นยึดข้อที่กระดูก"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:1,
+    q:"Enthesitis is inflammation at the:",
+    th:"Enthesitis เป็นการอักเสบที่บริเวณ:",
+    options:["Muscle belly (ท้องกล้ามเนื้อ)","Synovial membrane (เยื่อหุ้มข้อ)","Site where tendons/ligaments insert into bone (จุดเกาะเอ็น/เอ็นยึดข้อที่กระดูก)","Intervertebral disc (หมอนรองกระดูก)"],
+    answer:2,
+    hint:"'Enthesis' = insertion point. Common in ankylosing spondylitis.",
+    explain:"Enthesis = where tendons, ligaments, or joint capsules attach to bone. >100 entheses in the body. Associated with seronegative spondyloarthropathies.",
+    explainTh:"Enthesis = จุดเกาะของเอ็น เอ็นยึดข้อ หรือเยื่อหุ้มข้อที่กระดูก มี >100 แห่งในร่างกาย สัมพันธ์กับ seronegative spondyloarthropathies เช่น AS"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:2,
+    q:"Tennis elbow (lateral epicondylitis) primarily involves which muscle?",
+    th:"Tennis elbow (lateral epicondylitis) เกี่ยวข้องกับกล้ามเนื้อใดเป็นหลัก?",
+    options:["Flexor carpi radialis","Extensor carpi radialis brevis (ECRB)","Pronator teres","Biceps brachii"],
+    answer:1,
+    hint:"It's an extensor muscle at the lateral (outside) of the elbow — the brevis, not the longus.",
+    explain:"Tennis elbow = common extensor tendon at lateral epicondyle, primarily ECRB. It's tendinopathy (degeneration), not true inflammation. Golfer's elbow = medial epicondyle.",
+    explainTh:"Tennis elbow = พยาธิสภาพเอ็นกล้ามเนื้อ extensor ที่ lateral epicondyle โดยเฉพาะ ECRB เป็น tendinopathy (เสื่อม) ไม่ใช่การอักเสบจริง / Golfer's elbow = medial epicondyle"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:2,
+    q:"Golfer's elbow (medial epicondylitis) primarily involves which muscles?",
+    th:"Golfer's elbow (medial epicondylitis) เกี่ยวข้องกับกล้ามเนื้อใดเป็นหลัก?",
+    options:["Wrist extensors and supinator","Flexor carpi radialis and pronator teres","Biceps and brachialis","Triceps and anconeus"],
+    answer:1,
+    hint:"Medial side = flexor-pronator group. Two key muscles start with 'F' and 'P'.",
+    explain:"Golfer's elbow = common flexor-pronator tendon at medial epicondyle, primarily flexor carpi radialis and pronator teres. 20% have ulnar nerve symptoms.",
+    explainTh:"Golfer's elbow = เอ็น flexor-pronator ที่ medial epicondyle กล้ามเนื้อหลักคือ flexor carpi radialis และ pronator teres 20% มีอาการเส้นประสาท ulnar ร่วม"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:2,
+    q:"Myofascial Pain Syndrome is characterized by:",
+    th:"Myofascial Pain Syndrome (กลุ่มอาการปวดกล้ามเนื้อและพังผืด) มีลักษณะเด่นคือ:",
+    options:["Autoimmune destruction of joints (ภูมิคุ้มกันทำลายข้อ)","Crystal deposits in synovial fluid (ผลึกในน้ำไขข้อ)","Trigger points in taut bands of skeletal muscle (จุดกดเจ็บในมัดกล้ามเนื้อที่ตึง)","Demyelination of peripheral nerves (เส้นประสาทเสียเยื่อหุ้ม)"],
+    answer:2,
+    hint:"Think 'trigger points' and 'taut bands' — these are the hallmark features.",
+    explain:"MPS: trigger points (MTrPs/จุดกดเจ็บ) in taut bands, regional referred pain, local twitch response, restricted ROM. Active MTrPs = spontaneous pain; Latent = pain on compression only.",
+    explainTh:"MPS: จุดกดเจ็บ (trigger points) ในมัดกล้ามเนื้อที่ตึง มีปวดร้าวตามแบบแผน มี local twitch response พิสัยการเคลื่อนไหวลดลง แบ่งเป็น Active (ปวดเอง) และ Latent (ปวดเมื่อกด)"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:1,
+    q:"Morning stiffness lasting more than 60 minutes suggests:",
+    th:"อาการข้อฝืดตอนเช้านานกว่า 60 นาที บ่งชี้ถึง:",
+    options:["Non-inflammatory joint disease (โรคข้อที่ไม่มีการอักเสบ)","Inflammatory joint disease (โรคข้อที่มีการอักเสบ)","Mechanical back pain (ปวดหลังจาก mechanical)","Muscle strain (กล้ามเนื้อตึง)"],
+    answer:1,
+    hint:"Non-inflammatory = stiffness <30 min. Inflammatory = much longer.",
+    explain:"Inflammatory: stiffness >30-60 min, soft swelling, warmth, elevated ESR/CRP. Non-inflammatory (OA): stiffness <30 min, bony enlargement, worse with activity.",
+    explainTh:"โรคข้อจากการอักเสบ: ฝืด >30-60 นาที บวมนิ่ม อุ่น ESR/CRP สูง / โรคข้อเสื่อม (ไม่อักเสบ): ฝืด <30 นาที ข้อโต ปวดมากเมื่อใช้งาน"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:1,
+    q:"The gold standard diagnostic tool for osteoporosis is:",
+    th:"เครื่องมือมาตรฐานในการวินิจฉัยโรคกระดูกพรุน (osteoporosis) คือ:",
+    options:["X-ray (เอกซเรย์)","MRI (เอ็มอาร์ไอ)","DEXA scan (เครื่องวัดความหนาแน่นกระดูก)","CT scan (ซีทีสแกน)"],
+    answer:2,
+    hint:"It measures bone mineral density (BMD) and gives you a T-score.",
+    explain:"DEXA measures BMD. T-score: Normal >= -1.0, Osteopenia = -1.1 to -2.4, Osteoporosis <= -2.5. MRI = gold standard for herniated disc. X-ray = primary for spondylosis.",
+    explainTh:"DEXA วัดความหนาแน่นกระดูก T-score: ปกติ >= -1.0, กระดูกบาง = -1.1 ถึง -2.4, กระดูกพรุน <= -2.5 / MRI = มาตรฐานสำหรับหมอนรองกระดูกเคลื่อน / X-ray = สำหรับ spondylosis"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:1,
+    q:"The gold standard imaging for diagnosing a herniated disc is:",
+    th:"การตรวจภาพมาตรฐานสำหรับวินิจฉัย herniated disc (หมอนรองกระดูกเคลื่อน) คือ:",
+    options:["X-ray (เอกซเรย์)","DEXA scan","MRI (เอ็มอาร์ไอ)","Bone scan (สแกนกระดูก)"],
+    answer:2,
+    hint:"You need soft tissue detail — disc, nerves, spinal cord. Which modality shows soft tissue best?",
+    explain:"MRI shows disc morphology, nerve root compression, and spinal cord involvement without radiation.",
+    explainTh:"MRI แสดงรูปร่างหมอนรองกระดูก การกดทับรากประสาท และไขสันหลัง โดยไม่มีรังสี เป็นมาตรฐานสำหรับ herniated disc"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:2,
+    q:"Conventional tourniquet pressure for the upper limb during surgery is:",
+    th:"Tourniquet ที่ใช้รัดห้ามเลือดระหว่างการผ่าตัดแขน (upper limb) มีแรงดันเท่าใด?",
+    options:["150 mmHg","200 mmHg","250 mmHg","300 mmHg"],
+    answer:2,
+    hint:"Upper = lower number. Lower limb = higher number. Both are multiples of 50.",
+    explain:"Upper limb: 250 mmHg (or SBP + 50). Lower limb: 300 mmHg (or SBP + 100). Max: 1.5-2 hours (upper), 2 hours (lower).",
+    explainTh:"แขน: 250 mmHg (หรือ SBP + 50) / ขา: 300 mmHg (หรือ SBP + 100) / ระยะเวลาสูงสุด: 1.5-2 ชั่วโมง (แขน), 2 ชั่วโมง (ขา)"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:2,
+    q:"Conventional tourniquet pressure for the LOWER limb during surgery is:",
+    th:"Tourniquet ที่ใช้รัดห้ามเลือดระหว่างการผ่าตัดขา (lower limb) มีแรงดันเท่าใด?",
+    options:["200 mmHg","250 mmHg","300 mmHg","350 mmHg"],
+    answer:2,
+    hint:"50 mmHg higher than the upper limb standard.",
+    explain:"Lower limb: 300 mmHg (or SBP + 100). Upper limb: 250 mmHg (or SBP + 50). Complications above 350 mmHg.",
+    explainTh:"ขา: 300 mmHg (หรือ SBP + 100) / แขน: 250 mmHg (หรือ SBP + 50) / ภาวะแทรกซ้อนเมื่อเกิน 350 mmHg ได้แก่ เส้นประสาทบาดเจ็บ กล้ามเนื้อขาดเลือด"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:1,
+    q:"DVT prophylaxis after major orthopedic surgery includes all EXCEPT:",
+    th:"การป้องกันหลอดเลือดดำอุดตัน (DVT) หลังผ่าตัดใหญ่ทางกระดูก รวมทั้งหมดยกเว้น:",
+    options:["Early mobilization and ankle pumps (เคลื่อนไหวเร็ว ขยับข้อเท้า)","Graduated compression stockings (ถุงน่องรัดแบบไล่ระดับ)","Low-molecular-weight heparin / LMWH (เฮพารินโมเลกุลต่ำ)","Complete bed rest for 2 weeks (นอนพักบนเตียง 2 สัปดาห์)"],
+    answer:3,
+    hint:"One of these actually INCREASES DVT risk instead of preventing it.",
+    explain:"DVT prevention: early mobilization (most important), compression stockings, IPC devices, LMWH/DOACs. Prolonged immobilization INCREASES DVT risk (40-60% without prophylaxis).",
+    explainTh:"ป้องกัน DVT: เคลื่อนไหวเร็ว (สำคัญที่สุด) ถุงน่องรัด เครื่องบีบลม ยาต้านการแข็งตัวของเลือด การนอนนานเพิ่มความเสี่ยง DVT (40-60% ถ้าไม่ป้องกัน)"
+  },
+  {
+    topic:"Topic 2: Bone & Joint",diff:3,
+    q:"Virchow's Triad describes risk factors for DVT. What are the three components?",
+    th:"Virchow's Triad อธิบายปัจจัยเสี่ยงของ DVT ประกอบด้วยอะไรบ้าง?",
+    options:["Fever, tachycardia, hypotension (ไข้ หัวใจเต้นเร็ว ความดันต่ำ)","Endothelial damage, venous stasis, hypercoagulability (ผนังหลอดเลือดเสียหาย เลือดไหลช้า เลือดแข็งตัวง่าย)","Infection, inflammation, immune response (ติดเชื้อ อักเสบ ภูมิคุ้มกัน)","Pain, swelling, redness (ปวด บวม แดง)"],
+    answer:1,
+    hint:"Three things that cause clots: vessel wall damage + slow blood flow + blood that clots too easily.",
+    explain:"Virchow's Triad: (1) Endothelial damage, (2) Venous stasis, (3) Hypercoagulability. Post-surgical patients have all three.",
+    explainTh:"Virchow's Triad: (1) ผนังหลอดเลือดเสียหาย (2) เลือดไหลช้า/คั่ง (3) เลือดแข็งตัวง่าย ผู้ป่วยหลังผ่าตัดมีทั้ง 3 ปัจจัย"
+  },
+  // ══════ TOPIC 3 ══════
+  {
+    topic:"Topic 3: Inflammatory",diff:2,
+    q:"The hallmark pathological process in Rheumatoid Arthritis is:",
+    th:"พยาธิสภาพเด่นของ Rheumatoid Arthritis (โรคข้ออักเสบรูมาตอยด์) คือ:",
+    options:["Crystal deposition in joints (ผลึกสะสมในข้อ)","Autoimmune attack on synovial membrane leading to pannus (ภูมิคุ้มกันโจมตีเยื่อหุ้มข้อจนเกิด pannus)","Degenerative cartilage loss (กระดูกอ่อนเสื่อม)","Bacterial infection (ติดเชื้อแบคทีเรีย)"],
+    answer:1,
+    hint:"It's autoimmune — the body attacks its own synovium, forming a destructive tissue called pannus.",
+    explain:"RA: Autoimmune synovitis → pannus → cartilage erosion → bone erosion → joint destruction. Autoantibodies: RF and Anti-CCP. Associated with HLA-DR4.",
+    explainTh:"RA: ภูมิคุ้มกันทำลายเยื่อหุ้มข้อ → เกิด pannus → กัดกร่อนกระดูกอ่อน → กัดกร่อนกระดูก → ข้อผิดรูป แอนติบอดี: RF และ Anti-CCP สัมพันธ์กับ HLA-DR4"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:2,
+    q:"Which joints does RA typically affect FIRST?",
+    th:"ข้อใดที่ RA มักมีอาการก่อน?",
+    options:["DIP joints (ข้อ DIP)","MCP and PIP joints symmetrically (ข้อ MCP และ PIP แบบสมมาตร)","Knees and hips (เข่าและสะโพก)","Lumbar spine (กระดูกสันหลังส่วนเอว)"],
+    answer:1,
+    hint:"Small joints of the hands, symmetrically. It SPARES the DIP joints (that's OA territory).",
+    explain:"RA starts in small peripheral joints (MCP, PIP, wrists) symmetrically and progresses proximally. SPARES DIP joints (DIP = OA). Morning stiffness >1 hour.",
+    explainTh:"RA เริ่มที่ข้อเล็ก (MCP, PIP, ข้อมือ) แบบสมมาตร ลุกลามไปส่วนต้น ไม่เกี่ยวกับ DIP (DIP = ข้อเสื่อม) ข้อฝืดตอนเช้า >1 ชั่วโมง"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:3,
+    q:"Boutonniere deformity in RA involves:",
+    th:"Boutonniere deformity ใน RA ประกอบด้วย:",
+    options:["PIP hyperextension + DIP flexion (PIP เหยียดมากเกิน + DIP งอ)","PIP flexion + DIP hyperextension (PIP งอ + DIP เหยียดมากเกิน)","MCP ulnar deviation (MCP เบี่ยงไปทาง ulnar)","Wrist subluxation (ข้อมือเคลื่อน)"],
+    answer:1,
+    hint:"Boutonniere = 'buttonhole'. The middle joint bends DOWN (flexion), the tip bends UP (hyperextension).",
+    explain:"Boutonniere: PIP flexion + DIP hyperextension. Swan-neck: PIP hyperextension + DIP flexion (opposite).",
+    explainTh:"Boutonniere: PIP งอ + DIP เหยียดมากเกิน / Swan-neck: PIP เหยียดมากเกิน + DIP งอ (ตรงข้าม) ทั้งคู่เป็นความผิดปกติที่พบใน RA ระยะลุกลาม"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:3,
+    q:"Swan-neck deformity in RA involves:",
+    th:"Swan-neck deformity ใน RA ประกอบด้วย:",
+    options:["PIP flexion + DIP hyperextension (PIP งอ + DIP เหยียดมากเกิน)","PIP hyperextension + DIP flexion (PIP เหยียดมากเกิน + DIP งอ)","MCP hyperextension only (MCP เหยียดมากเกินอย่างเดียว)","Wrist radial deviation (ข้อมือเบี่ยงไปทาง radial)"],
+    answer:1,
+    hint:"Swan-neck = opposite of boutonniere. The middle joint goes UP, the tip droops DOWN.",
+    explain:"Swan-neck: PIP hyperextension + DIP flexion. Boutonniere: PIP flexion + DIP hyperextension.",
+    explainTh:"Swan-neck: PIP เหยียดมากเกิน + DIP งอ / Boutonniere: PIP งอ + DIP เหยียดมากเกิน เป็นความผิดปกติตรงข้ามกัน"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:1,
+    q:"The first-line DMARD for Rheumatoid Arthritis is:",
+    th:"ยากลุ่ม DMARDs ตัวแรกที่ใช้รักษา RA คือ:",
+    options:["Hydroxychloroquine","Sulfasalazine","Methotrexate (เมโทเทร็กเซต)","Infliximab"],
+    answer:2,
+    hint:"It's the anchor drug — should be started within 12 weeks of diagnosis.",
+    explain:"Methotrexate is the anchor/first-line DMARD. Start within 12 weeks (golden window). Biologics added if insufficient. NSAIDs/steroids = symptom relief only.",
+    explainTh:"Methotrexate เป็นยาหลัก/ตัวแรกในกลุ่ม DMARD ควรเริ่มภายใน 12 สัปดาห์ (ช่วงทอง) ถ้าไม่เพียงพอจึงเพิ่ม biologics / NSAIDs/สเตียรอยด์ = บรรเทาอาการเท่านั้น"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:2,
+    q:"The strongest modifiable risk factor for Rheumatoid Arthritis is:",
+    th:"ปัจจัยเสี่ยงที่ปรับเปลี่ยนได้และแข็งแกร่งที่สุดสำหรับ RA คือ:",
+    options:["Obesity (โรคอ้วน)","Smoking (การสูบบุหรี่)","Alcohol consumption (การดื่มแอลกอฮอล์)","High-purine diet (อาหารพิวรีนสูง)"],
+    answer:1,
+    hint:"It's the #1 lifestyle factor — damages the lungs where RA autoimmunity can begin.",
+    explain:"Smoking is the strongest modifiable risk factor for RA. Others: HLA-DR4 (genetic), female sex (2-3x), age 40-60, infections (EBV).",
+    explainTh:"การสูบบุหรี่เป็นปัจจัยเสี่ยงที่ปรับได้ที่สำคัญที่สุด อื่นๆ: HLA-DR4 (พันธุกรรม) เพศหญิง (2-3 เท่า) อายุ 40-60 ปี การติดเชื้อ (EBV)"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:1,
+    q:"Gouty arthritis is caused by deposition of which crystals?",
+    th:"โรคเกาต์ (gouty arthritis) เกิดจากการสะสมของผลึกชนิดใด?",
+    options:["Calcium pyrophosphate dihydrate / CPPD","Monosodium urate / MSU (ผลึกเกลือยูเรต)","Hydroxyapatite (ไฮดรอกซีอะพาไทต์)","Calcium oxalate (แคลเซียมออกซาเลต)"],
+    answer:1,
+    hint:"It comes from uric acid — needle-shaped crystals with NEGATIVE birefringence.",
+    explain:"Gout = MSU crystals from hyperuricemia (>6.8 mg/dL). Polarized microscopy: needle-shaped, NEGATIVE birefringence. CPPD = pseudogout (positive birefringence, rhomboid).",
+    explainTh:"เกาต์ = ผลึก MSU จากกรดยูริกสูง (>6.8 mg/dL) กล้องจุลทรรศน์โพลาไรซ์: รูปเข็ม, negative birefringence / CPPD = pseudogout (positive birefringence, รูปสี่เหลี่ยม)"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:1,
+    q:"The most classic location for a gouty attack is:",
+    th:"ตำแหน่งที่พบ gouty attack ได้บ่อยที่สุดคือ:",
+    options:["Knee (เข่า)","Wrist (ข้อมือ)","1st MTP joint / big toe — podagra (ข้อโคนนิ้วหัวแม่เท้า)","Shoulder (ไหล่)"],
+    answer:2,
+    hint:"It's the big toe — the classic presentation even has its own name: podagra.",
+    explain:"1st MTP (big toe) = podagra, the most classic gout site. Others: ankle, knee, midfoot, wrist, elbow. Sudden, severe, often at night.",
+    explainTh:"ข้อโคนนิ้วหัวแม่เท้า (1st MTP) = podagra ตำแหน่งคลาสสิกของเกาต์ อื่นๆ: ข้อเท้า เข่า กลางเท้า ข้อมือ ข้อศอก มาเฉียบพลัน รุนแรง มักปวดตอนกลางคืน"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:1,
+    q:"Which foods should a gout patient LIMIT?",
+    th:"ผู้ป่วยเกาต์ควรจำกัดอาหารชนิดใด?",
+    options:["Low-fat dairy and vegetables (นมไขมันต่ำ ผัก)","Red meat, organ meats, shellfish, and beer (เนื้อแดง เครื่องใน อาหารทะเล เบียร์)","Cherries and water (เชอร์รี่ น้ำ)","Soybeans and plant proteins (ถั่วเหลือง โปรตีนพืช)"],
+    answer:1,
+    hint:"High-purine foods and alcohol (especially beer) drive up uric acid levels.",
+    explain:"LIMIT: Red meat, organ meats, shellfish, beer/alcohol, sugary drinks. ENCOURAGE: Low-fat dairy, plant proteins, cherries, water. Diet alone reduces uric acid ~1 mg/dL only.",
+    explainTh:"จำกัด: เนื้อแดง เครื่องใน อาหารทะเล เบียร์/แอลกอฮอล์ เครื่องดื่มน้ำตาลสูง / แนะนำ: นมไขมันต่ำ โปรตีนพืช เชอร์รี่ น้ำ อาหารอย่างเดียวลดกรดยูริกได้ ~1 mg/dL"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:2,
+    q:"The first-line urate-lowering medication for long-term gout management is:",
+    th:"ยาลดกรดยูริกตัวแรกสำหรับการรักษาเกาต์ระยะยาวคือ:",
+    options:["Colchicine (โคลชิซีน)","Allopurinol (อัลโลพิวรินอล)","NSAIDs","Corticosteroids (สเตียรอยด์)"],
+    answer:1,
+    hint:"This xanthine oxidase inhibitor is the long-term management drug — not for acute attacks.",
+    explain:"Allopurinol is first-line urate-lowering (target: urate <6 mg/dL). Acute attacks: NSAIDs, colchicine, or corticosteroids.",
+    explainTh:"Allopurinol เป็นยาลดกรดยูริกตัวแรก (เป้า: <6 mg/dL) สำหรับระยะเฉียบพลัน: NSAIDs, colchicine หรือ corticosteroids การเจาะข้อ (joint aspiration) ช่วยลดอาการบวมและวินิจฉัยผลึก"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:2,
+    q:"The classic skin manifestation of SLE is:",
+    th:"อาการผิวหนังที่เป็นลักษณะเฉพาะของ SLE คือ:",
+    options:["Discoid plaques on elbows (ผื่น discoid ที่ข้อศอก)","Malar (butterfly) rash across cheeks and nose (ผื่นรูปผีเสื้อ)","Rheumatoid nodules (ปุ่ม rheumatoid)","Tophi on ears (ก้อน tophi ที่หู)"],
+    answer:1,
+    hint:"It looks like a butterfly across the face — across both cheeks and the bridge of the nose.",
+    explain:"SLE classic triad: Fever + joint pain + malar/butterfly rash in a woman of childbearing age. ANA positive >95%, anti-dsDNA correlates with nephritis.",
+    explainTh:"SLE สามอาการคลาสสิก: ไข้ + ปวดข้อ + ผื่นรูปผีเสื้อ (malar rash) ในหญิงวัยเจริญพันธุ์ ANA บวก >95%, anti-dsDNA สัมพันธ์กับไตอักเสบ"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:2,
+    q:"Unlike RA, SLE arthritis typically:",
+    th:"ต่างจาก RA ข้ออักเสบใน SLE มักจะ:",
+    options:["Causes permanent joint destruction (ทำลายข้อถาวร)","Is non-erosive — usually no permanent damage (ไม่กัดกร่อนข้อ ไม่มีความเสียหายถาวร)","Only affects large joints (เกิดเฉพาะข้อใหญ่)","Is asymmetric (ไม่สมมาตร)"],
+    answer:1,
+    hint:"SLE attacks many organs but usually doesn't permanently destroy the joints like RA does.",
+    explain:"SLE arthritis = symmetric polyarthritis but typically NON-erosive (unlike RA which causes pannus and erosions). SLE affects multiple organs.",
+    explainTh:"ข้ออักเสบ SLE = polyarthritis สมมาตร แต่มักไม่กัดกร่อนข้อ (ต่างจาก RA ที่เกิด pannus และ erosion) SLE มีผลต่อหลายอวัยวะ: ผิวหนัง ไต ปอด หัวใจ เลือด สมอง"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:3,
+    q:"Which autoantibody is the MOST SPECIFIC for SLE?",
+    th:"แอนติบอดีตัวใดที่จำเพาะต่อ SLE มากที่สุด?",
+    options:["ANA","Anti-dsDNA","Anti-Smith (anti-Sm)","Rheumatoid Factor (RF)"],
+    answer:2,
+    hint:"ANA is most SENSITIVE (>95%). But for SPECIFICITY, it's a different antibody named after a patient.",
+    explain:"Anti-Smith = most specific for SLE. ANA = most sensitive (>95%) but not specific. Anti-dsDNA correlates with disease activity and nephritis. RF = RA.",
+    explainTh:"Anti-Smith = จำเพาะต่อ SLE มากที่สุด / ANA = ไวที่สุด (>95%) แต่ไม่จำเพาะ / Anti-dsDNA สัมพันธ์กับความรุนแรงและไตอักเสบ / RF = RA"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:2,
+    q:"Chondrocalcinosis (CPPD crystal deposition) is associated with which metabolic conditions?",
+    th:"Chondrocalcinosis (การสะสมผลึก CPPD) พบร่วมกับภาวะ/โรคทางเมตาบอลิกใด?",
+    options:["Hyperparathyroidism, hemochromatosis, hypomagnesemia (พาราไทรอยด์เกิน, เหล็กเกิน, แมกนีเซียมต่ำ)","Hypothyroidism only (ไทรอยด์ต่ำเท่านั้น)","Type 2 diabetes exclusively (เบาหวานชนิด 2 เท่านั้น)","Vitamin D deficiency (วิตามินดีต่ำ)"],
+    answer:0,
+    hint:"Remember the '5 H's' — Hyperparathyroidism, Hemochromatosis, Hypomagnesemia, Hypophosphatasia, Hypothyroidism.",
+    explain:"5 H's: Hyperparathyroidism, Hemochromatosis, Hypomagnesemia, Hypophosphatasia, Hypothyroidism. CPPD in patient <60 = investigate metabolic disease.",
+    explainTh:"จำ 5 H: Hyperparathyroidism (พาราไทรอยด์เกิน), Hemochromatosis (เหล็กเกิน), Hypomagnesemia (แมกนีเซียมต่ำ), Hypophosphatasia, Hypothyroidism / CPPD ในคน <60 ปี ต้องหาโรคเมตาบอลิก"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:1,
+    q:"Bamboo spine on X-ray is the hallmark of:",
+    th:"Bamboo spine (กระดูกสันหลังรูปไผ่) ในภาพเอกซเรย์ พบได้ในภาวะใด?",
+    options:["Rheumatoid Arthritis","Osteoarthritis (ข้อเสื่อม)","Ankylosing Spondylitis (โรคข้อสันหลังอักเสบยึดติด)","Gout (เกาต์)"],
+    answer:2,
+    hint:"It's a seronegative spondyloarthropathy strongly associated with HLA-B27, starting at the sacroiliac joints.",
+    explain:"Bamboo spine = advanced Ankylosing Spondylitis (AS). Process: sacroiliitis → syndesmophytes → complete spinal fusion. HLA-B27 (80-95%), typically males in 20s.",
+    explainTh:"Bamboo spine = AS ระยะลุกลาม กระบวนการ: ข้อ sacroiliac อักเสบ → syndesmophytes (สะพานกระดูก) → กระดูกสันหลังเชื่อมติดกัน สัมพันธ์กับ HLA-B27 (80-95%) มักพบในชายอายุ 20s"
+  },
+  {
+    topic:"Topic 3: Inflammatory",diff:2,
+    q:"Antistreptolysin O (ASO) titer is used to diagnose:",
+    th:"Antibody to streptococcus (ASO titer) ใช้วินิจฉัยโรคใด?",
+    options:["Rheumatoid Arthritis","Acute Rheumatic Fever (ไข้รูมาติก)","Gout (เกาต์)","SLE"],
+    answer:1,
+    hint:"It detects antibodies against Group A Strep — the infection that triggers this cardiac/joint disease.",
+    explain:"ASO = antibody against Group A Streptococcus. Supports diagnosis of Acute Rheumatic Fever (Jones Criteria). Rises 1-3 weeks post-infection, peaks 3-5 weeks.",
+    explainTh:"ASO = แอนติบอดีต่อ Group A Streptococcus ช่วยวินิจฉัยไข้รูมาติก (Acute Rheumatic Fever) ตาม Jones Criteria สูงขึ้น 1-3 สัปดาห์หลังติดเชื้อ สูงสุดที่ 3-5 สัปดาห์"
+  },
+  // ══════ TOPIC 4 ══════
+  {
+    topic:"Topic 4: OA & AVN",diff:1,
+    q:"The strongest risk factor for osteoarthritis is:",
+    th:"ปัจจัยเสี่ยงที่สำคัญที่สุดของข้อเสื่อม (OA) คือ:",
+    options:["Obesity (โรคอ้วน)","Age (อายุ)","Female sex (เพศหญิง)","Genetics (พันธุกรรม)"],
+    answer:1,
+    hint:"It's the one factor you can't change — everyone's joints age.",
+    explain:"Age = strongest risk factor. Others: female (post-menopausal), obesity (1 lb lost = 4 lbs less knee pressure), joint injury, repetitive use, genetics, malalignment.",
+    explainTh:"อายุ = ปัจจัยเสี่ยงสูงสุด อื่นๆ: เพศหญิง (หลังหมดประจำเดือน) โรคอ้วน (ลด 1 ปอนด์ = ลดแรงกดเข่า 4 ปอนด์) การบาดเจ็บ การใช้งานซ้ำ พันธุกรรม ข้อเบี้ยว"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:2,
+    q:"The most common non-traumatic cause of osteonecrosis (avascular necrosis) is:",
+    th:"สาเหตุที่ไม่ใช่อุบัติเหตุ (non-traumatic) ที่พบบ่อยที่สุดของ osteonecrosis คือ:",
+    options:["Excessive alcohol (ดื่มแอลกอฮอล์มาก)","Chronic corticosteroid use (ใช้สเตียรอยด์นาน)","Sickle cell disease (โรคเม็ดเลือดแดงรูปเคียว)","SLE"],
+    answer:1,
+    hint:"A commonly used anti-inflammatory medication class that, when used chronically, kills bone.",
+    explain:"Chronic corticosteroid use = most common non-traumatic cause. Others: alcohol, SLE, sickle cell, Gaucher disease. Traumatic: hip fractures/dislocations.",
+    explainTh:"การใช้สเตียรอยด์นาน = สาเหตุที่ไม่ใช่อุบัติเหตุที่พบบ่อยที่สุด อื่นๆ: แอลกอฮอล์ SLE โรคเม็ดเลือดแดงรูปเคียว / อุบัติเหตุ: กระดูกสะโพกหัก/เคลื่อน"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:2,
+    q:"In hip OA, the earliest and most common range of motion loss is:",
+    th:"ในข้อสะโพกเสื่อม การสูญเสียพิสัยการเคลื่อนไหวที่เกิดเร็วที่สุดคือ:",
+    options:["Flexion (งอ)","Extension (เหยียด)","Internal rotation (หมุนเข้าใน)","Abduction (กาง)"],
+    answer:2,
+    hint:"This rotational movement is the first to go and is the most important clinical sign for hip OA.",
+    explain:"Internal rotation = first ROM loss in hip OA, most important clinical sign. Most common symptom: groin pain (may radiate to thigh, buttock, knee).",
+    explainTh:"Internal rotation (หมุนเข้าใน) = พิสัยแรกที่สูญเสียในข้อสะโพกเสื่อม เป็นอาการแสดงทางคลินิกที่สำคัญที่สุด อาการพบบ่อย: ปวดขาหนีบ (อาจร้าวไปต้นขา ก้น เข่า)"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:1,
+    q:"The most commonly affected joint by OA in Thai people is:",
+    th:"ข้อต่อที่พบการเสื่อมมากที่สุดในคนไทยคือ:",
+    options:["Hip (สะโพก)","Knee (เข่า)","Shoulder (ไหล่)","Lumbar spine (กระดูกสันหลังเอว)"],
+    answer:1,
+    hint:"Cultural factors: floor sitting, kneeling for religious practices, and habitual knee bending.",
+    explain:"Knee = most common OA joint in Thai people (34.5-45.6% in elderly). Cultural factors: floor sitting, kneeling, habitual knee bending. Thailand has one of the highest knee OA prevalences globally.",
+    explainTh:"เข่า = ข้อที่พบข้อเสื่อมมากที่สุดในคนไทย (34.5-45.6% ในผู้สูงอายุ) ปัจจัยทางวัฒนธรรม: นั่งพื้น คุกเข่า ท่าทางที่ต้องงอเข่าบ่อย ไทยมีอุบัติการณ์สูงที่สุดในโลก"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:3,
+    q:"The major proteoglycan aggrecan has GAG chains primarily of:",
+    th:"สารที่ประกอบเป็น proteoglycan subunit (aggrecan) มี GAG chains หลักคือ:",
+    options:["Hyaluronic acid and heparan sulfate","Chondroitin sulfate and keratan sulfate (คอนดรอยตินซัลเฟต และ เคอราตันซัลเฟต)","Dermatan sulfate and heparin","Only Type II collagen fibers"],
+    answer:1,
+    hint:"~100 chains of one sulfate + ~50 chains of another sulfate. The first starts with 'C', the second with 'K'.",
+    explain:"Aggrecan: Core protein (G1,G2,G3 domains) + ~100 chondroitin sulfate chains (most abundant) + ~50 keratan sulfate chains. Attach to hyaluronic acid via G1 domain + link protein. Negative charges attract water.",
+    explainTh:"Aggrecan: โปรตีนแกน (G1,G2,G3) + ~100 สาย chondroitin sulfate (มากที่สุด) + ~50 สาย keratan sulfate เกาะกับ hyaluronic acid ผ่าน G1 + link protein ประจุลบดึงน้ำ ต้านแรงกด"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:2,
+    q:"Which is NOT one of the 4 cardinal X-ray findings in OA?",
+    th:"ข้อใดไม่ใช่ 1 ใน 4 ความผิดปกติหลักของ X-ray ในผู้ป่วยข้อเสื่อม?",
+    options:["Joint space narrowing (ช่องข้อแคบ)","Osteophytes (กระดูกงอก)","Periarticular osteopenia (กระดูกบางรอบข้อ)","Subchondral sclerosis (กระดูกใต้กระดูกอ่อนหนาแน่น)"],
+    answer:2,
+    hint:"Periarticular osteopenia is a sign of INFLAMMATORY arthritis (like RA), not degenerative OA.",
+    explain:"4 OA X-ray signs: (1) Joint space narrowing (asymmetric), (2) Osteophytes (most specific), (3) Subchondral sclerosis, (4) Subchondral cysts. Periarticular osteopenia = inflammatory arthritis (RA).",
+    explainTh:"4 อาการ X-ray ข้อเสื่อม: (1) ช่องข้อแคบ (ไม่สมมาตร) (2) กระดูกงอก (จำเพาะที่สุด) (3) Subchondral sclerosis (4) Subchondral cysts / กระดูกบางรอบข้อ = ข้ออักเสบ (RA)"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:1,
+    q:"The gold standard diagnostic test for osteonecrosis is:",
+    th:"การตรวจมาตรฐานที่ใช้วินิจฉัย osteonecrosis คือ:",
+    options:["X-ray","CT scan","MRI","Bone scan"],
+    answer:2,
+    hint:"Can detect it as early as 5 days post-ischemia. Look for the 'double-line sign'.",
+    explain:"MRI = gold standard. Most sensitive/specific. Detects as early as 5 days. Pathognomonic: 'double-line sign' on T2. X-ray often normal early.",
+    explainTh:"MRI = มาตรฐานทอง ไวและจำเพาะที่สุด ตรวจพบได้เร็วสุด 5 วัน สัญญาณเฉพาะ: 'double-line sign' บน T2 X-ray มักปกติในระยะแรก"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:3,
+    q:"Kellgren-Lawrence Grade III OA on X-ray shows:",
+    th:"Kellgren-Lawrence เกรด III ของข้อเสื่อมบน X-ray แสดง:",
+    options:["Normal radiograph (ภาพปกติ)","Doubtful, possible osteophytes (น่าสงสัย อาจมีกระดูกงอก)","Multiple osteophytes, definite joint space narrowing, sclerosis (กระดูกงอกหลายจุด ช่องข้อแคบชัด sclerosis)","Large osteophytes, marked narrowing, severe sclerosis, definite deformity (กระดูกงอกใหญ่ แคบมาก ข้อผิดรูปชัด)"],
+    answer:2,
+    hint:"Grade III = Moderate. Grade IV is the severe one with definite deformity.",
+    explain:"KL: 0=Normal, 1=Doubtful, 2=Minimal (definite osteophytes, possible JSN), 3=Moderate (multiple osteophytes, definite JSN, sclerosis), 4=Severe (large osteophytes, marked JSN, deformity).",
+    explainTh:"KL: 0=ปกติ, 1=น่าสงสัย, 2=น้อย (กระดูกงอกชัด อาจมีช่องข้อแคบ), 3=ปานกลาง (กระดูกงอกหลายจุด ช่องข้อแคบชัด sclerosis), 4=รุนแรง (กระดูกงอกใหญ่ แคบมาก ข้อผิดรูป)"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:2,
+    q:"Current first-line pharmacological treatment for OA is:",
+    th:"ยาตัวแรกที่ให้ลดปวดกับผู้ป่วยข้อเสื่อมตามแนวทางปัจจุบันคือ:",
+    options:["Opioids (ยาเสพติด)","NSAIDs — topical preferred, then oral (NSAIDs ทาดีกว่า แล้วค่อยกิน)","Corticosteroid injection (ฉีดสเตียรอยด์)","Paracetamol / acetaminophen (พาราเซตามอล)"],
+    answer:1,
+    hint:"Paracetamol is NO longer first-line (meta-analyses show minimal benefit). The answer is anti-inflammatory.",
+    explain:"NSAIDs now first-line: topical preferred (better safety), then oral (diclofenac 150mg/day most effective). Paracetamol NO longer recommended first-line.",
+    explainTh:"NSAIDs เป็นยาตัวแรกปัจจุบัน: ทา (ปลอดภัยกว่า) แล้วค่อยกิน (diclofenac 150mg/วัน ดีที่สุด) พาราเซตามอลไม่แนะนำเป็นตัวแรกอีกต่อไป (meta-analysis พบว่าได้ผลน้อย)"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:1,
+    q:"For severe knee OA with significant deformity, the definitive surgical treatment is:",
+    th:"การรักษาทางการแพทย์สำหรับผู้ที่มีข้อเข่าเสื่อมรุนแรงและข้อผิดรูปอย่างมากคือ:",
+    options:["Arthroscopic debridement (ส่องกล้องทำความสะอาดข้อ)","Intra-articular injection (ฉีดยาเข้าข้อ)","Total Knee Arthroplasty / TKA (ผ่าตัดเปลี่ยนข้อเข่าเทียม)","Topical NSAID (ยาทาNSAID)"],
+    answer:2,
+    hint:"When conservative treatments fail and the joint is severely damaged, you replace the whole joint.",
+    explain:"TKA/THA = definitive surgical treatment for end-stage OA. For acute inflammation: intra-articular corticosteroid + aspiration. Also: osteotomy, unicompartmental replacement.",
+    explainTh:"ผ่าตัดเปลี่ยนข้อ (TKA/THA) = การรักษาสุดท้ายสำหรับข้อเสื่อมระยะท้าย สำหรับข้ออักเสบเฉียบพลัน: ฉีดสเตียรอยด์ + เจาะข้อ อื่นๆ: osteotomy, เปลี่ยนข้อบางส่วน"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:1,
+    q:"The primary purpose of referring an OA patient to physical therapy is:",
+    th:"จุดประสงค์หลักของแพทย์ในการส่งปรึกษานักกายภาพบำบัดสำหรับผู้ป่วยข้อเสื่อมคือ:",
+    options:["To perform surgery (ทำการผ่าตัด)","To prescribe medications (สั่งยา)","To reduce pain, improve strength/ROM/function, and delay surgery (ลดปวด เพิ่มกำลัง พิสัยการเคลื่อนไหว ชะลอการผ่าตัด)","To order diagnostic imaging (สั่งตรวจภาพ)"],
+    answer:2,
+    hint:"PT is recommended as FIRST-LINE treatment by all major guidelines — non-surgical management.",
+    explain:"PT goals: reduce pain, improve ROM/strength (quadriceps for knee, hip abductors for hip), improve function/ADLs, balance/fall prevention, weight management, education, assistive devices. PT = first-line by all guidelines.",
+    explainTh:"เป้าหมาย PT: ลดปวด เพิ่มพิสัย/กำลัง (quadriceps สำหรับเข่า hip abductors สำหรับสะโพก) เพิ่มการทำงาน/ADLs ป้องกันล้ม จัดการน้ำหนัก ให้ความรู้ กายภาพบำบัดเป็นการรักษาลำดับแรกตามแนวทางทั้งหมด"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:3,
+    q:"The 'crescent sign' on X-ray in osteonecrosis indicates:",
+    th:"'Crescent sign' บน X-ray ใน osteonecrosis บ่งชี้ถึง:",
+    options:["Early bone marrow edema (ไขกระดูกบวมระยะแรก)","Subchondral bone collapse (กระดูกใต้กระดูกอ่อนยุบ)","Joint space widening (ช่องข้อกว้างขึ้น)","Osteophyte formation (กระดูกงอก)"],
+    answer:1,
+    hint:"It's a radiolucent line under the articular surface — the bone is collapsing inward.",
+    explain:"Crescent sign = subchondral collapse (Steinberg Stage III). Staging: I=Normal X-ray/abnormal MRI, II=Sclerosis, III=Crescent (collapse), IV=Flattening, V=JSN.",
+    explainTh:"Crescent sign = กระดูกใต้กระดูกอ่อนยุบ (Steinberg Stage III) การจัดระยะ: I=X-ray ปกติ/MRI ผิดปกติ, II=Sclerosis, III=Crescent (ยุบ), IV=หัวกระดูกแบน, V=ช่องข้อแคบ"
+  },
+  {
+    topic:"Topic 4: OA & AVN",diff:2,
+    q:"OA is now understood to be a 'whole joint' disease. Which structures are involved?",
+    th:"ปัจจุบันเข้าใจว่า OA เป็น 'whole joint disease' โครงสร้างใดบ้างที่เกี่ยวข้อง?",
+    options:["Only articular cartilage (กระดูกอ่อนผิวข้อเท่านั้น)","Cartilage, subchondral bone, synovium, ligaments, menisci, muscles, fat pads (กระดูกอ่อน กระดูกใต้กระดูกอ่อน เยื่อหุ้มข้อ เอ็น หมอนรองข้อ กล้ามเนื้อ ไขมัน)","Only bone and cartilage (กระดูกและกระดูกอ่อนเท่านั้น)","Only synovial membrane (เยื่อหุ้มข้อเท่านั้น)"],
+    answer:1,
+    hint:"It's NOT just 'wear and tear' of cartilage — it involves every structure in and around the joint.",
+    explain:"OA involves: cartilage degradation, subchondral bone remodeling, osteophytes, secondary synovitis, ligament/meniscal degeneration, muscle weakness, fat pad changes. Not just 'wear and tear'.",
+    explainTh:"OA เกี่ยวข้องกับ: กระดูกอ่อนเสื่อม, กระดูกใต้กระดูกอ่อนปรับตัว, กระดูกงอก, เยื่อหุ้มข้ออักเสบทุติยภูมิ, เอ็น/หมอนรองข้อเสื่อม, กล้ามเนื้ออ่อนแรง ไม่ใช่แค่ 'สึกหรอ'"
+  }
+];
+
+// ─── STATE ───
+let selectedTopic='all',mode='mcq',deck=[],idx=0,score=0,streak=0,wrongOnes=[],topicScores={};
+let ll5050Used=false,llHintUsed=false,llSkipUsed=false;
+let pendingMilestone=false;
+let lang='en';try{lang=localStorage.getItem('quizLang')||'en'}catch(e){}
+
+const topics=[
+  {key:"Topic 1: Clinical Reasoning",en:"Clinical Reasoning",th:"การใช้เหตุผลทางคลินิก"},
+  {key:"Topic 2: Bone & Joint",en:"Bone & Joint Disease",th:"โรคกระดูกและข้อ"},
+  {key:"Topic 3: Inflammatory",en:"Inflammatory Arthropathies",th:"ข้ออักเสบจากการอักเสบ"},
+  {key:"Topic 4: OA & AVN",en:"OA & Osteonecrosis",th:"ข้อเสื่อมและกระดูกตาย"}
+];
+
+const milestones=[
+  {at:5,emoji:"&#x1F525;",en:"Nice Start!",th:"เริ่มต้นดี!",msgEn:"You're warming up. The first 5 are in the bag.",msgTh:"อุ่นเครื่องแล้ว! ผ่าน 5 ข้อแรกแล้ว"},
+  {at:10,emoji:"&#x1F4AA;",en:"Solid Progress!",th:"ก้าวหน้าดี!",msgEn:"10 down! Your brain is building new connections.",msgTh:"ผ่าน 10 ข้อแล้ว! สมองกำลังสร้างการเชื่อมต่อใหม่"},
+  {at:15,emoji:"&#x2B50;",en:"Halfway Hero!",th:"ฮีโร่ครึ่งทาง!",msgEn:"You're past the halfway mark. Keep the momentum.",msgTh:"ผ่านครึ่งทางแล้ว ทำต่อไปเลย!"},
+  {at:20,emoji:"&#x1F680;",en:"On Fire!",th:"เก่งมาก!",msgEn:"20 questions crushed. You're really getting this.",msgTh:"ผ่าน 20 ข้อแล้ว! คุณเข้าใจเนื้อหาดีมาก"},
+  {at:30,emoji:"&#x1F3C6;",en:"Almost There!",th:"ใกล้แล้ว!",msgEn:"The finish line is in sight. Push through!",msgTh:"เส้นชัยอยู่ตรงหน้า สู้ต่อไป!"},
+  {at:40,emoji:"&#x1F451;",en:"Champion Mode!",th:"แชมป์เปี้ยน!",msgEn:"40+ questions. You're exam-ready. Finish strong!",msgTh:"40+ ข้อแล้ว! พร้อมสอบแล้ว ทำให้จบสวยๆ!"}
+];
+
+const deepWhy=[
+// T1 (11)
+"Think of nerves as electrical wires with specific routes (dermatomes). When a wire is pinched, the signal travels along that exact path\u2014that's radiated pain. Referred pain is more like an echo: the brain gets confused about WHERE the signal came from, so it feels vague and diffuse with no nerve involvement.",
+"Two different body parts share the same 'switchboard' (dorsal horn neurons) in the spinal cord. When one sends a pain signal, the brain sometimes attributes it to the wrong source\u2014like getting a call and misidentifying the caller. No nerve damage means no numbness or tingling.",
+"Periosteum (bone's outer membrane) has the highest concentration of pain receptors among deep structures. At night, reduced distraction + blood pooling = maximum ache. Sharp/localized = ligament, burning along dermatome = nerve, cramping = muscle\u2014none of those match bone pain.",
+"Mechanical = predictable cause-and-effect. Move it one way \u2192 hurts. Change position \u2192 better. Like a squeaky hinge. Non-mechanical pain doesn't follow these rules\u2014it persists regardless of position, often worsens at rest/night, suggesting an internal process (inflammation, infection, tumor).",
+"The ICF has 3 levels: (1) Body = can the part work? (2) Activity = can you DO tasks? (3) Participation = can you engage in LIFE? Walking upstairs is an activity. Going to work upstairs is participation. Losing knee ROM is an impairment.",
+"Environmental factors are everything OUTSIDE the person: ramps, family support, wheelchair access, disability laws, climate. They either help (facilitators) or hinder (barriers). Body functions, activities, and participation are about the person themselves.",
+"The MRC scale uses gravity as the dividing line. Below 3 = can't fight gravity. Grade 3 = barely lifts against gravity but crumbles with any push. Above 3 = handles added resistance. If you can lift your arm up but I could easily push it down, that's grade 3.",
+"Think of ligament fibers like strands in a rope. Grade I = a few surface threads fray (rope holds firm). Grade II = half the strands snap (stretchy, soft end-point). Grade III = rope severed completely (no tension, no end-point).",
+"The key: isometric = no joint movement. If nothing moves, you're ONLY stressing things that contract (muscles/tendons). Ligaments and capsules need movement/stretch to be tested. If isometric hurts \u2192 contractile tissue problem.",
+"Periosteum is bone's 'nerve blanket'\u2014more nociceptors per square cm than any other deep tissue. The ranking is worth memorizing: Periosteum > Ligament > Joint capsule > Tendon > Fascia > Muscle. That's why fractures are agonizing.",
+"WHO couldn't standardize things like personality, coping style, or motivation\u2014they're too individual. So personal factors exist in the model but have no codes. Every other component (b=body functions, s=structures, d=activity/participation, e=environment) has standardized codes.",
+// T2 (15)
+"Bone = living concrete. Hydroxyapatite (calcium mineral) is the cement providing hardness\u201460-70% by weight. Collagen is the rebar providing flexibility. Without mineral, bones bend like rubber. Without collagen, they shatter like chalk.",
+"Cancellous (spongy) bone has massive surface area needing rebuilding. Formation alone takes ~150 days\u2014osteoblasts lay down new bone slowly. Total ~200 days. Cortical bone is more compact, so it's faster (~120 days).",
+"The trick is the word 'excellent.' Hyaline cartilage heals POORLY because it has no blood supply (avascular). No blood = no repair cells delivered. When it does 'heal,' it's replaced with inferior fibrocartilage, not the original smooth hyaline.",
+"The name tells you: synov-itis = inflammation of the synovial membrane. It lines joints, produces synovial fluid, and when inflamed causes thickening and effusion. Enth-esitis = where tendons attach to bone. The names are descriptive.",
+"Enthesis = the anchor zone where tendon/ligament meets bone. 100+ in the body. Common sites: Achilles, plantar fascia, patellar tendon insertions. Especially associated with spondyloarthropathies like ankylosing spondylitis.",
+"Tennis = backhand = lateral epicondyle = extensors. ECRB is the weakest link in the extensor group, so it fails first. Brevis tears before Longus. And it's tendinopathy (failed healing/degeneration), not true inflammation.",
+"Golfer's = forehand/throw = medial epicondyle = flexor-pronator group. FCR and pronator teres are the main culprits. Remember: medial = muscles that flex and pronate. 20% also get ulnar nerve irritation (funny bone area).",
+"MPS is LOCAL muscle pathology\u2014not autoimmune, not crystal, not neural. The hallmark trio: (1) trigger point in a (2) taut band causing (3) referred pain in a predictable pattern. Press the trigger \u2192 pain radiates to a specific zone.",
+"Morning stiffness duration is a key differentiator. Inflammatory (RA, AS) = immune attack during sleep \u2192 fluid accumulates \u2192 >60 min to flush out. OA = mechanical stiffness like rusty hinges \u2192 loosens in <30 min. Simple question, powerful diagnostic clue.",
+"DEXA shoots two X-ray beams of different energy through bone. The absorption difference reveals density. T-score compares you to a healthy 30-year-old. Below -2.5 = osteoporosis. It's the ONLY test that gives a T-score for bone density.",
+"Discs are soft tissue. X-rays see bones, not soft tissue. MRI uses magnetic fields to detect water content differences\u2014perfect for seeing a bulging disc pressing on nerves. No radiation either.",
+"Arm arteries are smaller diameter than leg arteries. Smaller tube = less pressure needed to compress shut. Upper limb = 250 mmHg (or SBP+50). Lower limb = 300 mmHg (or SBP+100). Think: bigger pipe = more pressure to stop flow.",
+"Same principle: bigger leg arteries need 300 mmHg. Remember the pair: 250 up, 300 down. Duration limits exist because prolonged ischemia damages nerves (neuropraxia) and muscles.",
+"DVT prevention = keep blood MOVING. Early mobilization, compression, and blood thinners all prevent stasis. Complete bed rest does the OPPOSITE\u2014it creates Virchow's enemy #2 (venous stasis). The question asks for the exception.",
+"Virchow (1856) identified 3 ingredients for clots: (1) vessel wall damage (surgery), (2) slow blood flow (lying in bed), (3) hypercoagulable blood (surgical stress). Post-surgical patients check all 3 boxes\u2014that's why DVT prophylaxis is mandatory.",
+// T3 (16)
+"RA = autoimmune: your body attacks the synovial membrane \u2192 chronic inflammation \u2192 creates pannus (aggressive tissue) \u2192 pannus invades and destroys cartilage then bone. Crystal deposition = gout. Degeneration = OA. Bacterial = septic arthritis.",
+"RA pattern: small joints first (MCP, PIP, wrists), SYMMETRIC (both hands equally). DIP joints are specifically SPARED\u2014DIP involvement = OA (Heberden's nodes). This distinction is frequently tested.",
+"The central slip of the extensor tendon tears at PIP. The PIP 'buttonholes' through the gap \u2192 forced into flexion. The lateral bands shift below the axis \u2192 hyperextend the DIP. Boutonniere = PIP down, DIP up.",
+"Swan-neck is the mirror image. Volar plate laxity \u2192 PIP hyperextends. Terminal tendon loosens \u2192 DIP drops into flexion. Swan-neck = PIP up, DIP down. They're exact opposites\u2014remembering this pattern is the key.",
+"Methotrexate is the 'anchor drug'\u2014every major RA guideline puts it first. The 'golden window' is 12 weeks after diagnosis. Biologics (infliximab, etc.) are add-ons when MTX alone isn't enough. NSAIDs/steroids only relieve symptoms.",
+"The link is biological: smoking damages lung tissue \u2192 creates citrullinated proteins \u2192 triggers anti-CCP antibodies \u2192 antibodies attack synovium. RA may actually begin in the lungs before you feel it in joints. Strongest MODIFIABLE risk factor (genetics isn't modifiable).",
+"Uric acid exceeds 6.8 mg/dL \u2192 precipitates as MSU crystals \u2192 massive inflammatory response. Under polarized microscopy: MSU = needle-shaped, NEGATIVE birefringence (yellow when parallel). CPPD = rhomboid, POSITIVE birefringence. Opposite shapes and birefringence.",
+"The big toe (1st MTP) is the coldest, most distal joint. Uric acid crystallizes more easily at lower temperatures. That's also why attacks often hit at night when body temp drops. The specific name 'podagra' = foot (pod) + seizure (agra).",
+"Purines \u2192 uric acid. Organ meats, red meat, shellfish = purine-rich. Beer is a double hit: contains purines AND blocks renal uric acid excretion. Low-fat dairy actually HELPS (uricosuric effect). Diet alone reduces uric acid ~1 mg/dL.",
+"Allopurinol blocks xanthine oxidase (the enzyme that makes uric acid). Less enzyme = less uric acid = fewer crystals. It's for PREVENTION, not acute attacks. Acute = NSAIDs, colchicine, or steroids.",
+"The butterfly rash crosses both cheeks and nose bridge but SPARES the nasolabial folds (creases nose-to-mouth). This detail distinguishes it from rosacea. With fever + joint pain in a young woman \u2192 think SLE immediately.",
+"SLE joints swell and hurt but the inflammation doesn't form pannus like RA. Without pannus, no erosive bone destruction. SLE is a 'multi-organ, shallow attack' disease. RA is a 'focused, deep joint destruction' disease.",
+"Sensitivity vs Specificity: ANA catches >95% of SLE (sensitive) but also positive in other conditions (not specific). Anti-Smith catches fewer SLE patients but when positive, it's almost always SLE (specific). Anti-dsDNA correlates with kidney involvement/severity.",
+"CPPD crystals form when calcium-phosphate metabolism goes wrong. The '5 H's' all disrupt mineral handling: Hyperparathyroidism, Hemochromatosis, Hypomagnesemia, Hypophosphatasia, Hypothyroidism. CPPD in someone <60 \u2192 investigate metabolic disease.",
+"AS ascends: sacroiliac joints \u2192 lumbar \u2192 thoracic \u2192 cervical spine. Syndesmophytes (vertical bone bridges) form between vertebrae. When complete = bamboo spine. HLA-B27 positive in 80-95%. Typically young men in their 20s.",
+"Strep throat \u2192 immune system makes anti-strep antibodies \u2192 antibodies cross-react with heart/joint tissue (molecular mimicry) \u2192 rheumatic fever. ASO titer proves the strep infection happened 1-5 weeks ago. Jones Criteria used for diagnosis.",
+// T4 (13)
+"Every year alive = more cumulative joint wear. Age is non-modifiable. Obesity is second (and modifiable\u20141 lb lost = 4 lbs less knee force). Female sex matters mainly post-menopause. But age trumps everything.",
+"Corticosteroids cause AVN through: (1) fat cell hypertrophy in bone marrow \u2192 increased pressure \u2192 compressed blood vessels, (2) direct endothelial damage \u2192 microthrombi. Both cut off blood to bone. Femoral head is most vulnerable due to its limited blood supply.",
+"The hip capsule tightens as OA progresses. Internal rotation requires the most joint congruency and capsular flexibility, so it's restricted FIRST. Losing internal rotation + groin pain = clinical hallmark of hip OA.",
+"Thailand has among the highest knee OA globally. Cultural practices\u2014sitting cross-legged, kneeling during Buddhist ceremonies, squatting\u2014put enormous repetitive load on knees over decades. Genetics + lifestyle = high risk.",
+"Aggrecan = molecular 'water magnet.' GAG chains (chondroitin sulfate ~100 + keratan sulfate ~50) carry negative charges that attract water through osmotic pressure. This trapped water resists compression\u2014like a water balloon that bounces back when squeezed.",
+"In OA, bone responds to stress by getting THICKER (sclerosis). Periarticular osteopenia = thinner/weaker bone around joints = inflammatory process (like RA) where immune cells actively resorb bone. OA and RA have opposite bone responses. This is a common trick question.",
+"MRI detects AVN within 5 days by showing bone marrow edema. The 'double-line sign' on T2 is pathognomonic\u2014a bright line of granulation tissue above a dark sclerotic line. X-rays miss early AVN completely because visible bone changes come much later.",
+"KL grading: 0=normal, I=doubtful, II=minimal, III=moderate (multiple osteophytes + definite narrowing + sclerosis), IV=severe (everything + deformity). Grade III is the tipping point where disease is clearly visible but the joint shape is still intact.",
+"For decades, paracetamol was first-line. Multiple meta-analyses showed it's barely better than placebo for OA. NSAIDs target the inflammatory component OA does have. Topical first = fewer GI side effects than oral. This is a recent guideline change that exams love to test.",
+"TKA/THA = replacing joint surfaces with metal and plastic. Reserved for end-stage (KL III-IV) when conservative treatments fail. 90-95% report significant pain relief. It's definitive but irreversible\u2014exhaust conservative options first.",
+"Every major guideline (OARSI, ACR, EULAR, NICE) puts exercise/PT FIRST\u2014even before medications. Stronger muscles = joint offloading = less pain. Quads for knees, hip abductors for hips. Weight loss also key: 1 lb lost = 4 lbs less knee force.",
+"The crescent sign = radiolucent line under articular surface. Dead bone underneath has collapsed, creating a gap\u2014like a sinkhole under pavement. This is Steinberg Stage III. It means the structural integrity has failed.",
+"Old thinking: OA = cartilage wearing out. New thinking: OA = entire joint organ failing. Bone remodels abnormally, synovium inflames (yes, OA has inflammation), ligaments weaken, menisci degenerate, muscles atrophy. Not just 'wear and tear.'"
+];
+
+// ─── GAMIFICATION ───
+let xp=0,combo=0,maxCombo=0,maxStreak=0;
+let qAnswered=false,pickedIdx=-1,lastMsg=null,lastCorrect=false;
+const xpBase={1:10,2:20,3:30};
+function getMultiplier(){if(combo>=10)return 3;if(combo>=5)return 2;if(combo>=3)return 1.5;return 1}
+
+const encourageMsg=[
+  {en:"Nailed it!",th:"\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07!"},
+  {en:"Perfect!",th:"\u0e40\u0e1e\u0e2d\u0e23\u0e4c\u0e40\u0e1f\u0e04!"},
+  {en:"You're on fire!",th:"\u0e40\u0e01\u0e48\u0e07\u0e21\u0e32\u0e01!"},
+  {en:"Clinical genius!",th:"\u0e2d\u0e31\u0e08\u0e09\u0e23\u0e34\u0e22\u0e30!"},
+  {en:"Textbook answer!",th:"\u0e15\u0e2d\u0e1a\u0e15\u0e23\u0e07\u0e15\u0e33\u0e23\u0e32!"},
+  {en:"Sharp thinking!",th:"\u0e04\u0e34\u0e14\u0e44\u0e14\u0e49\u0e04\u0e21!"},
+  {en:"That's the one!",th:"\u0e43\u0e0a\u0e48\u0e40\u0e25\u0e22!"},
+  {en:"Excellent recall!",th:"\u0e08\u0e33\u0e44\u0e14\u0e49\u0e14\u0e35\u0e21\u0e32\u0e01!"}
+];
+const missMsg=[
+  {en:"Almost there!",th:"\u0e40\u0e01\u0e37\u0e2d\u0e1a\u0e41\u0e25\u0e49\u0e27!"},
+  {en:"Good try \u2014 now you know!",th:"\u0e1e\u0e22\u0e32\u0e22\u0e32\u0e21\u0e14\u0e35 \u0e15\u0e2d\u0e19\u0e19\u0e35\u0e49\u0e23\u0e39\u0e49\u0e41\u0e25\u0e49\u0e27!"},
+  {en:"This one's tricky!",th:"\u0e02\u0e49\u0e2d\u0e19\u0e35\u0e49\u0e2b\u0e25\u0e2d\u0e01!"},
+  {en:"Remember this for the exam!",th:"\u0e08\u0e33\u0e44\u0e27\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e2a\u0e2d\u0e1a!"},
+  {en:"Learning moment!",th:"\u0e40\u0e23\u0e35\u0e22\u0e19\u0e23\u0e39\u0e49\u0e08\u0e32\u0e01\u0e02\u0e49\u0e2d\u0e19\u0e35\u0e49!"},
+  {en:"You'll get it next time!",th:"\u0e04\u0e23\u0e31\u0e49\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e44\u0e14\u0e49\u0e41\u0e19\u0e48!"}
+];
+
+function spawnXpPopup(amount,el){
+  const r=el.getBoundingClientRect();
+  const p=document.createElement('div');
+  p.className='xp-popup';p.textContent='+'+amount+' XP';
+  p.style.left=(r.left+r.width/2-30)+'px';p.style.top=(r.top-10)+'px';
+  document.body.appendChild(p);setTimeout(()=>p.remove(),1000);
+}
+function spawnComboPopup(mult,el){
+  if(mult<=1)return;
+  const r=el.getBoundingClientRect();
+  const p=document.createElement('div');
+  p.className='combo-popup';p.textContent=mult+'x COMBO!';
+  p.style.left=(r.left+r.width/2-30)+'px';p.style.top=(r.top+25)+'px';
+  document.body.appendChild(p);setTimeout(()=>p.remove(),800);
+}
+function flashScreen(color){
+  const f=document.createElement('div');f.className='impact-flash';f.style.background=color;
+  document.body.appendChild(f);setTimeout(()=>f.remove(),300);
+}
+function updateStreakDisplay(){
+  const badge=document.getElementById('streakBadge');
+  if(streak<=0){badge.textContent='';return}
+  let fire=streak>=10?'\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25':streak>=5?'\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25':streak>=3?'\uD83D\uDD25\uD83D\uDD25':'\uD83D\uDD25';
+  badge.innerHTML=fire+' '+streak;
+}
+function updateXpDisplay(){
+  document.getElementById('xpDisplay').textContent=xp+' XP';
+  const m=getMultiplier();
+  document.getElementById('comboDisplay').textContent=m>1?(m+'x '+(lang==='th'?'\u0e04\u0e2d\u0e21\u0e42\u0e1a':'combo')):'';
+}
+function launchConfetti(){
+  const colors=['#6ee7b7','#3b82f6','#f59e0b','#a78bfa','#ef4444','#ec4899'];
+  for(let i=0;i<50;i++){
+    const p=document.createElement('div');p.className='confetti-piece';
+    p.style.left=Math.random()*100+'vw';p.style.top='-10px';
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.setProperty('--duration',(2+Math.random()*2)+'s');
+    p.style.setProperty('--spin',(360+Math.random()*720)+'deg');
+    p.style.width=(4+Math.random()*8)+'px';p.style.height=(4+Math.random()*8)+'px';
+    p.style.animationDelay=(Math.random()*.5)+'s';
+    document.body.appendChild(p);setTimeout(()=>p.remove(),5000);
+  }
+}
+function getGrade(pct){
+  if(pct>=95)return{grade:'S',cls:'grade-S'};
+  if(pct>=85)return{grade:'A',cls:'grade-A'};
+  if(pct>=70)return{grade:'B',cls:'grade-B'};
+  if(pct>=50)return{grade:'C',cls:'grade-C'};
+  return{grade:'D',cls:'grade-D'};
+}
+function getPersonalBest(key){try{const v=localStorage.getItem('pb_'+key);return v?parseInt(v):0}catch(e){return 0}}
+function setPersonalBest(key,pct){try{localStorage.setItem('pb_'+key,pct)}catch(e){}}
+
+function toggleWhy(){
+  const d=document.getElementById('whyDeep');
+  const b=document.querySelector('.why-btn');
+  if(d.classList.contains('show')){d.classList.remove('show');b.classList.remove('open');b.textContent=lang==='th'?'\u0e17\u0e33\u0e44\u0e21\u0e04\u0e33\u0e15\u0e2d\u0e1a\u0e19\u0e35\u0e49\u0e16\u0e39\u0e01?':'Why is this the answer?'}
+  else{d.classList.add('show');b.classList.add('open');b.textContent=lang==='th'?'\u0e0b\u0e48\u0e2d\u0e19 \u25B2':'Hide \u25B2'}
+}
+
+// Split bilingual option "English (ภาษาไทย)" into parts
+function splitOpt(text){
+  const m=text.match(/^(.*)\s*\(([^\)]*[\u0E00-\u0E7F][^\)]*)\)\s*$/);
+  if(m)return{en:m[1].trim(),th:m[2].trim()};
+  return{en:text,th:text};
+}
+
+function setLang(l){
+  lang=l;
+  try{localStorage.setItem('quizLang',l)}catch(e){}
+  document.getElementById('btnEN').className='lang-btn'+(l==='en'?' active':'');
+  document.getElementById('btnTH').className='lang-btn'+(l==='th'?' active':'');
+  updateLang();
+}
+
+function updateLang(){
+  // Home screen
+  document.querySelector('.home .sub').textContent=lang==='th'?'\u0e27\u0e34\u0e0a\u0e32\u0e01\u0e32\u0e22\u0e20\u0e32\u0e1e\u0e1a\u0e33\u0e1a\u0e31\u0e14\u0e17\u0e32\u0e07\u0e23\u0e30\u0e1a\u0e1a\u0e01\u0e23\u0e30\u0e14\u0e39\u0e01\u0e41\u0e25\u0e30\u0e01\u0e25\u0e49\u0e32\u0e21\u0e40\u0e19\u0e37\u0e49\u0e2d 1':'Musculoskeletal Physical Therapy - Exam 1';
+  document.querySelector('.home .sub-th').textContent=lang==='th'?'Musculoskeletal Physical Therapy - Exam 1':'\u0e27\u0e34\u0e0a\u0e32\u0e01\u0e32\u0e22\u0e20\u0e32\u0e1e\u0e1a\u0e33\u0e1a\u0e31\u0e14\u0e17\u0e32\u0e07\u0e23\u0e30\u0e1a\u0e1a\u0e01\u0e23\u0e30\u0e14\u0e39\u0e01\u0e41\u0e25\u0e30\u0e01\u0e25\u0e49\u0e32\u0e21\u0e40\u0e19\u0e37\u0e49\u0e2d 1';
+  document.querySelector('.all-btn').textContent=lang==='th'?'\u0e17\u0e38\u0e01\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d':'All Topics';
+  // Topic grid
+  const g=document.getElementById('topicGrid');g.innerHTML='';
+  topics.forEach((tp,i)=>{
+    const c=questions.filter(q=>q.topic===tp.key).length;
+    const lbl=lang==='th'?'\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d':'Topic';
+    const qs=lang==='th'?'\u0e02\u0e49\u0e2d':'questions';
+    g.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${tp.key}')"><div class="t-num">${lbl} ${i+1}</div><div class="t-title">${lang==='th'?tp.th:tp.en}</div><div class="t-count">${c} ${qs}</div></div>`;
+  });
+  // Mode screen
+  document.querySelector('.mode-select h2').textContent=lang==='th'?'\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e42\u0e2b\u0e21\u0e14':'Choose Mode';
+  const mbs=document.querySelectorAll('.mode-btn');
+  if(mbs[0]){mbs[0].querySelector('.m-name').textContent=lang==='th'?'\u0e1b\u0e23\u0e19\u0e31\u0e22':'Multiple Choice';mbs[0].querySelector('.m-desc').textContent=lang==='th'?'\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e04\u0e33\u0e15\u0e2d\u0e1a\u0e17\u0e35\u0e48\u0e16\u0e39\u0e01\u0e08\u0e32\u0e01 4 \u0e15\u0e31\u0e27\u0e40\u0e25\u0e37\u0e2d\u0e01':'Pick the correct answer from 4 options'}
+  if(mbs[1]){mbs[1].querySelector('.m-name').textContent=lang==='th'?'\u0e1a\u0e31\u0e15\u0e23\u0e04\u0e33':'Flashcards';mbs[1].querySelector('.m-desc').textContent=lang==='th'?'\u0e1e\u0e25\u0e34\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e04\u0e33\u0e15\u0e2d\u0e1a \u0e43\u0e2b\u0e49\u0e04\u0e30\u0e41\u0e19\u0e19\u0e04\u0e27\u0e32\u0e21\u0e21\u0e31\u0e48\u0e19\u0e43\u0e08':'Flip to reveal, rate your confidence'}
+  document.querySelector('.mode-select .back-btn').textContent=lang==='th'?'\u0e01\u0e25\u0e31\u0e1a':'Back';
+  // Flash buttons
+  const fbs=document.querySelectorAll('.flash-btn');
+  if(fbs[0])fbs[0].textContent=lang==='th'?'\u0e22\u0e32\u0e01':'Hard';
+  if(fbs[1])fbs[1].textContent=lang==='th'?'\u0e40\u0e02\u0e49\u0e32\u0e43\u0e08':'Got It';
+  if(fbs[2])fbs[2].textContent=lang==='th'?'\u0e07\u0e48\u0e32\u0e22':'Easy';
+  // Results buttons
+  document.querySelector('.retry-btn').textContent=lang==='th'?'\u0e17\u0e33\u0e02\u0e49\u0e2d\u0e17\u0e35\u0e48\u0e1c\u0e34\u0e14\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07':'Retry Wrong Answers';
+  document.querySelector('#results .back-btn').textContent=lang==='th'?'\u0e01\u0e25\u0e31\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01':'Back to Topics';
+  // Back links
+  document.querySelectorAll('.back-link').forEach(el=>el.textContent=lang==='th'?'\u0e01\u0e25\u0e31\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01':'Back to menu');
+  // Milestone button
+  document.getElementById('msBtn').textContent=lang==='th'?'\u0e44\u0e1b\u0e15\u0e48\u0e2d\u0e40\u0e25\u0e22!':'Keep Going!';
+  // Re-render active screens
+  if(document.getElementById('quiz').classList.contains('active')&&deck.length>0)renderMCQ();
+  if(document.getElementById('flashScreen').classList.contains('active')&&deck.length>0)renderFlash();
+}
+
+function init(){
+  document.getElementById('btnEN').className='lang-btn'+(lang==='en'?' active':'');
+  document.getElementById('btnTH').className='lang-btn'+(lang==='th'?' active':'');
+  updateLang();
+}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function confirmQuit(){if(idx>0&&!confirm(lang==='th'?'\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e41\u0e1a\u0e1a\u0e17\u0e14\u0e2a\u0e2d\u0e1a? \u0e04\u0e27\u0e32\u0e21\u0e01\u0e49\u0e32\u0e27\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e30\u0e2b\u0e32\u0e22\u0e44\u0e1b':'Leave quiz? Progress will be lost.'))return;showScreen('home')}
+function startQuiz(topic){selectedTopic=topic;showScreen('modeSelect')}
+
+function selectMode(m){
+  mode=m;
+  let pool=selectedTopic==='all'?[...questions]:questions.filter(q=>q.topic===selectedTopic);
+  pool.sort((a,b)=>a.diff-b.diff);
+  let groups={1:[],2:[],3:[]};
+  pool.forEach(q=>groups[q.diff].push(q));
+  Object.values(groups).forEach(g=>shuffle(g));
+  deck=[...groups[1],...groups[2],...groups[3]];
+  idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
+  ll5050Used=false;llHintUsed=false;llSkipUsed=false;pendingMilestone=false;
+  xp=0;combo=0;maxCombo=0;maxStreak=0;
+  qAnswered=false;pickedIdx=-1;
+  if(mode==='mcq'){showScreen('quiz');renderMCQ()}
+  else{showScreen('flashScreen');renderFlash()}
+}
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}}
+
+function checkMilestone(){
+  const answered=idx+1;
+  const ms=milestones.find(m=>m.at===answered);
+  if(ms){pendingMilestone=true;return ms}
+  return null;
+}
+
+function showMilestone(ms){
+  document.getElementById('msEmoji').innerHTML=ms.emoji;
+  document.getElementById('msTitle').textContent=lang==='th'?ms.th:ms.en;
+  document.getElementById('msMsg').textContent=lang==='th'?ms.msgTh:ms.msgEn;
+  const pct=Math.round((score/(idx+1))*100);
+  const sl=lang==='th'?'\u0e04\u0e30\u0e41\u0e19\u0e19:':' Score so far:';
+  document.getElementById('msStat').textContent=`${sl} ${score}/${idx+1} (${pct}%)`;
+  showScreen('milestone');
+}
+
+function continuePlaying(){
+  pendingMilestone=false;
+  qAnswered=false;pickedIdx=-1;
+  idx++;
+  if(idx>=deck.length){showResults();return}
+  if(mode==='mcq'){showScreen('quiz');renderMCQ()}
+  else{showScreen('flashScreen');renderFlash()}
+}
+
+// ─── MCQ ───
+function renderMCQ(){
+  const q=deck[idx];
+  document.getElementById('progressFill').style.width=((idx/deck.length)*100)+'%';
+  document.getElementById('qTopic').textContent=q.topic;
+  document.getElementById('qCount').textContent=`${idx+1} / ${deck.length}`;
+  const db=document.getElementById('diffBadge');
+  const dLabels={1:lang==='th'?'\u0e07\u0e48\u0e32\u0e22':'Easy',2:lang==='th'?'\u0e1b\u0e32\u0e19\u0e01\u0e25\u0e32\u0e07':'Medium',3:lang==='th'?'\u0e22\u0e32\u0e01':'Hard'};
+  db.textContent=dLabels[q.diff];
+  db.className='diff-badge '+(q.diff===1?'diff-easy':q.diff===2?'diff-med':'diff-hard');
+  updateStreakDisplay();
+  updateXpDisplay();
+  document.getElementById('qText').textContent=lang==='th'?(q.th||q.q):q.q;
+  document.getElementById('qTextTh').textContent=lang==='th'?q.q:(q.th||'');
+  document.getElementById('qExplanation').classList.remove('show');
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('hintBar').classList.remove('show');
+  document.getElementById('ll5050').className='lifeline'+(ll5050Used?' used':'');
+  document.getElementById('llHint').className='lifeline'+(llHintUsed?' used':'');
+  document.getElementById('llSkip').className='lifeline'+(llSkipUsed?' used':'');
+  document.getElementById('lifelines').style.display='flex';
+  const optDiv=document.getElementById('qOptions');
+  optDiv.innerHTML='';
+  const letters=['A','B','C','D'];
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option';btn.id='opt'+i;
+    const p=splitOpt(opt);
+    btn.innerHTML=letters[i]+'. '+(lang==='th'?p.th:opt);
+    btn.onclick=()=>pickAnswer(i);
+    optDiv.appendChild(btn);
+  });
+  // Restore answered state on language toggle
+  if(qAnswered){
+    const opts=document.querySelectorAll('.option');
+    opts.forEach(o=>{o.classList.add('disabled');o.onclick=null});
+    document.getElementById('lifelines').style.display='none';
+    if(lastCorrect){opts[pickedIdx].classList.add('correct')}
+    else{opts[pickedIdx].classList.add('wrong');opts.forEach((o,j)=>{if(j===q.answer)o.classList.add('show-correct')})}
+    const expEl=document.getElementById('qExplanation');
+    const qIdx=questions.indexOf(q);
+    const whyText=deepWhy[qIdx]||'';
+    const expLabel=lang==='th'?'\u0e04\u0e33\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22:':'Explanation:';
+    const pExp=lang==='th'?(q.explainTh||q.explain):q.explain;
+    const sExp=lang==='th'?q.explain:(q.explainTh||'');
+    const whyBtnTxt=lang==='th'?'\u0e17\u0e33\u0e44\u0e21\u0e04\u0e33\u0e15\u0e2d\u0e1a\u0e19\u0e35\u0e49\u0e16\u0e39\u0e01?':'Why is this the answer?';
+    const whyLbl=lang==='th'?'\u0e25\u0e2d\u0e07\u0e04\u0e34\u0e14\u0e41\u0e1a\u0e1a\u0e19\u0e35\u0e49:':'Think of it this way:';
+    const encourageHtml='<div class="encouragement '+(lastCorrect?'positive':'negative')+'">'+(lang==='th'?lastMsg.th:lastMsg.en)+'</div>';
+    expEl.innerHTML=encourageHtml+'<strong>'+expLabel+'</strong> '+pExp+(sExp?'<span class="th-exp">'+sExp+'</span>':'')+(whyText?'<br><button class="why-btn" onclick="toggleWhy()">'+whyBtnTxt+'</button><div class="why-deep" id="whyDeep"><div class="why-label">'+whyLbl+'</div>'+whyText+'</div>':'');
+    expEl.classList.add('show');
+    document.getElementById('nextBtn').classList.add('show');
+    document.getElementById('nextBtn').textContent=idx===deck.length-1?(lang==='th'?'\u0e14\u0e39\u0e1c\u0e25\u0e25\u0e31\u0e1e\u0e18\u0e4c':'See Results'):(lang==='th'?'\u0e16\u0e31\u0e14\u0e44\u0e1b':'Next');
+  }
+}
+
+function pickAnswer(i){
+  const q=deck[idx];
+  const opts=document.querySelectorAll('.option');
+  opts.forEach(o=>{o.classList.add('disabled');o.onclick=null});
+  document.getElementById('lifelines').style.display='none';
+  let msgObj,isCorrect=i===q.answer;
+  if(isCorrect){
+    opts[i].classList.add('correct');score++;streak++;combo++;
+    if(streak>maxStreak)maxStreak=streak;
+    if(combo>maxCombo)maxCombo=combo;
+    if(!topicScores[q.topic])topicScores[q.topic]={right:0,total:0};
+    topicScores[q.topic].right++;
+    const mult=getMultiplier();
+    const earned=Math.round(xpBase[q.diff]*mult);
+    xp+=earned;
+    spawnXpPopup(earned,opts[i]);
+    if(mult>1)spawnComboPopup(mult,opts[i]);
+    flashScreen('rgba(110,231,183,.3)');
+    msgObj=encourageMsg[Math.floor(Math.random()*encourageMsg.length)];
+  } else {
+    opts[i].classList.add('wrong');
+    opts.forEach((o,j)=>{if(j===q.answer)o.classList.add('show-correct')});
+    streak=0;combo=0;wrongOnes.push(q);
+    flashScreen('rgba(239,68,68,.2)');
+    msgObj=missMsg[Math.floor(Math.random()*missMsg.length)];
+  }
+  if(!topicScores[q.topic])topicScores[q.topic]={right:0,total:0};
+  topicScores[q.topic].total++;
+  updateStreakDisplay();
+  updateXpDisplay();
+  qAnswered=true;pickedIdx=i;lastCorrect=isCorrect;lastMsg=msgObj;
+  const expEl=document.getElementById('qExplanation');
+  const qIdx=questions.indexOf(q);
+  const whyText=deepWhy[qIdx]||'';
+  const expLabel=lang==='th'?'\u0e04\u0e33\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22:':'Explanation:';
+  const pExp=lang==='th'?(q.explainTh||q.explain):q.explain;
+  const sExp=lang==='th'?q.explain:(q.explainTh||'');
+  const whyBtnTxt=lang==='th'?'\u0e17\u0e33\u0e44\u0e21\u0e04\u0e33\u0e15\u0e2d\u0e1a\u0e19\u0e35\u0e49\u0e16\u0e39\u0e01?':'Why is this the answer?';
+  const whyLbl=lang==='th'?'\u0e25\u0e2d\u0e07\u0e04\u0e34\u0e14\u0e41\u0e1a\u0e1a\u0e19\u0e35\u0e49:':'Think of it this way:';
+  const encourageHtml='<div class="encouragement '+(isCorrect?'positive':'negative')+'">'+(lang==='th'?msgObj.th:msgObj.en)+'</div>';
+  expEl.innerHTML=encourageHtml+'<strong>'+expLabel+'</strong> '+pExp+(sExp?'<span class="th-exp">'+sExp+'</span>':'')+(whyText?'<br><button class="why-btn" onclick="toggleWhy()">'+whyBtnTxt+'</button><div class="why-deep" id="whyDeep"><div class="why-label">'+whyLbl+'</div>'+whyText+'</div>':'');
+  expEl.classList.add('show');
+  document.getElementById('nextBtn').classList.add('show');
+  document.getElementById('nextBtn').textContent=idx===deck.length-1?(lang==='th'?'\u0e14\u0e39\u0e1c\u0e25\u0e25\u0e31\u0e1e\u0e18\u0e4c':'See Results'):(lang==='th'?'\u0e16\u0e31\u0e14\u0e44\u0e1b':'Next');
+}
+
+function nextQuestion(){
+  const ms=checkMilestone();
+  if(ms&&pendingMilestone){showMilestone(ms);return}
+  qAnswered=false;pickedIdx=-1;
+  idx++;
+  if(idx>=deck.length){showResults();return}
+  renderMCQ();
+}
+
+// ─── LIFELINES ───
+function use5050(){
+  if(ll5050Used)return;ll5050Used=true;
+  document.getElementById('ll5050').classList.add('used');
+  const q=deck[idx];
+  let wrong=[];
+  q.options.forEach((_,i)=>{if(i!==q.answer)wrong.push(i)});
+  shuffle(wrong);
+  const hide=wrong.slice(0,2);
+  hide.forEach(i=>{document.getElementById('opt'+i).classList.add('hint-hide')});
+}
+
+function useHint(){
+  if(llHintUsed)return;llHintUsed=true;
+  document.getElementById('llHint').classList.add('used');
+  const q=deck[idx];
+  const hb=document.getElementById('hintBar');
+  hb.textContent=(lang==='th'?'\u0e04\u0e33\u0e43\u0e1a\u0e49: ':'Hint: ')+(q.hint||'Think carefully about the key terms.');
+  hb.classList.add('show');
+}
+
+function useSkip(){
+  if(llSkipUsed)return;llSkipUsed=true;
+  document.getElementById('llSkip').classList.add('used');
+  if(!topicScores[deck[idx].topic])topicScores[deck[idx].topic]={right:0,total:0};
+  topicScores[deck[idx].topic].total++;
+  idx++;
+  if(idx>=deck.length){showResults();return}
+  renderMCQ();
+}
+
+// ─── FLASHCARDS ───
+function renderFlash(){
+  const q=deck[idx];
+  document.getElementById('flashProgress').style.width=((idx/deck.length)*100)+'%';
+  document.getElementById('fTopic').textContent=q.topic;
+  document.getElementById('fCount').textContent=`${idx+1} / ${deck.length}`;
+  const mainQ=lang==='th'?(q.th||q.q):q.q;
+  const subQ=lang==='th'?q.q:(q.th||'');
+  document.getElementById('fFront').innerHTML=mainQ+(subQ?'<div class="th-text">'+subQ+'</div>':'');
+  const qIdx=questions.indexOf(q);
+  const whyText=deepWhy[qIdx]||'';
+  const co=splitOpt(q.options[q.answer]);
+  const ansTxt=lang==='th'?co.th:q.options[q.answer];
+  const pExp=lang==='th'?(q.explainTh||q.explain):q.explain;
+  const sExp=lang==='th'?q.explain:(q.explainTh||'');
+  document.getElementById('fBack').innerHTML='<strong>'+ansTxt+'</strong><br><br>'+pExp+(sExp?'<br><br><span style="color:#aaa;font-style:italic">'+sExp+'</span>':'')+(whyText?'<br><br><span style="color:#60a5fa;font-size:11px;font-weight:600">WHY:</span><br><span style="color:#93c5fd;font-size:11px">'+whyText+'</span>':'');
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('flashBtns').classList.add('hidden');
+  document.getElementById('tapHint').textContent=lang==='th'?'\u0e41\u0e15\u0e30\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e04\u0e33\u0e15\u0e2d\u0e1a':'Tap to reveal';
+}
+
+function flipCard(){
+  const c=document.getElementById('flashcard');
+  if(!c.classList.contains('flipped')){c.classList.add('flipped');document.getElementById('flashBtns').classList.remove('hidden');document.getElementById('tapHint').textContent=''}
+}
+
+function rateCard(r){
+  const q=deck[idx];
+  if(!topicScores[q.topic])topicScores[q.topic]={right:0,total:0};
+  topicScores[q.topic].total++;
+  if(r==='easy'||r==='ok'){score++;topicScores[q.topic].right++;streak++;combo++;
+    if(streak>maxStreak)maxStreak=streak;if(combo>maxCombo)maxCombo=combo;
+    xp+=Math.round(xpBase[q.diff]*getMultiplier());
+  } else{wrongOnes.push(q);streak=0;combo=0}
+  const ms=checkMilestone();
+  if(ms){pendingMilestone=true;showMilestone(ms);return}
+  idx++;
+  if(idx>=deck.length){showResults();return}
+  renderFlash();
+}
+
+// ─── RESULTS ───
+function showResults(){
+  showScreen('results');
+  const pct=Math.round((score/deck.length)*100);
+  const g=getGrade(pct);
+  // Grade tier + title
+  document.getElementById('resultsTitle').innerHTML='<div class="grade-tier '+g.cls+'">'+g.grade+'</div>';
+  document.getElementById('scoreText').textContent=pct+'%';
+  // Score label + personal best
+  const pbKey=selectedTopic.replace(/\s+/g,'_');
+  const prevBest=getPersonalBest(pbKey);
+  let labelHtml=score+' '+(lang==='th'?'\u0e08\u0e32\u0e01':'of')+' '+deck.length+' '+(lang==='th'?'\u0e02\u0e49\u0e2d\u0e16\u0e39\u0e01':'correct');
+  if(pct>prevBest){
+    setPersonalBest(pbKey,pct);
+    if(prevBest>0)labelHtml+='<br><span class="pb-badge">'+(lang==='th'?'\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e43\u0e2b\u0e21\u0e48!':'NEW PERSONAL BEST!')+'</span>';
+  } else if(prevBest>0){
+    labelHtml+='<br><span style="font-size:11px;color:#666">'+(lang==='th'?'\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e17\u0e35\u0e48\u0e14\u0e35\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14: ':'PB: ')+prevBest+'%</span>';
+  }
+  document.getElementById('scoreLabel').innerHTML=labelHtml;
+  const circ=document.getElementById('scoreCircle');
+  const offset=377-(377*pct/100);
+  setTimeout(()=>{circ.style.strokeDashoffset=offset},100);
+  circ.style.stroke=pct>=85?'#6ee7b7':pct>=70?'#3b82f6':pct>=50?'#f59e0b':'#ef4444';
+  // XP summary line
+  let xpLine=(lang==='th'?'\u0e44\u0e14\u0e49 ':'Earned ')+xp+' XP';
+  if(maxCombo>1)xpLine+=' \u00b7 '+(lang==='th'?'\u0e04\u0e2d\u0e21\u0e42\u0e1a ':'Combo ')+maxCombo+'x';
+  if(maxStreak>1)xpLine+=' \u00b7 '+(lang==='th'?'\u0e15\u0e48\u0e2d\u0e40\u0e19\u0e37\u0e48\u0e2d\u0e07 ':'Streak ')+maxStreak;
+  let bd='<div class="xp-summary">'+xpLine+'</div>';
+  for(const[topic,s]of Object.entries(topicScores)){
+    const tp=Math.round((s.right/s.total)*100);
+    bd+=`<div class="breakdown-row"><span>${topic}</span><span>${s.right}/${s.total} (${tp}%)</span></div>`;
+  }
+  document.getElementById('breakdown').innerHTML=bd;
+  const rb=document.querySelector('.retry-btn');
+  if(wrongOnes.length>0){rb.textContent=lang==='th'?`\u0e17\u0e33\u0e02\u0e49\u0e2d\u0e1c\u0e34\u0e14\u0e2d\u0e35\u0e01 ${wrongOnes.length} \u0e02\u0e49\u0e2d`:`Retry ${wrongOnes.length} Wrong`;rb.style.display='block'}
+  else{rb.style.display='none'}
+  // Confetti for good results
+  if(pct>=70)setTimeout(launchConfetti,500);
+  if(pct>=95)setTimeout(launchConfetti,1500);
+}
+
+function retryWrong(){
+  deck=[...wrongOnes];shuffle(deck);
+  idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
+  ll5050Used=false;llHintUsed=false;llSkipUsed=false;
+  xp=0;combo=0;maxCombo=0;maxStreak=0;
+  qAnswered=false;pickedIdx=-1;
+  if(mode==='mcq'){showScreen('quiz');renderMCQ()}
+  else{showScreen('flashScreen');renderFlash()}
+}
+
+init();
+</script>
+</body>
+</html>
