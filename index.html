@@ -902,7 +902,7 @@ const deepWhy=[
 
 // ─── GAMIFICATION ───
 let xp=0,combo=0,maxCombo=0,maxStreak=0;
-let qAnswered=false,pickedIdx=-1,lastMsg=null,lastCorrect=false;
+let qAnswered=false,pickedIdx=-1,lastMsg=null,lastCorrect=false,whyOpen=false;
 const xpBase={1:10,2:20,3:30};
 function getMultiplier(){if(combo>=10)return 3;if(combo>=5)return 2;if(combo>=3)return 1.5;return 1}
 
@@ -981,8 +981,8 @@ function setPersonalBest(key,pct){try{localStorage.setItem('pb_'+key,pct)}catch(
 function toggleWhy(){
   const d=document.getElementById('whyDeep');
   const b=document.querySelector('.why-btn');
-  if(d.classList.contains('show')){d.classList.remove('show');b.classList.remove('open');b.textContent=lang==='th'?'\u0e17\u0e33\u0e44\u0e21\u0e04\u0e33\u0e15\u0e2d\u0e1a\u0e19\u0e35\u0e49\u0e16\u0e39\u0e01?':'Why is this the answer?'}
-  else{d.classList.add('show');b.classList.add('open');b.textContent=lang==='th'?'\u0e0b\u0e48\u0e2d\u0e19 \u25B2':'Hide \u25B2'}
+  if(d.classList.contains('show')){d.classList.remove('show');b.classList.remove('open');b.textContent=lang==='th'?'\u0e17\u0e33\u0e44\u0e21\u0e04\u0e33\u0e15\u0e2d\u0e1a\u0e19\u0e35\u0e49\u0e16\u0e39\u0e01?':'Why is this the answer?';whyOpen=false}
+  else{d.classList.add('show');b.classList.add('open');b.textContent=lang==='th'?'\u0e0b\u0e48\u0e2d\u0e19 \u25B2':'Hide \u25B2';whyOpen=true}
 }
 
 // Split bilingual option "English (ภาษาไทย)" into parts
@@ -1083,7 +1083,7 @@ function showMilestone(ms){
 
 function continuePlaying(){
   pendingMilestone=false;
-  qAnswered=false;pickedIdx=-1;
+  qAnswered=false;pickedIdx=-1;whyOpen=false;
   idx++;
   if(idx>=deck.length){showResults();return}
   if(mode==='mcq'){showScreen('quiz');renderMCQ()}
@@ -1140,6 +1140,12 @@ function renderMCQ(){
     const encourageHtml='<div class="encouragement '+(lastCorrect?'positive':'negative')+'">'+(lang==='th'?lastMsg.th:lastMsg.en)+'</div>';
     expEl.innerHTML=encourageHtml+'<strong>'+expLabel+'</strong> '+pExp+(sExp?'<span class="th-exp">'+sExp+'</span>':'')+(whyText?'<br><button class="why-btn" onclick="toggleWhy()">'+whyBtnTxt+'</button><div class="why-deep" id="whyDeep"><div class="why-label">'+whyLbl+'</div>'+whyText+'</div>':'');
     expEl.classList.add('show');
+    if(whyOpen){
+      const wd=document.getElementById('whyDeep');
+      const wb=document.querySelector('.why-btn');
+      if(wd){wd.classList.add('show')}
+      if(wb){wb.classList.add('open');wb.textContent=lang==='th'?'\u0e0b\u0e48\u0e2d\u0e19 \u25B2':'Hide \u25B2'}
+    }
     document.getElementById('nextBtn').classList.add('show');
     document.getElementById('nextBtn').textContent=idx===deck.length-1?(lang==='th'?'\u0e14\u0e39\u0e1c\u0e25\u0e25\u0e31\u0e1e\u0e18\u0e4c':'See Results'):(lang==='th'?'\u0e16\u0e31\u0e14\u0e44\u0e1b':'Next');
   }
@@ -1194,7 +1200,7 @@ function pickAnswer(i){
 function nextQuestion(){
   const ms=checkMilestone();
   if(ms&&pendingMilestone){showMilestone(ms);return}
-  qAnswered=false;pickedIdx=-1;
+  qAnswered=false;pickedIdx=-1;whyOpen=false;
   idx++;
   if(idx>=deck.length){showResults();return}
   renderMCQ();
