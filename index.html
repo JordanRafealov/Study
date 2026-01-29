@@ -51,8 +51,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 
 /* QUIZ */
 .quiz{display:none}
-.back-link{background:#1a1a2e;border-radius:20px;padding:3px;position:absolute;top:14px;left:16px;z-index:10;cursor:pointer;display:inline-flex}
-.back-link-btn{padding:6px 14px;border-radius:18px;font-size:13px;font-weight:600;background:transparent;color:#e0e0e0;white-space:nowrap;transition:all .25s cubic-bezier(.22,1,.36,1)}
+.back-link{background:#1a1a2e;border-radius:20px;padding:3px;position:absolute;top:14px;left:16px;z-index:10;cursor:pointer;display:none}
+.back-link-btn{padding:6px 10px 6px 6px;border-radius:18px;font-size:13px;font-weight:600;background:transparent;color:#e0e0e0;white-space:nowrap;transition:all .25s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;gap:2px}
+.back-link-btn::before{content:'';width:14px;height:14px;background:#e0e0e0;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;flex-shrink:0}
 .back-link:active .back-link-btn{transform:scale(.92)}
 .quiz-nav{padding:48px 0 8px}
 .progress-bar{height:5px;background:#1a1a2e;border-radius:3px;margin-bottom:12px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}
@@ -258,6 +259,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 <body>
 <div class="container">
 <div class="lang-toggle" id="langToggle"><button class="lang-btn active" onclick="setLang('en')">EN</button><button class="lang-btn" onclick="setLang('th')">TH</button></div>
+<div class="back-link" id="backLink" style="display:none" onclick="confirmQuit()"><span class="back-link-btn">Menu</span></div>
 
 <div id="home" class="screen active home">
   <div class="home-icon">📚</div>
@@ -288,7 +290,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="quiz" class="screen quiz">
-  <div class="quiz-nav"><div class="back-link" onclick="confirmQuit()"><span class="back-link-btn">Menu</span></div></div>
+  <div class="quiz-nav"></div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span class="combo-display" id="comboDisplay"></span></div>
   <div class="quiz-header">
@@ -318,7 +320,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 </div>
 
 <div id="flashScreen" class="screen">
-  <div class="quiz-nav"><div class="back-link" onclick="confirmQuit()"><span class="back-link-btn">Menu</span></div></div>
+  <div class="quiz-nav"></div>
   <div class="progress-bar"><div class="progress-fill" id="flashProgress"></div></div>
   <div class="quiz-header">
     <span class="quiz-topic" id="fTopic"></span>
@@ -1170,6 +1172,8 @@ function showScreen(id){
   document.getElementById(id).classList.add('active');
   const lt=document.getElementById('langToggle');
   if(lt) lt.style.display=(id==='milestone'||id==='results')?'none':'flex';
+  const bl=document.getElementById('backLink');
+  if(bl) bl.style.display=(id==='quiz'||id==='flashScreen')?'inline-flex':'none';
 }
 function confirmQuit(){if(idx>0&&!confirm(lang==='th'?'\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e41\u0e1a\u0e1a\u0e17\u0e14\u0e2a\u0e2d\u0e1a? \u0e04\u0e27\u0e32\u0e21\u0e01\u0e49\u0e32\u0e27\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e30\u0e2b\u0e32\u0e22\u0e44\u0e1b':'Leave quiz? Progress will be lost.'))return;showScreen('home')}
 function startQuiz(topic){selectedTopic=topic;showScreen('modeSelect')}
