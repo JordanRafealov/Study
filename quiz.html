@@ -19,7 +19,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .home .sub{color:#888;margin-bottom:4px;font-size:15px}
 .home .sub-th{color:#555;margin-bottom:0;font-size:14px;font-style:italic}
 .home-divider{width:40px;height:3px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);border-radius:2px;margin:16px auto 20px}
-.home-footer{margin-top:28px;padding:14px 0 4px;border-top:1px solid #1a1a2e;color:#333;font-size:11px;letter-spacing:.3px}
+.home-footer{margin-top:28px;padding:14px 0 24px;border-top:1px solid #1a1a2e;color:#333;font-size:11px;letter-spacing:.3px}
 .home-footer .hf-heart{color:#ef4444}
 .topic-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
 .topic-btn{background:linear-gradient(135deg,#131525,#1a1a2e);border:none;border-left:3px solid #6ee7b7;border-radius:10px;padding:16px 18px 16px 16px;text-align:left;cursor:pointer;transition:all .2s;position:relative}
@@ -244,9 +244,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .why-btn:hover{background:#3b82f6;color:white;transform:translateY(-1px)}
 .why-btn:active{transform:scale(.96)}
 .why-deep.show{animation:fadeSlide .35s ease-out}
-.streak-badge{transition:all .3s ease}
-.lang-btn{transition:all .25s cubic-bezier(.22,1,.36,1)}
-.lang-btn:active{transform:scale(.92)}
 .back-btn{transition:all .25s cubic-bezier(.22,1,.36,1)}
 .back-btn:hover{border-color:#666;color:#ccc;transform:translateY(-1px)}
 .back-btn:active{transform:translateY(0) scale(.98)}
@@ -921,10 +918,10 @@ let pendingMilestone=false;
 let lang='en';try{lang=localStorage.getItem('quizLang')||'en'}catch(e){}
 
 const topics=[
-  {key:"Topic 1: Clinical Reasoning",en:"Clinical Reasoning",th:"การใช้เหตุผลทางคลินิก"},
-  {key:"Topic 2: Bone & Joint",en:"Bone & Joint Disease",th:"โรคกระดูกและข้อ"},
-  {key:"Topic 3: Inflammatory",en:"Inflammatory Arthropathies",th:"ข้ออักเสบจากการอักเสบ"},
-  {key:"Topic 4: OA & AVN",en:"OA & Osteonecrosis",th:"ข้อเสื่อมและกระดูกตาย"}
+  {key:"Topic 1: Clinical Reasoning",en:"Clinical Reasoning",th:"การใช้เหตุผลทางคลินิก",emoji:"🧠"},
+  {key:"Topic 2: Bone & Joint",en:"Bone & Joint Disease",th:"โรคกระดูกและข้อ",emoji:"🦴"},
+  {key:"Topic 3: Inflammatory",en:"Inflammatory Arthropathies",th:"ข้ออักเสบจากการอักเสบ",emoji:"🔬"},
+  {key:"Topic 4: OA & AVN",en:"OA & Osteonecrosis",th:"ข้อเสื่อมและกระดูกตาย",emoji:"🏥"}
 ];
 
 const milestones=[
@@ -1110,7 +1107,7 @@ function updateLang(){
     const c=questions.filter(q=>q.topic===tp.key).length;
     const lbl=lang==='th'?'\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d':'Topic';
     const qs=lang==='th'?'\u0e02\u0e49\u0e2d':'questions';
-    g.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${tp.key}')"><div class="t-num">${lbl} ${i+1}</div><div class="t-title">${lang==='th'?tp.th:tp.en}</div><div class="t-count">${c} ${qs}</div></div>`;
+    g.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${tp.key}')"><div class="t-num">${tp.emoji} ${lbl} ${i+1}</div><div class="t-title">${lang==='th'?tp.th:tp.en}</div><div class="t-count">${c} ${qs}</div></div>`;
   });
   // Mode screen
   document.querySelector('.mode-select h2').textContent=lang==='th'?'\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e42\u0e2b\u0e21\u0e14':'Choose Mode';
@@ -1437,7 +1434,6 @@ function showResults(){
   // XP summary line
   let xpLine=(lang==='th'?'\u0e44\u0e14\u0e49 ':'Earned ')+xp+' XP';
   if(maxCombo>1)xpLine+=' \u00b7 '+(lang==='th'?'\u0e04\u0e2d\u0e21\u0e42\u0e1a ':'Combo ')+maxCombo+'x';
-  if(maxStreak>1)xpLine+=' \u00b7 '+(lang==='th'?'\u0e15\u0e48\u0e2d\u0e40\u0e19\u0e37\u0e48\u0e2d\u0e07 ':'Streak ')+maxStreak;
   let bd='<div class="xp-summary">'+xpLine+'</div>';
   for(const[topic,s]of Object.entries(topicScores)){
     const tp=Math.round((s.right/s.total)*100);
