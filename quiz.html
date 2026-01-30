@@ -277,14 +277,17 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .match-item.wrong{border-color:#ef4444;background:#2d0d0d;animation:wrongShake .5s ease-out}
 
 /* CASE CHAT */
-.case-bubble{max-width:85%;padding:14px 16px;border-radius:14px;font-size:14px;line-height:1.6;animation:fadeSlide .4s ease-out}
-.case-narrator{background:#1a1a2e;border:1px solid #2a2a4a;align-self:flex-start;border-bottom-left-radius:4px}
-.case-student{background:linear-gradient(135deg,#0d2d1f,#1a2e1a);border:1px solid #2a4a3a;align-self:flex-end;border-bottom-right-radius:4px;color:#6ee7b7}
-.case-system{background:#111827;border:1px solid #2a2a4a;align-self:center;text-align:center;font-size:13px;color:#f59e0b;max-width:100%}
-.case-label{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-top:10px;margin-bottom:2px;align-self:flex-start}
-.case-label.q-label{align-self:center}
-.case-label.you-label{align-self:flex-end}
-.case-instruction{background:linear-gradient(135deg,#0d1b2a,#111827);border:1px solid #2a3a4a;border-left:3px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:#aaa;line-height:1.6}
+.case-hero{width:100%;height:160px;border-radius:12px;overflow:hidden;margin-bottom:16px;position:relative}
+.case-hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.7)}
+.case-hero-overlay{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(15,15,26,.9))}
+.case-hero-setting{font-size:11px;color:#6ee7b7;text-transform:uppercase;letter-spacing:1px}
+.case-bubble{max-width:100%;padding:16px 18px;border-radius:14px;font-size:14px;line-height:1.7;animation:fadeSlide .4s ease-out;text-align:center}
+.case-narrator{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:14px;align-self:stretch}
+.case-student{background:linear-gradient(135deg,#0d2d1f,#1a2e1a);border:1px solid #2a4a3a;align-self:stretch;color:#6ee7b7}
+.case-system{background:#111827;border:1px solid #2a2a4a;align-self:stretch;font-size:13px;color:#f59e0b;font-weight:600}
+.case-divider{width:60px;height:2px;background:linear-gradient(90deg,#3b82f6,#6ee7b7);border-radius:2px;align-self:center;margin:6px 0}
+.case-label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1.2px;margin-top:14px;margin-bottom:4px;align-self:center;text-align:center}
+.case-instruction{background:linear-gradient(135deg,#0d1b2a,#111827);border:1px solid #2a3a4a;border-left:3px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:#aaa;line-height:1.6;text-align:center}
 .case-instruction strong{color:#6ee7b7}
 .case-choose-label{font-size:12px;color:#888;margin-bottom:8px;text-align:center;letter-spacing:.5px}
 </style>
@@ -442,10 +445,11 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <span class="quiz-topic" id="caseTopic"></span>
     <span class="quiz-count" id="caseStep"></span>
   </div>
-  <h3 id="caseTitle" style="font-size:18px;font-weight:600;margin-bottom:14px"></h3>
+  <h3 id="caseTitle" style="font-size:18px;font-weight:600;margin-bottom:14px;text-align:center"></h3>
+  <div id="caseHero" class="case-hero" style="display:none"><img id="caseHeroImg" src="" alt=""><div class="case-hero-overlay"><span class="case-hero-setting" id="caseHeroSetting"></span></div></div>
   <div id="caseInstruction" class="case-instruction" style="display:none">You are the physical therapist. Read the <strong>patient scenario</strong>, consider the <strong>clinical question</strong>, then choose the best answer below. Each step builds on the previous one.</div>
   <div id="caseChatArea" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
-  <div id="caseChooseLabel" class="case-choose-label" style="display:none">Choose your answer:</div>
+  <div id="caseChooseLabel" class="case-choose-label" style="display:none">&#x1F447; Select the best answer below</div>
   <div id="caseOptions" class="options"></div>
   <div id="caseFeedback" class="explanation"></div>
   <button class="next-btn" id="caseNext" onclick="nextCaseStep()" style="display:none">Continue</button>
@@ -2283,6 +2287,8 @@ const cases=[
     topic: "Topic 3: Inflammatory",
     title: "The Morning Stiffness Mystery",
     titleTh: "ปริศนาอาการข้อฝืดตอนเช้า",
+    image: "https://images.unsplash.com/photo-1671339590104-5707468e5342?w=800&h=300&fit=crop&auto=format",
+    setting: "Outpatient Clinic",
     steps: [
       {
         narrator: "A 52-year-old woman presents to your outpatient clinic complaining of pain and stiffness in both hands for the past 3 months. She works as an accountant and says typing has become increasingly difficult. She reports the stiffness is worst when she wakes up and takes about 90 minutes to ease. She also mentions feeling unusually tired lately.",
@@ -2352,6 +2358,8 @@ const cases=[
     topic: "Topic 3: Inflammatory",
     title: "The Midnight Joint Attack",
     titleTh: "อาการข้อปวดกลางดึก",
+    image: "https://images.unsplash.com/photo-1503342003479-b290e397387e?w=800&h=300&fit=crop&auto=format",
+    setting: "Emergency Department",
     steps: [
       {
         narrator: "A 58-year-old man is referred to your clinic after an emergency department visit last night. He woke at 2 AM with excruciating pain in his right foot. He describes the pain as the worst he has ever experienced — even the bedsheet touching his foot was unbearable. He has a history of hypertension, takes hydrochlorothiazide, and admits to drinking 3-4 beers most evenings. His BMI is 32. On examination, his right first MTP joint is intensely red, hot, swollen, and exquisitely tender.",
@@ -2421,6 +2429,8 @@ const cases=[
     topic: "Topic 4: OA & AVN",
     title: "The Reluctant Retiree",
     titleTh: "ผู้เกษียณที่ไม่เต็มใจ",
+    image: "https://images.unsplash.com/photo-1499598568193-b1345914c339?w=800&h=300&fit=crop&auto=format",
+    setting: "Outpatient Rehabilitation",
     steps: [
       {
         narrator: "A 67-year-old retired school teacher presents with a 2-year history of gradually worsening right groin pain. She describes the pain as a deep ache that is worse after walking more than 20 minutes and improves with rest. She used to walk 5 km daily but has reduced to 1 km. She reports stiffness in the morning lasting about 15 minutes. Getting in and out of her car and putting on shoes has become difficult. She denies any night pain unless she has had a particularly active day.",
@@ -2494,6 +2504,8 @@ const cases=[
     topic: "Topic 5: Motor Control Theories",
     title: "The Systems Approach to Recovery",
     titleTh: "แนวทางระบบสู่การฟื้นตัว",
+    image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&h=300&fit=crop&auto=format",
+    setting: "Motor Control Lab",
     steps: [
       {
         narrator: "A 63-year-old man is 3 weeks post left MCA stroke. He presents with right hemiparesis. He can sit independently but struggles with sit-to-stand. When he attempts to stand, he pushes excessively with his left (unaffected) leg, shifts his weight entirely to the left, and his right leg remains mostly passive. He has emerging voluntary control in the right leg (can initiate knee extension against gravity) but does not use it functionally. His therapist from the acute hospital used a Brunnstrom approach — facilitating synergy patterns.",
@@ -2563,6 +2575,8 @@ const cases=[
     topic: "Topic 6: Motor Learning",
     title: "The Feedback Dilemma",
     titleTh: "ปัญหาเรื่องผลป้อนกลับ",
+    image: "https://images.unsplash.com/photo-1485727749690-d091e8284ef3?w=800&h=300&fit=crop&auto=format",
+    setting: "Sports Rehabilitation Clinic",
     steps: [
       {
         narrator: "A 45-year-old woman is learning to walk with a transtibial prosthesis after a below-knee amputation due to peripheral vascular disease. She is 2 weeks post-fitting and in the early stages of gait training. Currently, she takes short, uneven steps, leans excessively to the right (intact side), and tends to circumduct the prosthetic limb during swing phase. Her therapist has been providing constant verbal feedback after every single step: 'More weight on your left... Swing your leg forward... Keep your trunk straight... Longer step...'",
@@ -2632,6 +2646,8 @@ const cases=[
     topic: "Topic 5: Motor Control Theories",
     title: "Unlocking Degrees of Freedom",
     titleTh: "การปลดล็อกองศาอิสระ",
+    image: "https://images.unsplash.com/photo-1584493548078-64a61088686a?w=800&h=300&fit=crop&auto=format",
+    setting: "Physical Therapy Clinic",
     steps: [
       {
         narrator: "You are working with a 22-year-old university student who suffered a complete ACL tear during a soccer match 4 months ago. She underwent ACL reconstruction and has been cleared for progressive functional training. She is now learning to perform a single-leg squat on the surgical (right) leg. When you observe her attempt, you notice something striking: her right leg appears rigid — she keeps her hip, knee, and ankle moving as one stiff unit. Her trunk is very upright and barely moves. The movement looks robotic and effortful compared to her smooth, fluid single-leg squat on the left.",
@@ -2705,6 +2721,8 @@ const cases=[
     topic: "Topic 9: Consciousness & GCS",
     title: "The Construction Site Emergency",
     titleTh: "เหตุฉุกเฉินที่สถานที่ก่อสร้าง",
+    image: "https://images.unsplash.com/photo-1712232420820-50733a53b961?w=800&h=300&fit=crop&auto=format",
+    setting: "Trauma Center ICU",
     steps: [
       {
         narrator: "You are the on-call PT in a trauma center. A 34-year-old male construction worker is brought in after a steel beam fell and struck his head. He was wearing a hard hat, but the impact was significant. Upon your initial assessment in the ICU (30 minutes post-injury), the patient is lying in bed. When you enter the room and call his name loudly, he does not respond. When you apply a trapezius squeeze (pain stimulus), his eyes open. He makes incomprehensible moaning sounds. His arms flex abnormally (elbows flex, wrists flex, fingers clench) in response to the pain.",
@@ -2773,6 +2791,8 @@ const cases=[
     topic: "Topic 10: Muscle Tone",
     title: "The Spasticity Puzzle",
     titleTh: "\u0e1b\u0e23\u0e34\u0e28\u0e19\u0e32\u0e20\u0e32\u0e27\u0e30\u0e01\u0e25\u0e49\u0e32\u0e21\u0e40\u0e19\u0e37\u0e49\u0e2d\u0e2b\u0e14\u0e40\u0e01\u0e23\u0e47\u0e07",
+    image: "https://images.unsplash.com/photo-1528152819407-8e0b168985ee?w=800&h=300&fit=crop&auto=format",
+    setting: "Neuro Rehabilitation Clinic",
     steps: [
       {
         narrator: "A 35-year-old man presents to your outpatient neuro-rehabilitation clinic. He is 6 months post right MCA ischemic stroke, resulting in left hemiparesis. He has regained some voluntary movement in his left upper extremity but complains that his arm feels 'stiff and tight,' especially when he tries to reach for objects quickly. His wife reports that the stiffness seems worse when he is stressed or cold. He was previously independent in all ADLs and worked as a graphic designer. He is eager to return to work but finds his left hand difficult to control.",
@@ -2840,6 +2860,8 @@ const cases=[
     topic: "Topic 12: Coordination Balance & Gait",
     title: "The Unsteady Walker",
     titleTh: "\u0e1c\u0e39\u0e49\u0e1b\u0e48\u0e27\u0e22\u0e40\u0e14\u0e34\u0e19\u0e44\u0e21\u0e48\u0e21\u0e31\u0e48\u0e19\u0e04\u0e07",
+    image: "https://images.unsplash.com/photo-1761507377860-0df7e6df73f0?w=800&h=300&fit=crop&auto=format",
+    setting: "Balance & Gait Lab",
     steps: [
       {
         narrator: "A 58-year-old woman is referred to your neurological rehabilitation unit 2 weeks after a left cerebellar stroke (posterior inferior cerebellar artery occlusion). She was previously an active yoga instructor. Her chief complaint is difficulty walking -- she describes feeling 'drunk' even though she hasn't consumed alcohol. She reports that her balance is worst when she closes her eyes in the shower, and she has bumped into door frames several times. She also notices that her right hand has become 'clumsy' when eating with chopsticks or buttoning her shirt.",
@@ -2907,6 +2929,8 @@ const cases=[
     topic: "Topic 1: Clinical Reasoning",
     title: "The Referred Pain Puzzle",
     titleTh: "ปริศนาอาการปวดร้าว",
+    image: "https://images.unsplash.com/photo-1615997380705-504484cd99c4?w=800&h=300&fit=crop&auto=format",
+    setting: "Outpatient Orthopaedic Clinic",
     steps: [
       {
         narrator: "A 50-year-old office worker is referred to your clinic with a diagnosis of 'right shoulder pain.' He reports dull, aching pain in the right shoulder and upper arm for 6 weeks. He says it started gradually without any injury. Pain is worse at night and when turning his head to the right. He also mentions occasional tingling in his thumb and index finger.",
@@ -2974,6 +2998,8 @@ const cases=[
     topic: "Topic 2: Bone & Joint",
     title: "The Weekend Warrior's Wrist",
     titleTh: "ข้อมือนักกีฬาวันหยุด",
+    image: "https://images.unsplash.com/photo-1609113160023-4e31f3765fd7?w=800&h=300&fit=crop&auto=format",
+    setting: "Sports Medicine Clinic",
     steps: [
       {
         narrator: "A 35-year-old man comes to the outpatient clinic 3 days after falling on his outstretched hand (FOOSH) during a recreational basketball game. He reports pain at the base of his thumb on the radial side of the wrist. He has been using ice and ibuprofen with minimal relief. Grip strength is significantly reduced. X-rays taken at the ER were read as 'no fracture seen.'",
@@ -3041,6 +3067,8 @@ const cases=[
     topic: "Topic 7: Classification Systems",
     title: "Classifying Mrs. Chen",
     titleTh: "การจัดประเภทคุณนายเฉิน",
+    image: "https://images.unsplash.com/photo-1631558553269-03a775c388b5?w=800&h=300&fit=crop&auto=format",
+    setting: "Inpatient Rehabilitation Unit",
     steps: [
       {
         narrator: "Mrs. Chen is a 68-year-old retired schoolteacher who had a left middle cerebral artery (MCA) stroke 4 weeks ago. She is now in inpatient rehabilitation. She has right-sided hemiparesis (arm 2/5, leg 3/5), expressive aphasia (understands speech but struggles to produce words), and requires moderate assistance for transfers. She lives alone in a two-story house with the bedroom upstairs. Her daughter lives 30 minutes away.",
@@ -3108,6 +3136,8 @@ const cases=[
     topic: "Topic 8: Neuro Clinical Reasoning",
     title: "The Sudden Stumbler",
     titleTh: "ผู้สะดุดล้มฉับพลัน",
+    image: "https://images.unsplash.com/photo-1758876734777-dcc6981f3671?w=800&h=300&fit=crop&auto=format",
+    setting: "Neurology Outpatient Clinic",
     steps: [
       {
         narrator: "A 45-year-old female schoolteacher is referred to outpatient PT for 'balance problems.' During your subjective interview, she reports that over the past 2 weeks she has been increasingly unsteady on her feet, bumping into doorframes on her right side. She also notices her right hand has become clumsy — she drops chalk and has difficulty writing on the board. She mentions a severe headache 3 days ago that was 'the worst headache of my life' but passed after taking painkillers.",
@@ -3175,6 +3205,8 @@ const cases=[
     topic: "Topic 11: Strength & Reflexes & Sensation",
     title: "The Motorcycle Accident",
     titleTh: "อุบัติเหตุมอเตอร์ไซค์",
+    image: "https://images.unsplash.com/photo-1713623311317-d3c43a4be4cf?w=800&h=300&fit=crop&auto=format",
+    setting: "Spinal Cord Injury Unit",
     steps: [
       {
         narrator: "A 28-year-old man is admitted to the spinal cord injury unit after a motorcycle accident 5 days ago. He has a T10 burst fracture that was surgically stabilized. He is alert, oriented, and medically stable. You are asked to perform the ASIA (American Spinal Injury Association) neurological examination to classify his injury. You begin with key muscle testing.",
@@ -4216,6 +4248,14 @@ function startCaseMode(){
   document.getElementById('caseOptions').innerHTML='';
   document.getElementById('caseFeedback').classList.remove('show');
   document.getElementById('caseNext').style.display='none';
+  // Show hero image
+  const heroEl=document.getElementById('caseHero');
+  if(currentCase.image){
+    document.getElementById('caseHeroImg').src=currentCase.image;
+    document.getElementById('caseHeroImg').onerror=function(){heroEl.style.display='none'};
+    document.getElementById('caseHeroSetting').textContent=currentCase.setting||'';
+    heroEl.style.display='block';
+  } else {heroEl.style.display='none'}
   // Show instruction banner
   document.getElementById('caseInstruction').style.display='block';
   document.getElementById('caseChooseLabel').style.display='block';
@@ -4226,7 +4266,7 @@ function startCaseMode(){
 function renderCaseStep(){
   if(!currentCase)return;
   document.getElementById('caseTopic').textContent=currentCase.topic;
-  document.getElementById('caseStep').textContent=`Step ${caseStepIdx+1} / ${caseTotalSteps}`;
+  document.getElementById('caseStep').textContent='\u{1FA7A} Step '+(caseStepIdx+1)+' / '+caseTotalSteps;
   document.getElementById('caseTitle').textContent=lang==='th'?(currentCase.titleTh||currentCase.title):currentCase.title;
   document.getElementById('caseSummary').style.display='none';
   document.getElementById('caseNext').style.display='none';
@@ -4237,17 +4277,21 @@ function renderCaseStep(){
   // Add scenario label
   const scenLabel=document.createElement('div');
   scenLabel.className='case-label';
-  scenLabel.textContent='Patient Scenario';
+  scenLabel.innerHTML='\u{1F3E5} Patient Scenario';
   chat.appendChild(scenLabel);
   // Add narrator bubble
   const narr=document.createElement('div');
   narr.className='case-bubble case-narrator';
   narr.textContent=lang==='th'?(step.narratorTh||step.narrator):step.narrator;
   chat.appendChild(narr);
+  // Add divider between scenario and question
+  const divider=document.createElement('div');
+  divider.className='case-divider';
+  chat.appendChild(divider);
   // Add question label
   const qLabel=document.createElement('div');
-  qLabel.className='case-label q-label';
-  qLabel.textContent='Clinical Question';
+  qLabel.className='case-label';
+  qLabel.innerHTML='\u{1F4CB} Clinical Question';
   chat.appendChild(qLabel);
   // Show question
   const qBubble=document.createElement('div');
@@ -4257,10 +4301,11 @@ function renderCaseStep(){
   // Show options
   const optDiv=document.getElementById('caseOptions');
   optDiv.innerHTML='';
+  const optLetters=['\u{1F170}\uFE0F','\u{1F171}\uFE0F','\u{1F172}','\u{1F173}'];
   step.options.forEach((opt,i)=>{
     const btn=document.createElement('button');
     btn.className='option';
-    btn.textContent=opt;
+    btn.textContent=(String.fromCharCode(65+i))+'. '+opt;
     btn.onclick=()=>pickCaseOption(i);
     optDiv.appendChild(btn);
   });
@@ -4278,7 +4323,7 @@ function pickCaseOption(i){
   const chat=document.getElementById('caseChatArea');
   const youLabel=document.createElement('div');
   youLabel.className='case-label you-label';
-  youLabel.textContent='Your Answer';
+  youLabel.innerHTML='\u{1F9D1}\u{200D}\u{2695}\uFE0F Your Answer';
   chat.appendChild(youLabel);
   const sBubble=document.createElement('div');
   sBubble.className='case-bubble case-student';
@@ -4308,6 +4353,7 @@ function showCaseSummary(){
   document.getElementById('caseChatArea').innerHTML='';
   document.getElementById('caseInstruction').style.display='none';
   document.getElementById('caseChooseLabel').style.display='none';
+  document.getElementById('caseHero').style.display='none';
   document.getElementById('caseSummary').style.display='block';
   const pct=Math.round((caseScore/caseTotalSteps)*100);
   document.getElementById('caseSummaryTitle').textContent=pct>=80?'Case Solved!':'Case Complete';
