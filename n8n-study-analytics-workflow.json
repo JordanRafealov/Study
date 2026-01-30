@@ -1,0 +1,201 @@
+{
+  "name": "📊 Study App Analytics → Sheet → Daily Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "study-app-analytics",
+        "responseMode": "responseNode",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" }
+            ]
+          }
+        }
+      },
+      "id": "webhook-receive",
+      "name": "Receive Analytics",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "study-app-analytics"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "ok",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond-ok",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [460, 180]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nconst events = body.events || [];\nconst rows = [];\n\nfor (const evt of events) {\n  const d = evt.data || {};\n  rows.push({\n    timestamp: evt.ts || new Date().toISOString(),\n    sessionId: evt.sid || '',\n    event: evt.event || '',\n    mode: d.mode || '',\n    topic: d.topic || '',\n    score: d.score !== undefined ? d.score : '',\n    total: d.total !== undefined ? d.total : '',\n    pct: d.pct !== undefined ? d.pct : '',\n    xp: d.xp !== undefined ? d.xp : '',\n    extra: JSON.stringify(d)\n  });\n}\n\nreturn rows.map(r => ({ json: r }));"
+      },
+      "id": "parse-events",
+      "name": "Parse Events",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 420]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1vl7FxeiXWj_ukHwau-2IOO2cSHGVTpDprI1RxQFrPP8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Events",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $json.timestamp }}",
+            "Session ID": "={{ $json.sessionId }}",
+            "Event": "={{ $json.event }}",
+            "Mode": "={{ $json.mode }}",
+            "Topic": "={{ $json.topic }}",
+            "Score": "={{ $json.score }}",
+            "Total": "={{ $json.total }}",
+            "Percentage": "={{ $json.pct }}",
+            "XP": "={{ $json.xp }}",
+            "Extra Data": "={{ $json.extra }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "write-sheet",
+      "name": "Write to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [680, 420],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets — Claude MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "hours", "hoursInterval": 24, "triggerAtHour": 8 }]
+        }
+      },
+      "id": "daily-trigger",
+      "name": "Daily 8AM Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 660]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "1vl7FxeiXWj_ukHwau-2IOO2cSHGVTpDprI1RxQFrPP8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Events",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "read-events",
+      "name": "Read Events Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [460, 660],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets — Claude MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const events = $input.all().map(i => i.json);\nconst now = new Date();\nconst yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);\n\n// Filter to last 24h\nconst recent = events.filter(e => {\n  if (!e.Timestamp) return false;\n  return new Date(e.Timestamp) >= yesterday;\n});\n\nif (recent.length === 0) {\n  return [{ json: { hasData: false, subject: '📚 Study App — No activity yesterday', body: '<p>Nephisa did not use the app in the last 24 hours.</p><p>💡 <b>Suggestion:</b> Send her a gentle reminder or encouragement message!</p>' } }];\n}\n\n// Count unique sessions\nconst sessions = new Set(recent.map(e => e['Session ID'])).size;\n\n// Count by event type\nconst eventCounts = {};\nrecent.forEach(e => { eventCounts[e.Event] = (eventCounts[e.Event] || 0) + 1; });\n\n// Mode usage\nconst modeStarts = recent.filter(e => e.Event === 'mode_start');\nconst modeCounts = {};\nmodeStarts.forEach(e => { modeCounts[e.Mode] = (modeCounts[e.Mode] || 0) + 1; });\nconst topMode = Object.entries(modeCounts).sort((a,b) => b[1] - a[1])[0];\n\n// Quiz completions\nconst completions = recent.filter(e => e.Event === 'quiz_complete' || e.Event === 'case_complete' || e.Event === 'match_complete');\nconst scores = completions.filter(e => e.Percentage).map(e => parseInt(e.Percentage));\nconst avgScore = scores.length ? Math.round(scores.reduce((a,b) => a+b, 0) / scores.length) : 0;\n\n// Total XP\nconst totalXP = completions.reduce((sum, e) => sum + (parseInt(e.XP) || 0), 0);\n\n// Topic analysis\nconst topicCounts = {};\nmodeStarts.forEach(e => { if(e.Topic) topicCounts[e.Topic] = (topicCounts[e.Topic] || 0) + 1; });\nconst topTopic = Object.entries(topicCounts).sort((a,b) => b[1] - a[1])[0];\n\n// Score emoji\nconst scoreEmoji = avgScore >= 90 ? '🌟' : avgScore >= 70 ? '✅' : avgScore >= 50 ? '📈' : '💪';\n\n// Mode emoji map\nconst modeEmojis = { mcq: '✅', flash: '🔄', fitb: '✏️', match: '🔗', case: '🩺' };\nconst modeNames = { mcq: 'Multiple Choice', flash: 'Flashcards', fitb: 'Fill in Blank', match: 'Match Pairs', case: 'Clinical Cases' };\n\n// Build suggestion\nlet suggestion = '';\nif (avgScore < 50) suggestion = '💡 Scores are below 50% — consider reviewing the Deep Why explanations and trying Flashcard mode for spaced repetition.';\nelse if (avgScore < 70) suggestion = '💡 Good progress! To push scores higher, try the Fill in Blank mode to strengthen recall of key terms.';\nelse if (avgScore < 90) suggestion = '💡 Strong performance! Try harder difficulty questions and Clinical Cases to challenge deeper reasoning.';\nelse suggestion = '🎉 Excellent scores! Nephisa is exam-ready on these topics. Consider moving to less-studied topics.';\n\nif (!modeCounts.case && !modeCounts.match) suggestion += '\\n💡 Clinical Cases and Match Pairs haven\\'t been tried yet — great for exam prep variety!';\n\nconst dateStr = yesterday.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });\n\n// Build email HTML\nlet html = `\n<div style=\"font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;background:#0f0f1a;color:#e0e0e0;border-radius:12px;overflow:hidden\">\n  <div style=\"background:linear-gradient(135deg,#6ee7b7,#3b82f6);padding:20px 24px;text-align:center\">\n    <h1 style=\"margin:0;color:#0f0f1a;font-size:22px\">📊 Nephisa's Study Report</h1>\n    <p style=\"margin:4px 0 0;color:#1a1a2e;font-size:14px\">${dateStr}</p>\n  </div>\n  <div style=\"padding:24px\">\n    <h2 style=\"color:#6ee7b7;font-size:16px;margin:0 0 16px\">📈 Daily Summary</h2>\n    <table style=\"width:100%;border-collapse:collapse\">\n      <tr><td style=\"padding:8px;color:#aaa\">🔓 Sessions</td><td style=\"padding:8px;text-align:right;font-weight:bold;color:#fff\">${sessions}</td></tr>\n      <tr><td style=\"padding:8px;color:#aaa\">${scoreEmoji} Avg Score</td><td style=\"padding:8px;text-align:right;font-weight:bold;color:${avgScore>=70?'#6ee7b7':avgScore>=50?'#f59e0b':'#ef4444'}\">${avgScore}%</td></tr>\n      <tr><td style=\"padding:8px;color:#aaa\">⚡ Total XP</td><td style=\"padding:8px;text-align:right;font-weight:bold;color:#f59e0b\">${totalXP}</td></tr>\n      <tr><td style=\"padding:8px;color:#aaa\">📝 Quizzes Completed</td><td style=\"padding:8px;text-align:right;font-weight:bold;color:#fff\">${completions.length}</td></tr>\n    </table>\n\n    <h2 style=\"color:#3b82f6;font-size:16px;margin:20px 0 12px\">🎮 Modes Used</h2>\n    <div style=\"display:flex;flex-wrap:wrap;gap:8px\">`;\n\nObject.entries(modeCounts).forEach(([m, count]) => {\n  html += `<span style=\"background:#1a1a2e;border:1px solid #2a2a4a;border-radius:20px;padding:6px 14px;font-size:13px\">${modeEmojis[m]||'📋'} ${modeNames[m]||m} (${count}x)</span>`;\n});\n\nhtml += `</div>\n    <p style=\"color:#aaa;font-size:13px;margin-top:8px\">⭐ Most used: <b style=\"color:#fff\">${topMode ? (modeNames[topMode[0]]||topMode[0]) : 'None'}</b></p>`;\n\nif (topTopic) {\n  html += `<p style=\"color:#aaa;font-size:13px\">📖 Most studied: <b style=\"color:#fff\">${topTopic[0]}</b></p>`;\n}\n\nhtml += `\n    <div style=\"background:#1a1a2e;border:1px solid #2a2a4a;border-radius:10px;padding:16px;margin-top:20px\">\n      <h3 style=\"color:#f59e0b;font-size:14px;margin:0 0 8px\">💡 Improvement Suggestion</h3>\n      <p style=\"color:#ccc;font-size:13px;margin:0;line-height:1.5\">${suggestion.replace(/\\n/g, '<br>')}</p>\n    </div>`;\n\nif (scores.length > 0) {\n  html += `\\n    <div style=\"margin-top:20px\">\n      <h3 style=\"color:#a78bfa;font-size:14px;margin:0 0 8px\">📊 Score Breakdown</h3>`;\n  completions.filter(e => e.Percentage).forEach(e => {\n    const p = parseInt(e.Percentage);\n    const barColor = p >= 70 ? '#6ee7b7' : p >= 50 ? '#f59e0b' : '#ef4444';\n    html += `<div style=\"margin:6px 0\"><span style=\"color:#aaa;font-size:12px\">${e.Topic||'Quiz'}</span><div style=\"background:#2a2a4a;border-radius:4px;height:8px;margin-top:2px\"><div style=\"background:${barColor};height:8px;border-radius:4px;width:${p}%\"></div></div><span style=\"color:#fff;font-size:11px\">${p}%</span></div>`;\n  });\n  html += '</div>';\n}\n\nhtml += `\n    <p style=\"text-align:center;color:#666;font-size:11px;margin-top:24px\">Designed by Daddy J with ❤️ • <a href=\"https://jordanrafealov.github.io/Study/\" style=\"color:#3b82f6\">Open App</a></p>\n  </div>\n</div>`;\n\nconst subject = `📚 Nephisa Study Report — ${scoreEmoji} ${avgScore}% avg, ${sessions} session${sessions!==1?'s':''}, ${completions.length} quiz${completions.length!==1?'zes':''}`;\n\nreturn [{ json: { hasData: true, subject, body: html } }];"
+      },
+      "id": "build-email",
+      "name": "Build Daily Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 660]
+    },
+    {
+      "parameters": {
+        "sendTo": "jordan@dopaminedigital.io",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.body }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "send-email",
+      "name": "Send Daily Report",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [900, 660],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail — Claude MCP"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Receive Analytics": {
+      "main": [
+        [
+          { "node": "Respond OK", "type": "main", "index": 0 },
+          { "node": "Parse Events", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Parse Events": {
+      "main": [
+        [{ "node": "Write to Sheet", "type": "main", "index": 0 }]
+      ]
+    },
+    "Daily 8AM Trigger": {
+      "main": [
+        [{ "node": "Read Events Sheet", "type": "main", "index": 0 }]
+      ]
+    },
+    "Read Events Sheet": {
+      "main": [
+        [{ "node": "Build Daily Email", "type": "main", "index": 0 }]
+      ]
+    },
+    "Build Daily Email": {
+      "main": [
+        [{ "node": "Send Daily Report", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}
