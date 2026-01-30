@@ -437,7 +437,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <h2 id="matchResultTitle" style="font-size:22px;margin-bottom:12px"></h2>
     <div id="matchResultStats" style="color:#888;font-size:15px;margin-bottom:20px"></div>
     <button class="retry-btn" onclick="startMatchRound()">Play Again</button>
-    <button class="back-btn" style="margin-top:8px" onclick="goBack()">Back</button>
+    <button class="back-btn" style="margin-top:8px" onclick="backToModes()">Back to Modes</button>
+    <button class="back-btn" style="margin-top:8px" onclick="backToTopics()">Back to Topics</button>
   </div>
   <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
@@ -460,7 +461,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <h2 id="caseSummaryTitle" style="font-size:22px;margin-bottom:8px"></h2>
     <div id="caseSummaryStats" style="color:#888;font-size:15px;margin-bottom:20px"></div>
     <button class="retry-btn" onclick="startCaseMode()" style="margin-bottom:10px">Try Another Case</button>
-    <button class="retry-btn" onclick="goBack()" style="background:transparent;border:1px solid #2a2a4a;color:#888">Back to Modes</button>
+    <button class="back-btn" style="margin-top:8px" onclick="backToModes()">Back to Modes</button>
+    <button class="back-btn" style="margin-top:8px" onclick="backToTopics()">Back to Topics</button>
   </div>
   <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
@@ -474,7 +476,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
   <div class="score-label" id="scoreLabel"></div>
   <div class="topic-breakdown" id="breakdown"></div>
   <button class="retry-btn" onclick="retryWrong()">Retry Wrong Answers / ทำข้อที่ผิดอีกครั้ง</button>
-  <button class="back-btn" onclick="showScreen('home')">Back to Topics / กลับหน้าหลัก</button>
+  <button class="back-btn" onclick="backToTopics()">Back to Topics / กลับหน้าหลัก</button>
   <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
@@ -3663,6 +3665,26 @@ function goBack(){
   const prev=navStack.length>0?navStack[navStack.length-1]:'home';
   showScreen(prev);
 }
+function backToTopics(){
+  // Trim stack back to the topic/subject selection screen
+  while(navStack.length>1){
+    const top=navStack[navStack.length-1];
+    if(top==='subjectDetail'||top==='home')break;
+    navStack.pop();
+  }
+  if(navStack.length===0)navStack.push('home');
+  showScreen(navStack[navStack.length-1]);
+}
+function backToModes(){
+  // Trim stack back to mode select
+  while(navStack.length>1){
+    const top=navStack[navStack.length-1];
+    if(top==='modeSelect')break;
+    navStack.pop();
+  }
+  if(navStack.length===0)navStack.push('home');
+  showScreen(navStack[navStack.length-1]);
+}
 function selectSubject(key){
   currentSubject=subjects.find(s=>s.key===key);
   if(!currentSubject)return;
@@ -4008,6 +4030,8 @@ function rateCard(r){
 // ─── RESULTS ───
 function showResults(){
   stopQuizTimer();const totalTime=Date.now()-quizStartTime;
+  // Clean navStack: remove the completed activity screen so back doesn't revisit it
+  while(navStack.length>0&&['quiz','flashScreen','fitbScreen'].includes(navStack[navStack.length-1])){navStack.pop()}
   showScreen('results');
   const pct=Math.round((score/deck.length)*100);
   const g=getGrade(pct);
@@ -4229,6 +4253,8 @@ function selectMatch(el){
   matchSelected=null;
 }
 function showMatchResults(){
+  // Clean navStack: remove completed matchScreen so back doesn't revisit it
+  while(navStack.length>0&&navStack[navStack.length-1]==='matchScreen'){navStack.pop()}
   document.getElementById('matchArea').style.display='none';
   document.getElementById('matchResult').style.display='block';
   const time=fmtTime(Date.now()-matchTimerStart);
@@ -4357,6 +4383,8 @@ function nextCaseStep(){
   renderCaseStep();
 }
 function showCaseSummary(){
+  // Clean navStack: remove completed caseScreen so back doesn't revisit it
+  while(navStack.length>0&&navStack[navStack.length-1]==='caseScreen'){navStack.pop()}
   document.getElementById('caseOptions').innerHTML='';
   document.getElementById('caseChatArea').innerHTML='';
   document.getElementById('caseInstruction').style.display='none';
