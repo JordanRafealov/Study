@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exam Prep Learning App for Nephisa</title>
+<title>Exam Preparation Learning App For Nafisa</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{height:100%;overflow:hidden}
@@ -18,18 +18,18 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .lang-btn.active{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000}
 .lang-btn:active{transform:scale(.92)}
 
-.home{text-align:center;padding-top:36px}
+.home{text-align:center;padding-top:36px;display:flex;flex-direction:column;min-height:calc(100vh - 60px)}
 .home-header{display:flex;justify-content:flex-end;padding:0 0 12px}
-.home-icon{font-size:36px;margin-bottom:4px;filter:drop-shadow(0 2px 8px rgba(110,231,183,.3))}
+.home-icon{margin-bottom:8px}.home-icon img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #3b82f6;box-shadow:0 2px 12px rgba(59,130,246,.3)}
 .home h1{font-size:26px;margin-bottom:3px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
 .home .sub{color:#888;margin-bottom:2px;font-size:13px}
 .home .sub-th{color:#555;margin-bottom:0;font-size:12px;font-style:italic}
 .home-divider{width:36px;height:3px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);border-radius:2px;margin:10px auto 14px}
-.home-footer{margin-top:20px;padding:10px 0 20px;border-top:1px solid #1a1a2e;color:#333;font-size:11px;letter-spacing:.3px}
+.home-footer{margin-top:auto;padding:10px 0 20px;border-top:1px solid #1a1a2e;color:#333;font-size:11px;letter-spacing:.3px;text-align:center}
 .home-footer .hf-heart{color:#ef4444}
 .topic-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
 .topic-btn{background:linear-gradient(135deg,#131525,#1a1a2e);border:none;border-left:3px solid #6ee7b7;border-radius:10px;padding:12px 38px 12px 14px;text-align:left;cursor:pointer;transition:all .2s;position:relative}
-.topic-btn:hover{border-left-color:#3b82f6;background:linear-gradient(135deg,#161830,#1e1e35);transform:translateX(4px)}
+.topic-btn:hover{border-left-color:#3b82f6;background:linear-gradient(135deg,#161830,#1e1e35)}
 .topic-btn::after{content:'';position:absolute;right:16px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-right:2px solid #444;border-bottom:2px solid #444;transform:translateY(-50%) rotate(-45deg);transition:border-color .2s}
 .topic-btn:hover::after{border-color:#6ee7b7}
 .topic-btn .t-num{font-size:11px;color:#6ee7b7;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px;font-weight:600}
@@ -219,8 +219,10 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .option:hover:not(.disabled){transform:translateX(4px);border-color:#3b82f6;background:#1e1e35}
 .option:active:not(.disabled){transform:scale(.98)}
 .topic-btn{transition:all .25s cubic-bezier(.22,1,.36,1)}
-.topic-btn:hover{border-color:#3b82f6;background:#1e1e35;transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,.12)}
+@media(hover:hover){.topic-btn:hover{border-color:#3b82f6;background:#1e1e35;transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,.12)}}
 .topic-btn:active{transform:translateY(0) scale(.98)}
+@media(hover:hover){.subject-btn:hover{border-color:#6ee7b7;border-left-color:#6ee7b7;background:linear-gradient(135deg,#161830,#1e1e35);transform:translateY(-2px);box-shadow:0 4px 12px rgba(110,231,183,.12)}}
+.subject-btn:active{transform:translateY(0) scale(.98)}
 .mode-btn{transition:all .25s cubic-bezier(.22,1,.36,1)}
 .mode-btn:hover{border-color:#6ee7b7;background:#1e1e35;transform:translateY(-2px);box-shadow:0 4px 12px rgba(110,231,183,.12)}
 .mode-btn:active{transform:translateY(0) scale(.98)}
@@ -256,17 +258,15 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .score-ring .fg{transition:stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1)}
 
 /* SUBJECT CARDS */
-.subject-btn{background:linear-gradient(135deg,#131525,#1a1a2e);border:none;border-left:3px solid #3b82f6;border-radius:10px;padding:14px 38px 14px 14px;text-align:left;cursor:pointer;transition:all .25s cubic-bezier(.22,1,.36,1);position:relative}
-.subject-btn:hover{border-left-color:#6ee7b7;background:linear-gradient(135deg,#161830,#1e1e35);transform:translateX(4px)}
-.subject-btn::after{content:'';position:absolute;right:16px;top:50%;width:8px;height:8px;border-right:2px solid #444;border-bottom:2px solid #444;transform:translateY(-50%) rotate(-45deg);transition:border-color .2s}
-.subject-btn:hover::after{border-color:#6ee7b7}
-.subject-btn .s-emoji{font-size:20px;margin-right:6px}
-.subject-btn .s-title{font-size:16px;font-weight:600}
-.subject-btn .s-sub{font-size:13px;color:#666;font-style:italic;margin-top:1px}
-.subject-btn .s-count{font-size:12px;color:#555;margin-top:3px}
+.subject-btn{background:linear-gradient(135deg,#111827,#1a1a2e);border:1px solid #2a2a4a;border-left:4px solid #3b82f6;border-radius:14px;padding:18px 42px 18px 18px;text-align:left;cursor:pointer;transition:all .25s cubic-bezier(.22,1,.36,1);position:relative;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.subject-btn::after{content:'';position:absolute;right:16px;top:50%;width:10px;height:10px;border-right:2.5px solid #3b82f6;border-bottom:2.5px solid #3b82f6;transform:translateY(-50%) rotate(-45deg);transition:border-color .2s}
+.subject-btn .s-emoji{font-size:24px;margin-right:8px;display:inline-block;vertical-align:middle}
+.subject-btn .s-title{font-size:17px;font-weight:700}
+.subject-btn .s-sub{font-size:13px;color:#888;font-style:italic;margin-top:2px}
+.subject-btn .s-count{font-size:12px;color:#6ee7b7;margin-top:4px;font-weight:500}
 
 /* FILL IN BLANK */
-.fitb-blank{display:inline;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;border-bottom:2px dashed #6ee7b7;padding:0 4px}
+.fitb-blank{display:inline;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;padding:0 4px}
 .fitb-blank.revealed{-webkit-text-fill-color:#6ee7b7}
 
 /* MATCH PAIRS */
@@ -289,8 +289,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 <div class="back-link" id="backLink" style="display:none" onclick="goBack()"><span class="back-link-btn">Menu</span></div>
 
 <div id="home" class="screen active home">
-  <div class="home-icon">📚</div>
-  <h1>Exam Prep Learning App for Nephisa</h1>
+  <div class="home-icon"><img src="data:image/jpeg;base64,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" alt="Nafisa"></div>
+  <h1>Exam Preparation Learning App For Nafisa</h1>
   <p class="sub">Physical Therapy Exam Prep</p>
   <p class="sub-th">เตรียมสอบกายภาพบำบัด</p>
   <div class="home-divider"></div>
@@ -359,6 +359,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
   <div class="options" id="qOptions"></div>
   <div class="explanation" id="qExplanation"></div>
   <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 <div id="milestone" class="screen milestone">
@@ -388,6 +389,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <button class="flash-btn ok" onclick="rateCard('ok')">Got It / เข้าใจ</button>
     <button class="flash-btn easy" onclick="rateCard('easy')">Easy / ง่าย</button>
   </div>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 <div id="fitbScreen" class="screen">
@@ -403,6 +405,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
   <div class="options" id="fitbOptions"></div>
   <div class="explanation" id="fitbExplanation"></div>
   <button class="next-btn" id="fitbNext" onclick="nextFitb()">Next</button>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 <div id="matchScreen" class="screen">
