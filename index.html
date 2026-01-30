@@ -267,7 +267,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 
 /* FILL IN BLANK */
 .fitb-blank{display:inline;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;border-bottom:2px dashed #6ee7b7;padding:0 4px}
-.fitb-blank.revealed{-webkit-text-fill-color:#6ee7b7;border-bottom-style:solid}
+.fitb-blank.revealed{-webkit-text-fill-color:#6ee7b7}
 
 /* MATCH PAIRS */
 .match-item{background:#1a1a2e;border:2px solid #2a2a4a;border-radius:10px;padding:12px 14px;cursor:pointer;font-size:13px;line-height:1.5;transition:all .2s;text-align:center;color:#e0e0e0;min-height:50px;display:flex;align-items:center;justify-content:center}
@@ -304,7 +304,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
   <p id="sdSubtitle" style="color:#888;font-size:13px;text-align:center;margin-bottom:14px;font-style:italic"></p>
   <button class="all-btn" id="sdAllBtn" onclick="">All Topics / ทุกหัวข้อ</button>
   <div class="topic-grid" id="sdTopicGrid"></div>
-  <button class="back-btn" style="margin-top:12px" onclick="showScreen('home')">Back / กลับ</button>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 <div id="modeSelect" class="screen mode-select">
@@ -336,6 +336,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
       <div class="m-desc">Diagnose patients through scenario stories</div>
     </div>
   </div>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 <div id="quiz" class="screen quiz">
@@ -410,9 +411,13 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <span class="quiz-count" id="matchCount"></span>
   </div>
   <div id="matchTimer" style="font-size:13px;color:#f59e0b;text-align:center;margin-bottom:12px"></div>
+  <div style="display:flex;gap:10px;margin-bottom:8px">
+    <div style="flex:1;text-align:center;font-size:12px;font-weight:600;color:#6ee7b7;text-transform:uppercase;letter-spacing:1px">Terms</div>
+    <div style="flex:1;text-align:center;font-size:12px;font-weight:600;color:#3b82f6;text-transform:uppercase;letter-spacing:1px">Definitions</div>
+  </div>
   <div id="matchArea" style="display:flex;gap:10px">
-    <div id="matchLeft" style="flex:1;display:flex;flex-direction:column;gap:8px"></div>
-    <div id="matchRight" style="flex:1;display:flex;flex-direction:column;gap:8px"></div>
+    <div id="matchLeft" style="flex:1;display:flex;flex-direction:column;gap:8px;border-right:1px dashed #2a2a4a;padding-right:10px"></div>
+    <div id="matchRight" style="flex:1;display:flex;flex-direction:column;gap:8px;padding-left:10px"></div>
   </div>
   <div id="matchResult" style="display:none;text-align:center;padding-top:30px">
     <h2 id="matchResultTitle" style="font-size:22px;margin-bottom:12px"></h2>
@@ -420,6 +425,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <button class="retry-btn" onclick="startMatchRound()">Play Again</button>
     <button class="back-btn" style="margin-top:8px" onclick="goBack()">Back</button>
   </div>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 <div id="caseScreen" class="screen">
@@ -438,6 +444,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <div id="caseSummaryStats" style="color:#888;font-size:15px;margin-bottom:20px"></div>
     <button class="retry-btn" onclick="goBack()">Back to Modes</button>
   </div>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 <div id="results" class="screen results">
@@ -450,6 +457,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
   <div class="topic-breakdown" id="breakdown"></div>
   <button class="retry-btn" onclick="retryWrong()">Retry Wrong Answers / ทำข้อที่ผิดอีกครั้ง</button>
   <button class="back-btn" onclick="showScreen('home')">Back to Topics / กลับหน้าหลัก</button>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
 </div>
@@ -1612,7 +1620,7 @@ const questions = [
 // ══════ TOPIC 9: Consciousness and GCS ══════
 
 {
-  topic:"Topic 9: Consciousness and GCS",diff:1,
+  topic:"Topic 9: Consciousness & GCS",diff:1,
   q:"Consciousness requires which two components?",
   th:"ความรู้สึกตัว (Consciousness) ต้องมีองค์ประกอบ 2 อย่างคืออะไร?",
   options:["Arousal and Awareness (ความตื่นตัวและการรับรู้)","Memory and Attention (ความจำและความตั้งใจ)","Cognition and Language (การรู้คิดและภาษา)","Sensation and Perception (การรับสัมผัสและการรับรู้)"],
@@ -1622,7 +1630,7 @@ const questions = [
   explainTh:"ความรู้สึกตัวต้องมีทั้ง Arousal (สภาวะตื่นตัว ควบคุมโดย ARAS ในก้านสมอง) และ Awareness (ความสามารถในการรับรู้และเข้าใจสิ่งแวดล้อม ซึ่งเป็นหน้าที่ของสมองชั้นสูง)"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:1,
+  topic:"Topic 9: Consciousness & GCS",diff:1,
   q:"What is the total score range of the Glasgow Coma Scale (GCS)?",
   th:"คะแนนรวมของ Glasgow Coma Scale (GCS) มีช่วงเท่าใด?",
   options:["3-15","0-15","1-12","0-42"],
@@ -1632,7 +1640,7 @@ const questions = [
   explainTh:"GCS มีคะแนนตั้งแต่ 3 ถึง 15 การลืมตา (1-4) + การตอบสนองด้วยเสียง (1-5) + การตอบสนองด้วยการเคลื่อนไหว (1-6) = ต่ำสุด 3, สูงสุด 15 ส่วน 0-42 เป็นช่วงคะแนน NIHSS"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:1,
+  topic:"Topic 9: Consciousness & GCS",diff:1,
   q:"What are the three components assessed in the Glasgow Coma Scale?",
   th:"องค์ประกอบ 3 ด้านที่ประเมินใน Glasgow Coma Scale คืออะไร?",
   options:["Eye opening, Verbal response, Motor response (การลืมตา การตอบสนองด้วยเสียง การตอบสนองด้วยการเคลื่อนไหว)","Consciousness, Orientation, Memory (สติ การรับรู้สถานที่เวลา ความจำ)","Arousal, Awareness, Cognition (ความตื่นตัว การรับรู้ การรู้คิด)","Pupil response, Heart rate, Blood pressure (การตอบสนองของม่านตา อัตราหัวใจ ความดันโลหิต)"],
@@ -1642,7 +1650,7 @@ const questions = [
   explainTh:"GCS ประเมิน: การลืมตา (E, คะแนน 1-4), การตอบสนองด้วยเสียง (V, คะแนน 1-5), การตอบสนองด้วยการเคลื่อนไหว (M, คะแนน 1-6) คะแนนรวม = E + V + M"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:1,
+  topic:"Topic 9: Consciousness & GCS",diff:1,
   q:"What are the five levels of consciousness in order from most alert to least responsive?",
   th:"ระดับความรู้สึกตัว 5 ระดับเรียงลำดับจากตื่นตัวมากที่สุดถึงไม่ตอบสนองคืออะไร?",
   options:["Alert → Drowsiness → Stupor → Semicoma → Coma","Alert → Stupor → Drowsiness → Semicoma → Coma","Alert → Drowsiness → Semicoma → Stupor → Coma","Drowsiness → Alert → Stupor → Coma → Semicoma"],
@@ -1652,7 +1660,7 @@ const questions = [
   explainTh:"5 ระดับ: Alert (ตื่นมีสติ), Drowsiness (รู้สึกตัวลดลงเล็กน้อย ปลุกตื่นได้), Stupor (รู้สึกตัวลดลงมาก ตอบสนองต่อความเจ็บปวด), Semicoma (ขยับแบบไม่มีจุดหมายเมื่อกระตุ้นแรง), Coma (ไม่ตอบสนองต่อการกระตุ้นใดๆ)"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:1,
+  topic:"Topic 9: Consciousness & GCS",diff:1,
   q:"The ARAS (Ascending Reticular Activating System) projects from which brain structure to activate the cortex?",
   th:"ARAS (Ascending Reticular Activating System) ส่งสัญญาณจากโครงสร้างสมองใดเพื่อกระตุ้นเปลือกสมอง?",
   options:["Brainstem reticular formation through the thalamus (reticular formation ในก้านสมองผ่าน thalamus)","Cerebellum through the basal ganglia (สมองน้อยผ่าน basal ganglia)","Hippocampus through the amygdala (ฮิปโปแคมปัสผ่านอะมิกดาลา)","Spinal cord through the medulla (ไขสันหลังผ่าน medulla)"],
@@ -1662,7 +1670,7 @@ const questions = [
   explainTh:"ARAS ส่งสัญญาณจาก reticular formation ในก้านสมองขึ้นผ่าน thalamus ไปกระตุ้นเปลือกสมอง เป็นพื้นฐานทางประสาทของความตื่นตัว ซึ่งเป็นองค์ประกอบสำคัญของสติ"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:2,
+  topic:"Topic 9: Consciousness & GCS",diff:2,
   q:"A GCS score of 8 or below indicates:",
   th:"คะแนน GCS เท่ากับ 8 หรือต่ำกว่าบ่งชี้:",
   options:["Severe brain injury and coma (การบาดเจ็บสมองรุนแรงและโคม่า)","Moderate brain injury (การบาดเจ็บสมองปานกลาง)","Mild brain injury (การบาดเจ็บสมองเล็กน้อย)","Normal consciousness (สติปกติ)"],
@@ -1672,7 +1680,7 @@ const questions = [
   explainTh:"การแปลผล GCS: 3-8 = การบาดเจ็บสมองรุนแรง/โคม่า, 9-12 = ปานกลาง, 13-15 = เล็กน้อย คะแนน 8 หรือต่ำกว่าบ่งชี้การบาดเจ็บรุนแรงต้องเฝ้าระวังอย่างใกล้ชิด"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:2,
+  topic:"Topic 9: Consciousness & GCS",diff:2,
   q:"In the GCS, what is the highest motor response score and what does it represent?",
   th:"ใน GCS คะแนนการตอบสนองด้วยการเคลื่อนไหวสูงสุดคือเท่าใดและหมายถึงอะไร?",
   options:["6 — Obeys commands (ทำตามคำสั่ง)","5 — Localizes pain (ระบุตำแหน่งเจ็บ)","4 — Withdraws from pain (ถอนตัวจากความเจ็บ)","6 — Spontaneous movement (เคลื่อนไหวเอง)"],
@@ -1682,7 +1690,7 @@ const questions = [
   explainTh:"คะแนนการตอบสนองด้วยการเคลื่อนไหว: 6=ทำตามคำสั่ง, 5=ระบุตำแหน่งเจ็บ, 4=ถอนตัว, 3=งอผิดปกติ (decorticate), 2=เหยียดผิดปกติ (decerebrate), 1=ไม่มี คะแนน 6 หมายถึงผู้ป่วยทำตามคำสั่งได้"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:2,
+  topic:"Topic 9: Consciousness & GCS",diff:2,
   q:"In a Vegetative State, what is the status of arousal and awareness?",
   th:"ในสภาวะ Vegetative State ระดับ arousal และ awareness เป็นอย่างไร?",
   options:["Arousal is present, Awareness is absent (ตื่นตัวมี การรับรู้ไม่มี)","Both arousal and awareness are absent (ทั้งตื่นตัวและการรับรู้ไม่มี)","Both arousal and awareness are present (ทั้งตื่นตัวและการรับรู้มี)","Arousal is absent, Awareness is present (ตื่นตัวไม่มี การรับรู้มี)"],
@@ -1692,7 +1700,7 @@ const questions = [
   explainTh:"Vegetative State = ตื่นตัวมี (ลืมตาได้ มีวงจรหลับ-ตื่น) แต่การรับรู้ไม่มี (ไม่มีปฏิสัมพันธ์อย่างมีจุดหมาย) เปรียบเทียบ: Coma = ทั้งคู่ไม่มี, Locked-in = ทั้งคู่มี, Minimally Conscious = ตื่นตัวมี การรับรู้ไม่แน่นอน"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:2,
+  topic:"Topic 9: Consciousness & GCS",diff:2,
   q:"What is the score range of the NIHSS (National Institute of Health Stroke Scale)?",
   th:"คะแนนรวมของ NIHSS (National Institute of Health Stroke Scale) มีช่วงเท่าใด?",
   options:["0-42","3-15","0-15","0-100"],
@@ -1702,7 +1710,7 @@ const questions = [
   explainTh:"NIHSS มีคะแนนตั้งแต่ 0 (ไม่มีความบกพร่อง) ถึง 42 (ความบกพร่องสูงสุด) ประเมินสติ (1a, 1b, 1c), การมองตาม, ลานสายตา, ใบหน้า, แขนขา, การประสานงาน, การรับรู้, ภาษา, การพูด, และ neglect"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:2,
+  topic:"Topic 9: Consciousness & GCS",diff:2,
   q:"In the NIHSS, item 1b (LOC Questions) asks the patient about which two things?",
   th:"ใน NIHSS ข้อ 1b (คำถามเรื่องสติ) ถามผู้ป่วยเกี่ยวกับ 2 สิ่งใด?",
   options:["Age and current month (อายุและเดือนปัจจุบัน)","Name and date of birth (ชื่อและวันเกิด)","Location and year (สถานที่และปี)","Day of week and time (วันในสัปดาห์และเวลา)"],
@@ -1712,7 +1720,7 @@ const questions = [
   explainTh:"NIHSS ข้อ 1b ถามอายุและเดือนปัจจุบัน คะแนน: 0 = ตอบถูกทั้ง 2 ข้อ, 1 = ตอบถูก 1 ข้อ, 2 = ตอบไม่ได้หรือตอบผิดทั้ง 2 ข้อ เป็นการทดสอบการรับรู้สถานที่เวลาเบื้องต้น"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:3,
+  topic:"Topic 9: Consciousness & GCS",diff:3,
   q:"A patient has eyes that open to pain only, makes incomprehensible sounds, and shows abnormal flexion (decorticate posturing). What is their GCS score?",
   th:"ผู้ป่วยลืมตาเมื่อกระตุ้นความเจ็บปวดเท่านั้น ส่งเสียงไม่เป็นคำ และแสดงการงอผิดปกติ (decorticate posturing) คะแนน GCS เท่าใด?",
   options:["7 (E2+V2+M3)","5 (E1+V1+M3)","8 (E2+V3+M3)","9 (E3+V3+M3)"],
@@ -1722,7 +1730,7 @@ const questions = [
   explainTh:"ลืมตาเมื่อเจ็บ = 2, เสียงไม่เป็นคำ = 2, การงอผิดปกติ (decorticate) = 3 GCS รวม = 2+2+3 = 7 ซึ่งเป็นการบาดเจ็บสมองรุนแรง (ต่ำกว่า 8)"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:3,
+  topic:"Topic 9: Consciousness & GCS",diff:3,
   q:"Locked-in Syndrome differs from Coma because:",
   th:"Locked-in Syndrome แตกต่างจาก Coma เพราะ:",
   options:["Both arousal and awareness are fully preserved but the patient cannot move or speak (ทั้งตื่นตัวและรับรู้ปกติแต่ผู้ป่วยเคลื่อนไหวหรือพูดไม่ได้)","Only arousal is present with no awareness (มีเฉพาะตื่นตัวไม่มีการรับรู้)","Both arousal and awareness are absent (ทั้งตื่นตัวและรับรู้ไม่มี)","The patient fluctuates between consciousness and unconsciousness (ผู้ป่วยสลับระหว่างรู้สึกตัวและหมดสติ)"],
@@ -1732,7 +1740,7 @@ const questions = [
   explainTh:"Locked-in Syndrome: ตื่นตัวและรับรู้เต็มที่ แต่เคลื่อนไหวหรือสื่อสารไม่ได้ (ยกเว้นอาจขยับตาได้) ใน Coma ทั้งตื่นตัวและรับรู้ไม่มี Vegetative State มีตื่นตัวแต่ไม่มีการรับรู้"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:3,
+  topic:"Topic 9: Consciousness & GCS",diff:3,
   q:"Loss of arousal (consciousness) is typically caused by damage to which brain structures, while loss of awareness is associated with damage to which structure?",
   th:"การสูญเสีย arousal (สติ) เกิดจากความเสียหายของโครงสร้างสมองใด ในขณะที่การสูญเสีย awareness เกี่ยวข้องกับความเสียหายของโครงสร้างใด?",
   options:["Loss of arousal: brainstem herniation; Loss of awareness: thalamic stroke (การสูญเสีย arousal: สมองเคลื่อน; การสูญเสีย awareness: หลอดเลือดสมอง thalamus)","Loss of arousal: thalamic stroke; Loss of awareness: brainstem herniation","Loss of arousal: frontal lobe damage; Loss of awareness: cerebellar damage","Loss of arousal: spinal cord injury; Loss of awareness: temporal lobe damage"],
@@ -1742,7 +1750,7 @@ const questions = [
   explainTh:"การสูญเสีย arousal เกิดจากความเสียหายของก้านสมอง (เช่น สมองเคลื่อนกดก้านสมอง/ARAS) การสูญเสีย awareness เกี่ยวกับหลอดเลือดสมอง thalamus ทำให้เกิด Akinetic Mutism (เคลื่อนไหวและพูดไม่ได้) thalamus เป็นสถานีถ่ายทอดข้อมูลไปยังเปลือกสมอง"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:3,
+  topic:"Topic 9: Consciousness & GCS",diff:3,
   q:"In the mental status examination, which three main components are assessed?",
   th:"ในการตรวจสภาพจิต (Mental Status Examination) ประเมินองค์ประกอบหลัก 3 ด้านใด?",
   options:["Levels of consciousness, Behavior, Cognitive function (ระดับสติ พฤติกรรม หน้าที่ทางปัญญา)","Memory, Language, Orientation (ความจำ ภาษา การรับรู้สถานที่เวลา)","Mood, Affect, Personality (อารมณ์ การแสดงออกทางอารมณ์ บุคลิกภาพ)","Attention, Perception, Executive function (ความตั้งใจ การรับรู้ หน้าที่บริหาร)"],
@@ -1752,7 +1760,7 @@ const questions = [
   explainTh:"การตรวจสภาพจิตมี 3 องค์ประกอบ: (1) ระดับความรู้สึกตัว (ประเมินด้วย GCS), (2) พฤติกรรม (ร่วมมือ/กระวนกระวาย/ก้าวร้าว อารมณ์), (3) หน้าที่ทางปัญญา (สมาธิ ความจำ ภาษา รวมถึง dysarthria/aphasia)"
 },
 {
-  topic:"Topic 9: Consciousness and GCS",diff:3,
+  topic:"Topic 9: Consciousness & GCS",diff:3,
   q:"In the NIHSS, item 1c tests 'LOC Commands' by asking the patient to perform which two tasks?",
   th:"ใน NIHSS ข้อ 1c ทดสอบ 'คำสั่งเรื่องสติ' โดยให้ผู้ป่วยทำ 2 งานใด?",
   options:["Close/open eyes and clench/open fist (หลับตาลืมตาและกำมือแบมือ)","Raise both arms and wiggle toes (ยกแขนทั้งสองและขยับนิ้วเท้า)","Stick out tongue and touch nose (แลบลิ้นและสัมผัสจมูก)","Squeeze hand and lift leg (บีบมือและยกขา)"],
@@ -1918,7 +1926,7 @@ const questions = [
 // ══════ TOPIC 11: Strength and Reflexes and Sensation ══════
 
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:1,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:1,
   q:"What does MMT Grade 3 (Fair) mean in manual muscle testing?",
   th:"MMT เกรด 3 (Fair) หมายความว่าอะไรในการทดสอบกำลังกล้ามเนื้อด้วยมือ?",
   options:["Holds test position against maximal resistance (คงท่าทดสอบได้ต้านแรงสูงสุด)","Holds test position against gravity (คงท่าทดสอบได้ต้านแรงโน้มถ่วง)","Moves through full ROM gravity eliminated (เคลื่อนไหวได้เต็ม ROM เมื่อตัดแรงโน้มถ่วง)","No visible movement; palpable flicker only (ไม่เห็นการเคลื่อนไหว คลำได้แค่การกระตุก)"],
@@ -1928,7 +1936,7 @@ const questions = [
   explainTh:"MMT เกรด 3 (Fair) = ผู้ป่วยสามารถคงท่าทดสอบได้ต้านแรงโน้มถ่วง เป็นเกณฑ์สำคัญ: เกรด 3+ คงท่าได้ต้านแรงเล็กน้อย ส่วนเกรด 2 เคลื่อนไหวได้เฉพาะเมื่อตัดแรงโน้มถ่วง"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:1,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:1,
   q:"Which DTR grade is considered the normal reflex response?",
   th:"เกรด DTR ใดที่ถือว่าเป็นการตอบสนองรีเฟล็กซ์ปกติ?",
   options:["0 (Absent / ไม่มี)","1+ (Hyporeflexia)","2+ (Normal / ปกติ)","4+ (Clonus)"],
@@ -1938,7 +1946,7 @@ const questions = [
   explainTh:"DTR เกรด 2+ (++) คือการตอบสนองรีเฟล็กซ์ปกติ — การตอบสนองรวดเร็ว เกรด 0 = ไม่มี (areflexia), 1+ = เล็กน้อย (hyporeflexia), 3+ = รวดเร็วมาก (hyperreflexia), 4+ = clonus (ผิดปกติเสมอ)"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:1,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:1,
   q:"A positive Babinski sign in an adult indicates pathology of which system?",
   th:"Babinski sign ที่ให้ผลบวกในผู้ใหญ่บ่งชี้พยาธิสภาพของระบบใด?",
   options:["Lower Motor Neuron (LMN)","Upper Motor Neuron (UMN)","Peripheral nerve (เส้นประสาทส่วนปลาย)","Autonomic nervous system (ระบบประสาทอัตโนมัติ)"],
@@ -1948,7 +1956,7 @@ const questions = [
   explainTh:"Babinski sign ที่ให้ผลบวก (นิ้วหัวแม่เท้า dorsiflexion + นิ้วอื่นกางออก) ในผู้ใหญ่บ่งชี้พยาธิสภาพ Upper Motor Neuron (UMN) เสมอ หมายเหตุ: Babinski เป็นปกติในทารกอายุต่ำกว่า 1 ปี เนื่องจาก CNS ยังไม่พัฒนาเต็มที่"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:1,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:1,
   q:"The dermatome level T10 corresponds to which anatomical landmark?",
   th:"ระดับ dermatome T10 ตรงกับจุดสังเกตทางกายวิภาคใด?",
   options:["Nipple level (ระดับหัวนม)","Umbilicus level (ระดับสะดือ)","Inguinal/groin region (บริเวณขาหนีบ)","Clavicle level (ระดับกระดูกไหปลาร้า)"],
@@ -1958,7 +1966,7 @@ const questions = [
   explainTh:"T10 = สะดือ จุดสังเกตอื่น: T4 = ระดับหัวนม, T12 = ขาหนีบ, C5 = กระดูกไหปลาร้า, C6 = นิ้วหัวแม่มือ, S1 = ขอบด้านข้างของเท้า"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:1,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:1,
   q:"Which five standard locations are used for deep tendon reflex (DTR) testing?",
   th:"ตำแหน่งมาตรฐาน 5 ตำแหน่งที่ใช้ทดสอบ deep tendon reflex (DTR) คืออะไร?",
   options:["Biceps, Triceps, Brachioradialis, Quadriceps, Achilles","Deltoid, Biceps, Quadriceps, Hamstring, Gastrocnemius","Biceps, Wrist extensors, Quadriceps, Tibialis anterior, Achilles","Pectoralis, Triceps, Hip flexors, Quadriceps, Achilles"],
@@ -1968,7 +1976,7 @@ const questions = [
   explainTh:"ตำแหน่ง DTR มาตรฐาน 5 ตำแหน่ง: Biceps (C5), Brachioradialis (C6), Triceps (C7), Quadriceps/Patellar (L4), และ Achilles (S1) ต้องเปรียบเทียบทั้งสองข้างเสมอ"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:2,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:2,
   q:"In the ASIA classification for spinal cord injury, which key muscle is tested at the C6 level?",
   th:"ในการจำแนก ASIA สำหรับการบาดเจ็บไขสันหลัง กล้ามเนื้อหลักที่ทดสอบที่ระดับ C6 คืออะไร?",
   options:["Elbow flexors (กล้ามเนื้องอข้อศอก)","Wrist extensors (กล้ามเนื้อเหยียดข้อมือ)","Elbow extensors (กล้ามเนื้อเหยียดข้อศอก)","Finger flexors (กล้ามเนื้องอนิ้ว)"],
@@ -1978,7 +1986,7 @@ const questions = [
   explainTh:"กล้ามเนื้อหลัก ASIA: C5=งอข้อศอก, C6=เหยียดข้อมือ, C7=เหยียดข้อศอก, C8=งอนิ้ว (นิ้วกลาง), T1=กางนิ้ว (นิ้วก้อย), L2=งอสะโพก, L3=เหยียดเข่า, L4=กระดกข้อเท้า, L5=เหยียดนิ้วเท้ายาว, S1=กดปลายเท้า"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:2,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:2,
   q:"Clonus is defined as rhythmic involuntary muscular contractions at what frequency?",
   th:"Clonus ถูกนิยามว่าเป็นการหดตัวเป็นจังหวะของกล้ามเนื้อที่ความถี่เท่าไหร่?",
   options:["1-3 Hz","5-8 Hz","10-15 Hz","20-25 Hz"],
@@ -1988,7 +1996,7 @@ const questions = [
   explainTh:"Clonus ถูกนิยามว่าเป็นการหดตัวเป็นจังหวะของกล้ามเนื้อที่ความถี่ 5-8 Hz เกิดขึ้นเพื่อตอบสนองต่อการยืดอย่างรวดเร็วและค้างไว้ มากกว่า 3 ครั้งถือว่าผิดปกติ บ่งชี้พยาธิสภาพ UMN"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:2,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:2,
   q:"The abdominal reflex tests the function of which spinal nerve levels?",
   th:"รีเฟล็กซ์หน้าท้อง (abdominal reflex) ทดสอบการทำงานของเส้นประสาทไขสันหลังระดับใด?",
   options:["C5-C8","T8-T12","L1-L2","S1-S2"],
@@ -1998,7 +2006,7 @@ const questions = [
   explainTh:"รีเฟล็กซ์หน้าท้องทดสอบเส้นประสาทไขสันหลัง T8-T12 การตอบสนองปกติ: ผนังหน้าท้องหดตัวและสะดือเบี่ยงไปทางด้านที่กระตุ้น การไม่ตอบสนองบ่งชี้พยาธิสภาพ UMN"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:2,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:2,
   q:"Which pattern of sensory loss is described as 'glove and stocking' distribution?",
   th:"รูปแบบการสูญเสียความรู้สึกแบบใดที่อธิบายว่าเป็น 'glove and stocking' distribution?",
   options:["Hemispheric lesion (รอยโรคที่สมองซีกหนึ่ง)","Spinal cord lesion (รอยโรคไขสันหลัง)","Polyneuropathy (โรคเส้นประสาทหลายเส้น)","Root lesion (รอยโรคที่รากประสาท)"],
@@ -2008,7 +2016,7 @@ const questions = [
   explainTh:"Polyneuropathy ทำให้เกิดการสูญเสียความรู้สึกแบบ 'glove and stocking' สมมาตร — ส่วนปลาย (มือ เท้า) ได้รับผลกระทบก่อน รูปแบบอื่น: hemispheric = ครึ่งตัวตรงข้าม, brainstem = สลับข้าง, root = ตาม dermatome"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:2,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:2,
   q:"Stereognosis tests which level of sensory processing?",
   th:"Stereognosis ทดสอบระดับใดของการรับรู้ความรู้สึก?",
   options:["Superficial sensation (ความรู้สึกผิวเผิน)","Deep sensation (ความรู้สึกส่วนลึก)","Combined/Cortical sensation (ความรู้สึกระดับ cortical)","Peripheral nerve sensation (ความรู้สึกเส้นประสาทส่วนปลาย)"],
@@ -2018,7 +2026,7 @@ const questions = [
   explainTh:"Stereognosis (การจำแนกวัตถุโดยการสัมผัส) เป็นการทดสอบความรู้สึกระดับ cortical ที่ต้องการการบูรณาการที่ cerebral cortex การทดสอบ cortical อื่น: graphesthesia, two-point discrimination, topognosia, double simultaneous stimulation"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:2,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:2,
   q:"In MMT, what is the Kendall and McCreary percentage equivalent of Grade 4 (Good)?",
   th:"ใน MMT เปอร์เซ็นต์ตามระบบ Kendall and McCreary ที่เทียบเท่า Grade 4 (Good) คือเท่าไร?",
   options:["50%","80%","100%","20%"],
@@ -2028,7 +2036,7 @@ const questions = [
   explainTh:"เปอร์เซ็นต์ Kendall and McCreary: เกรด 5 = 100% (ปกติ), เกรด 4 = 80% (ดี ต้านแรงปานกลาง), เกรด 3 = 50% (พอใช้ ต้านแรงโน้มถ่วง), เกรด 2 = 20% (อ่อน ตัดแรงโน้มถ่วง), เกรด 1 = 5% (เล็กน้อย)"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:3,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:3,
   q:"The ASIA motor score has a maximum of 100 points. How is this distributed?",
   th:"คะแนนมอเตอร์ ASIA มีคะแนนเต็ม 100 คะแนน กระจายอย่างไร?",
   options:["25 per upper limb, 25 per lower limb (25 ต่อแขนแต่ละข้าง, 25 ต่อขาแต่ละข้าง)","50 per side (right 50, left 50) (50 ต่อข้าง ขวา 50 ซ้าย 50)","60 upper extremity, 40 lower extremity (60 แขน, 40 ขา)","40 per side plus 20 for trunk (40 ต่อข้าง รวม 20 สำหรับลำตัว)"],
@@ -2038,7 +2046,7 @@ const questions = [
   explainTh:"คะแนนมอเตอร์ ASIA: สูงสุด 50 คะแนนต่อข้าง (ขวาและซ้าย) รวม 100 แต่ละข้างทดสอบกล้ามเนื้อหลัก 5 มัดของแขน (C5-T1) และ 5 มัดของขา (L2-S1) แต่ละมัดให้คะแนน 0-5"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:3,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:3,
   q:"In spinal cord injury classification, 'incomplete' is determined by the presence of sensory or motor function at which level?",
   th:"ในการจำแนกการบาดเจ็บไขสันหลัง 'incomplete' กำหนดจากการมีความรู้สึกหรือการเคลื่อนไหวที่ระดับใด?",
   options:["C5-C6","T10-T12","L4-L5","S4-S5"],
@@ -2048,7 +2056,7 @@ const questions = [
   explainTh:"การบาดเจ็บไขสันหลังแบบ incomplete กำหนดจากการมีความรู้สึกหรือการเคลื่อนไหวใดๆ ที่ S4-S5 (sacral sparing) รวมถึง voluntary anal contraction และการรับรู้ที่ทวารหนัก Complete = ไม่มีการทำงานที่ S4-S5"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:3,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:3,
   q:"Double simultaneous stimulation testing is primarily used to detect which neurological finding?",
   th:"การทดสอบ Double simultaneous stimulation ใช้เพื่อตรวจหาอาการทางระบบประสาทใดเป็นหลัก?",
   options:["Peripheral neuropathy (โรคเส้นประสาทส่วนปลาย)","Sensory extinction or neglect (การดับความรู้สึกหรือ neglect)","Spinal cord compression (การกดทับไขสันหลัง)","Cerebellar dysfunction (ความผิดปกติของสมองน้อย)"],
@@ -2058,7 +2066,7 @@ const questions = [
   explainTh:"Double simultaneous stimulation (DSS) ตรวจหา sensory extinction หรือ neglect ที่พบบ่อยในพยาธิสภาพของ parietal lobe ผู้ป่วยไม่สามารถรับรู้ตัวกระตุ้นด้านหนึ่งเมื่อกระตุ้นทั้งสองด้านพร้อมกัน แม้จะรับรู้แต่ละด้านได้เมื่อกระตุ้นทีละด้าน"
 },
 {
-  topic:"Topic 11: Strength and Reflexes and Sensation",diff:3,
+  topic:"Topic 11: Strength & Reflexes & Sensation",diff:3,
   q:"The ankle clonus test is performed by rapidly dorsiflexing the ankle and sustaining the stretch. How many beats indicate an abnormal result?",
   th:"การทดสอบ ankle clonus ทำโดย dorsiflexion ข้อเท้าอย่างรวดเร็วแล้วค้างไว้ กี่ครั้งจึงถือว่าผิดปกติ?",
   options:["More than 1 beat (มากกว่า 1 ครั้ง)","More than 3 beats (มากกว่า 3 ครั้ง)","More than 5 beats (มากกว่า 5 ครั้ง)","More than 10 beats (มากกว่า 10 ครั้ง)"],
@@ -2071,7 +2079,7 @@ const questions = [
 // ══════ TOPIC 12: Coordination Balance and Gait ══════
 
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:1,
+  topic:"Topic 12: Coordination Balance & Gait",diff:1,
   q:"What does coordination grade 4 indicate on the coordination grading scale?",
   th:"เกรดการประสานงาน 4 บ่งชี้อะไรบนมาตราส่วนการประเมินการประสานงาน?",
   options:["Cannot perform the test at all (ทำกิจกรรมทดสอบไม่ได้เลย)","Movement completed with moderate difficulty (เคลื่อนไหวได้สำเร็จด้วยความยากลำบากปานกลาง)","Movement completed with slight difficulty (เคลื่อนไหวได้สำเร็จด้วยความยากลำบากเล็กน้อย)","Normal performance (ทำได้เป็นปกติ)"],
@@ -2081,7 +2089,7 @@ const questions = [
   explainTh:"เกรดการประสานงาน: เกรด 0 = ทำไม่ได้เลย, เกรด 1 = ยากมาก/ไม่เป็นจังหวะ/สั่น, เกรด 2 = ยากปานกลาง/แย่ลงเมื่อเปลี่ยนความเร็ว, เกรด 3 = ยากเล็กน้อย, เกรด 4 = ปกติ"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:1,
+  topic:"Topic 12: Coordination Balance & Gait",diff:1,
   q:"The finger-to-nose-to-finger test is used to assess coordination of which body region?",
   th:"การทดสอบ finger-to-nose-to-finger ใช้ประเมินการประสานงานของส่วนใดของร่างกาย?",
   options:["Lower extremity (แขนขาส่วนล่าง)","Upper extremity (แขนขาส่วนบน)","Trunk (ลำตัว)","Head and neck (ศีรษะและคอ)"],
@@ -2091,7 +2099,7 @@ const questions = [
   explainTh:"การทดสอบ finger-to-nose-to-finger ประเมินการประสานงานของแขนส่วนบน ผู้ป่วยนั่งแล้วสลับแตะจมูกตัวเองกับปลายนิ้วผู้ตรวจ ตรวจจับ dysmetria และ intention tremor (อาการของสมองน้อย)"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:1,
+  topic:"Topic 12: Coordination Balance & Gait",diff:1,
   q:"In the normal gait cycle, stance phase accounts for approximately what percentage?",
   th:"ในวงจรการเดินปกติ stance phase คิดเป็นประมาณกี่เปอร์เซ็นต์?",
   options:["40% of the gait cycle","50% of the gait cycle","60% of the gait cycle","75% of the gait cycle"],
@@ -2101,7 +2109,7 @@ const questions = [
   explainTh:"Stance phase = ประมาณ 60% ของวงจรการเดิน (0-60%), Swing phase = ประมาณ 40% (60-100%) Stance phase ประกอบด้วย loading response, mid stance, terminal stance, และ pre-swing"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:1,
+  topic:"Topic 12: Coordination Balance & Gait",diff:1,
   q:"Which pathological gait pattern is characterized by a wide base and irregular stepping, associated with cerebellar dysfunction?",
   th:"รูปแบบการเดินผิดปกติแบบใดที่มีลักษณะฐานกว้างและก้าวเท้าไม่สม่ำเสมอ สัมพันธ์กับสมองน้อยทำงานผิดปกติ?",
   options:["Hemiplegic gait (การเดินแบบอัมพาตครึ่งซีก)","Parkinsonian gait (การเดินแบบพาร์กินสัน)","Cerebellar ataxic gait (การเดินแบบ ataxia จากสมองน้อย)","Steppage gait (การเดินแบบยกขาสูง)"],
@@ -2111,7 +2119,7 @@ const questions = [
   explainTh:"Cerebellar ataxic gait มีลักษณะฐานกว้าง การวางเท้าไม่สม่ำเสมอและคาดเดาไม่ได้ ลำตัวแกว่ง Hemiplegic gait ใช้ circumduction, Parkinsonian gait เดินลากเท้า, Steppage gait ยกขาสูง"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:1,
+  topic:"Topic 12: Coordination Balance & Gait",diff:1,
   q:"On the Modified O'Sullivan static balance test, what distinguishes 'Normal' from 'Good' grade?",
   th:"ในการทดสอบ static balance แบบ Modified O'Sullivan อะไรที่ทำให้เกรด 'Normal' ต่างจาก 'Good'?",
   options:["Normal requires handhold support; Good does not (Normal ต้องใช้มือพยุง; Good ไม่ต้อง)","Normal resists external force in all directions; Good in some directions (Normal ต้านแรงได้ทุกทิศทาง; Good ได้บางทิศทาง)","Normal needs minimal assistance; Good needs no assistance (Normal ต้องการช่วยเหลือเล็กน้อย; Good ไม่ต้อง)","Normal can weight shift; Good cannot (Normal ถ่ายน้ำหนักได้; Good ไม่ได้)"],
@@ -2121,7 +2129,7 @@ const questions = [
   explainTh:"ทั้ง Normal และ Good ทรงตัวได้โดยไม่ต้องใช้มือพยุงและต้านแรงจากภายนอกได้ Normal = ต้านได้ทุกทิศทาง; Good = ต้านได้บางทิศทาง Fair = ไม่ต้องใช้มือพยุงแต่ไม่สามารถต้านแรงจากภายนอกได้"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:2,
+  topic:"Topic 12: Coordination Balance & Gait",diff:2,
   q:"The pronation/supination test assesses which specific coordination ability?",
   th:"การทดสอบ pronation/supination ประเมินความสามารถในการประสานงานด้านใดเป็นพิเศษ?",
   options:["Fine motor precision (ความแม่นยำของกล้ามเนื้อมัดเล็ก)","Diadochokinesia — rapid alternating movements (Diadochokinesia — การเคลื่อนไหวสลับอย่างรวดเร็ว)","Static balance (การทรงตัวขณะอยู่นิ่ง)","Proprioceptive awareness (การรับรู้ตำแหน่งข้อต่อ)"],
@@ -2131,7 +2139,7 @@ const questions = [
   explainTh:"การทดสอบ pronation/supination ประเมิน diadochokinesia — ความสามารถในการเคลื่อนไหวสลับอย่างรวดเร็ว Dysdiadochokinesia (ทำไม่ได้) เป็นอาการของสมองน้อยทำงานผิดปกติ ท่าทดสอบ: นั่ง งอข้อศอก 90 องศา แขนแนบลำตัว"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:2,
+  topic:"Topic 12: Coordination Balance & Gait",diff:2,
   q:"In the gait cycle, the 'single-limb support' task occurs during which percentage range?",
   th:"ในวงจรการเดิน 'single-limb support' เกิดขึ้นในช่วงเปอร์เซ็นต์ใด?",
   options:["0-10% (0-10%)","10-50% (10-50%)","50-60% (50-60%)","60-100% (60-100%)"],
@@ -2141,7 +2149,7 @@ const questions = [
   explainTh:"Single-limb support เกิดขึ้นในช่วง 10-50% ของวงจรการเดิน (mid stance ถึง terminal stance) สามภาระงาน: weight acceptance (0-10%), single-limb support (10-50%), และ limb advancement (50-100%)"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:2,
+  topic:"Topic 12: Coordination Balance & Gait",diff:2,
   q:"Which coordination test involves the patient sliding their heel up and down along the opposite shin?",
   th:"การทดสอบการประสานงานใดที่ผู้ป่วยเลื่อนส้นเท้าขึ้นลงตามหน้าแข้งด้านตรงข้าม?",
   options:["Finger-to-nose test (การทดสอบนิ้วแตะจมูก)","Alternate heel to knee, heel to toe test (การทดสอบส้นเท้าสลับเข่าและนิ้วเท้า)","Heel on shin test (การทดสอบส้นเท้าบนหน้าแข้ง)","Tapping foot test (การทดสอบเคาะเท้า)"],
@@ -2151,7 +2159,7 @@ const questions = [
   explainTh:"การทดสอบส้นเท้าบนหน้าแข้ง (ทดสอบที่ 7): ผู้ป่วยนอนหงาย ยกขาข้างหนึ่ง วางส้นเท้าบนหน้าแข้งด้านตรงข้าม แล้วเลื่อนส้นเท้าขึ้นลงตามหน้าแข้ง ทดสอบการประสานงานของขา (การทำงานของสมองน้อย)"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:2,
+  topic:"Topic 12: Coordination Balance & Gait",diff:2,
   q:"A patient with Parkinson's disease would most likely demonstrate which gait pattern?",
   th:"ผู้ป่วยโรคพาร์กินสันจะแสดงรูปแบบการเดินแบบใดมากที่สุด?",
   options:["Circumduction gait with cane use (การเดินแบบ circumduction พร้อมใช้ไม้เท้า)","Shuffling, short steps with stooped posture (เดินลากเท้า ก้าวสั้น ตัวก้ม)","Wide-based ataxic gait (เดินฐานกว้างแบบ ataxia)","High steppage gait with foot slap (เดินยกขาสูงพร้อมเท้ากระทบ)"],
@@ -2161,7 +2169,7 @@ const questions = [
   explainTh:"Parkinsonian gait: ท่าตัวก้มไปข้างหน้า เดินลากเท้าก้าวสั้น (festinating gait) แขนไม่แกว่ง เริ่มเดินยาก Circumduction = อัมพาตครึ่งซีก, ataxic = สมองน้อย, steppage = เท้าตก"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:2,
+  topic:"Topic 12: Coordination Balance & Gait",diff:2,
   q:"In the dynamic balance grading (Modified O'Sullivan), what level of challenge can a 'Fair' grade patient accept?",
   th:"ในเกรด dynamic balance (Modified O'Sullivan) ผู้ป่วยเกรด 'Fair' สามารถรับความท้าทายระดับใด?",
   options:["Maximal challenge (ความท้าทายระดับสูงสุด)","Moderate challenge (ความท้าทายระดับปานกลาง)","Minimal challenge (ความท้าทายระดับต่ำ)","Unable to accept any challenge (ไม่สามารถรับความท้าทายใดๆ)"],
@@ -2171,7 +2179,7 @@ const questions = [
   explainTh:"เกรด dynamic balance: Normal = ความท้าทายสูงสุด + ถ่ายน้ำหนักได้ทุกทิศทาง, Good = ความท้าทายปานกลาง + บางทิศทาง, Fair = ความท้าทายต่ำ + ไม่สามารถทรงตัวได้ขณะถ่ายน้ำหนัก, Poor = ไม่สามารถรับความท้าทาย, Zero = ทรงตัวไม่ได้"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:2,
+  topic:"Topic 12: Coordination Balance & Gait",diff:2,
   q:"When assessing coordination, the examiner should observe which four parameters?",
   th:"เมื่อประเมินการประสานงาน ผู้ตรวจควรสังเกตพารามิเตอร์ 4 อย่างใด?",
   options:["Speed, distance, direction, rhythm (ความเร็ว ระยะทาง ทิศทาง จังหวะ)","Strength, endurance, flexibility, balance (กำลัง ความทนทาน ความยืดหยุ่น การทรงตัว)","Pain, ROM, sensation, reflexes (ความเจ็บปวด ROM ความรู้สึก รีเฟล็กซ์)","Tone, posture, alignment, stability (โทน ท่าทาง การจัดเรียง ความมั่นคง)"],
@@ -2181,7 +2189,7 @@ const questions = [
   explainTh:"เมื่อประเมินการประสานงาน ให้สังเกต: ความเร็ว ระยะทาง ทิศทาง จังหวะ และระดับความตึงตัวของกล้ามเนื้อ ช่วยตรวจจับความผิดปกติของสมองน้อยและการควบคุมการเคลื่อนไหว เช่น dysmetria, dysdiadochokinesia, และ ataxia"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:3,
+  topic:"Topic 12: Coordination Balance & Gait",diff:3,
   q:"During the gait cycle, 'toe off' occurs at approximately what percentage?",
   th:"ในวงจรการเดิน 'toe off' เกิดขึ้นที่ประมาณกี่เปอร์เซ็นต์?",
   options:["30% (30%)","50% (50%)","60% (60%)","73% (73%)"],
@@ -2191,7 +2199,7 @@ const questions = [
   explainTh:"Toe off เกิดขึ้นที่ประมาณ 60% ของวงจรการเดิน เป็นจุดเปลี่ยนจาก stance phase เป็น swing phase เหตุการณ์: initial contact (0%), load response (10%), heel off (30%), opposite initial contact (50%), toe off (60%), feet adjacent (73%), tibia vertical (87%)"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:3,
+  topic:"Topic 12: Coordination Balance & Gait",diff:3,
   q:"The hemiplegic gait pattern is characterized by which specific compensatory movement of the affected leg?",
   th:"รูปแบบการเดินแบบ hemiplegic มีลักษณะเฉพาะคือการเคลื่อนไหวชดเชยใดของขาข้างที่ได้รับผลกระทบ?",
   options:["Shuffling with short steps (เดินลากเท้าก้าวสั้น)","Circumduction of the affected leg (การเคลื่อนขาข้างเป็นรูปครึ่งวงกลม)","High stepping to clear the foot (ยกขาสูงเพื่อยกเท้าพ้น)","Stamping the foot forcefully (กระทืบเท้าอย่างแรง)"],
@@ -2201,7 +2209,7 @@ const questions = [
   explainTh:"Hemiplegic gait มีลักษณะ circumduction — ขาข้างที่ได้รับผลกระทบแกว่งออกด้านนอกเป็นรูปครึ่งวงกลมเพื่อยกเท้าพ้นในช่วง swing phase ผู้ป่วยมักใช้ไม้เท้าและแขนข้างเดียวกันอยู่ในท่างอ/หุบ"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:3,
+  topic:"Topic 12: Coordination Balance & Gait",diff:3,
   q:"At heel strike during stance phase, what is the normal hip position?",
   th:"ที่ heel strike ใน stance phase ตำแหน่งปกติของสะโพกเป็นอย่างไร?",
   options:["Neutral (0 degrees) (กลาง 0 องศา)","Flexion 30 degrees (งอ 30 องศา)","Hyperextension 10 degrees (เหยียดเกิน 10 องศา)","Flexion 10 degrees (งอ 10 องศา)"],
@@ -2211,7 +2219,7 @@ const questions = [
   explainTh:"ที่ heel strike (initial contact) สะโพกอยู่ในท่างอ 30 องศา ผ่าน foot flat จาก 30 ไปยัง 5 องศาของการงอ ที่ midstance ไปถึง hyperextension 10 องศาถึงกลาง และที่ toe off กลับมาที่ neutral"
 },
 {
-  topic:"Topic 12: Coordination Balance and Gait",diff:3,
+  topic:"Topic 12: Coordination Balance & Gait",diff:3,
   q:"The 7-level functional assistance scale ranges from Maximum Assistance to Independent. What does 'Contact Guarding' mean?",
   th:"มาตราส่วนความช่วยเหลือ 7 ระดับตั้งแต่ Maximum Assistance ถึง Independent 'Contact Guarding' หมายความว่าอย่างไร?",
   options:["Examiner provides moderate physical assistance (ผู้ตรวจให้ความช่วยเหลือทางกายภาพปานกลาง)","Examiner touches the patient but provides no actual assistance (ผู้ตรวจสัมผัสผู้ป่วยแต่ไม่ได้ให้ความช่วยเหลือจริง)","Examiner watches from a distance (ผู้ตรวจเฝ้าดูจากระยะไกล)","Patient performs independently with a gait aid (ผู้ป่วยทำได้เองด้วยอุปกรณ์ช่วยเดิน)"],
@@ -2683,7 +2691,7 @@ const cases=[
 
   // CASE 7: GCS Assessment — Head Injury
   {
-    topic: "Topic 9: Consciousness and GCS",
+    topic: "Topic 9: Consciousness & GCS",
     title: "The Construction Site Emergency",
     titleTh: "เหตุฉุกเฉินที่สถานที่ก่อสร้าง",
     steps: [
@@ -3270,11 +3278,6 @@ function showScreen(id){
   if(bl) bl.style.display=showBack?'inline-flex':'none';
 }
 function goBack(){
-  const activeScreens=['quiz','flashScreen','fitbScreen','matchScreen','caseScreen'];
-  const cur=navStack.length>0?navStack[navStack.length-1]:'home';
-  if(activeScreens.includes(cur)){
-    if(idx>0&&!confirm(lang==='th'?'\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e41\u0e1a\u0e1a\u0e17\u0e14\u0e2a\u0e2d\u0e1a? \u0e04\u0e27\u0e32\u0e21\u0e01\u0e49\u0e32\u0e27\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e30\u0e2b\u0e32\u0e22\u0e44\u0e1b':'Leave quiz? Progress will be lost.'))return;
-  }
   navStack.pop();
   const prev=navStack.length>0?navStack[navStack.length-1]:'home';
   showScreen(prev);
@@ -3297,17 +3300,37 @@ function renderSubjectDetail(){
   allBtn.onclick=()=>startQuiz('subject:'+currentSubject.key);
   const grid=document.getElementById('sdTopicGrid');
   grid.innerHTML='';
-  currentSubject.topics.forEach(tKey=>{
+  currentSubject.topics.forEach((tKey,i)=>{
     const tp=topics.find(t=>t.key===tKey);
     if(!tp)return;
     const c=questions.filter(q=>q.topic===tp.key).length;
     const prim=lang==='th'?tp.th:tp.en;
     const sec=lang==='th'?tp.en:tp.th;
-    grid.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${tp.key}')"><div class="t-num">${tp.emoji} ${tp.key.split(':')[0]}</div><div class="t-title">${prim}</div><div class="t-sub">${sec}</div><div class="t-count">${c} ${lang==='th'?'\u0e02\u0e49\u0e2d':'questions'}</div></div>`;
+    const localNum=i+1;
+    grid.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${tp.key}')"><div class="t-num">${tp.emoji} Topic ${localNum}</div><div class="t-title">${prim}</div><div class="t-sub">${sec}</div><div class="t-count">${c} ${lang==='th'?'\u0e02\u0e49\u0e2d':'questions'}</div></div>`;
   });
 }
 function confirmQuit(){goBack()}
-function startQuiz(topic){selectedTopic=topic;navStack.push('modeSelect');showScreen('modeSelect')}
+function startQuiz(topic){
+  selectedTopic=topic;
+  // Hide Clinical Case mode if no cases for selected topic
+  const caseBtns=document.querySelectorAll('.mode-btn');
+  if(caseBtns[4]){
+    const hasCases=getCasesForTopic().length>0;
+    caseBtns[4].style.display=hasCases?'':'none';
+  }
+  navStack.push('modeSelect');showScreen('modeSelect');
+}
+function getCasesForTopic(){
+  if(selectedTopic==='all')return[...cases];
+  if(selectedTopic.startsWith('subject:')){
+    const sKey=selectedTopic.split(':')[1];
+    const subj=subjects.find(s=>s.key===sKey);
+    if(!subj)return[...cases];
+    return cases.filter(c=>subj.topics.includes(c.topic));
+  }
+  return cases.filter(c=>c.topic===selectedTopic);
+}
 
 function getPool(){
   if(selectedTopic==='all')return[...questions];
@@ -3516,36 +3539,41 @@ function useAudience(){
   document.getElementById('llAudience').classList.add('used');
   const q=deck[idx];
   const letters=['A','B','C','D'];
-  // Generate weighted random percentages — correct answer gets 45-70%
-  const correctPct=45+Math.floor(Math.random()*26);
+  // Realistic audience: correct answer usually highest but not always
+  // Easy=correct gets 35-50%, Medium=28-42%, Hard=20-35%
+  const diff=q.diff||2;
+  let lo,hi;
+  if(diff===1){lo=35;hi=50}else if(diff===3){lo=20;hi=35}else{lo=28;hi=42}
+  const correctPct=lo+Math.floor(Math.random()*(hi-lo+1));
+  // 20% chance a wrong answer "beats" the correct one (misleading audience)
+  const mislead=Math.random()<0.2;
+  const pcts=new Array(4).fill(0);
+  pcts[q.answer]=correctPct;
   let remaining=100-correctPct;
-  const pcts=[];
-  q.options.forEach((_,i)=>{
-    if(i===q.answer){pcts.push(correctPct)}
-    else if(remaining<=0){pcts.push(0)}
-    else{
-      const others=q.options.length-1-pcts.filter((p,j)=>j!==q.answer&&p!==undefined).length;
-      const wrongsLeft=q.options.length-1-i+(i>q.answer?0:1);
-      let p;
-      if(wrongsLeft<=1){p=remaining}
-      else{p=Math.floor(Math.random()*(remaining*0.7));p=Math.max(p,2)}
-      p=Math.min(p,remaining);
-      pcts.push(p);remaining-=p;
-    }
+  const wrongIdxs=[0,1,2,3].filter(i=>i!==q.answer);
+  // Shuffle wrong indices
+  for(let i=wrongIdxs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[wrongIdxs[i],wrongIdxs[j]]=[wrongIdxs[j],wrongIdxs[i]]}
+  if(mislead){
+    // First wrong gets more than correct
+    const boost=correctPct+3+Math.floor(Math.random()*8);
+    const w0=Math.min(boost,remaining);
+    pcts[wrongIdxs[0]]=w0;remaining-=w0;
+  }
+  wrongIdxs.forEach((wi,idx2)=>{
+    if(pcts[wi]>0)return;// already set (mislead case)
+    if(idx2===wrongIdxs.length-1||(mislead&&idx2===wrongIdxs.length-1)){pcts[wi]=remaining}
+    else{const p=Math.max(2,Math.floor(Math.random()*remaining*0.6));pcts[wi]=Math.min(p,remaining);remaining-=pcts[wi]}
   });
-  // Fix rounding
   const sum=pcts.reduce((a,b)=>a+b,0);
   if(sum!==100)pcts[q.answer]+=100-sum;
   const ab=document.getElementById('audienceBar');
   const title=lang==='th'?'ผลโหวตจากผู้เรียน':'Student Poll Results';
   let html='<div class="ab-title">'+title+'</div>';
   pcts.forEach((p,i)=>{
-    const cls=i===q.answer?'highlight':'dim';
-    html+='<div class="audience-row"><span class="ab-label">'+letters[i]+'</span><div class="ab-track"><div class="ab-fill '+cls+'" style="width:0%"></div></div><span class="ab-pct">'+p+'%</span></div>';
+    html+='<div class="audience-row"><span class="ab-label">'+letters[i]+'</span><div class="ab-track"><div class="ab-fill" style="width:0%"></div></div><span class="ab-pct">'+p+'%</span></div>';
   });
   ab.innerHTML=html;
   ab.classList.add('show');
-  // Animate bars
   setTimeout(()=>{ab.querySelectorAll('.ab-fill').forEach((bar,i)=>{bar.style.width=pcts[i]+'%'})},50);
 }
 
