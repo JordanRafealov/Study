@@ -277,9 +277,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .match-item.wrong{border-color:#ef4444;background:#2d0d0d;animation:wrongShake .5s ease-out}
 
 /* CASE CHAT */
-.case-hero{width:100%;height:160px;border-radius:12px;overflow:hidden;margin-bottom:16px;position:relative}
-.case-hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.7)}
-.case-hero-overlay{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(15,15,26,.9))}
+.case-hero{width:100%;height:160px;border-radius:12px;overflow:hidden;margin-bottom:16px;position:relative;display:flex;align-items:center;justify-content:center}
+.case-hero-emoji{font-size:64px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));z-index:1}
+.case-hero-overlay{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(15,15,26,.9));z-index:2}
 .case-hero-setting{font-size:11px;color:#6ee7b7;text-transform:uppercase;letter-spacing:1px}
 .case-bubble{max-width:100%;padding:16px 18px;border-radius:14px;font-size:14px;line-height:1.7;animation:fadeSlide .4s ease-out;text-align:center}
 .case-narrator{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:14px;align-self:stretch}
@@ -446,7 +446,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <span class="quiz-count" id="caseStep"></span>
   </div>
   <h3 id="caseTitle" style="font-size:18px;font-weight:600;margin-bottom:14px;text-align:center"></h3>
-  <div id="caseHero" class="case-hero" style="display:none"><img id="caseHeroImg" src="" alt=""><div class="case-hero-overlay"><span class="case-hero-setting" id="caseHeroSetting"></span></div></div>
+  <div id="caseHero" class="case-hero" style="display:none"><div id="caseHeroEmoji" class="case-hero-emoji"></div><div class="case-hero-overlay"><span class="case-hero-setting" id="caseHeroSetting"></span></div></div>
   <div id="caseInstruction" class="case-instruction" style="display:none">You are the physical therapist. Read the <strong>patient scenario</strong>, consider the <strong>clinical question</strong>, then choose the best answer below. Each step builds on the previous one.</div>
   <div id="caseChatArea" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
   <div id="caseChooseLabel" class="case-choose-label" style="display:none">&#x1F447; Select the best answer below</div>
@@ -457,7 +457,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
     <div class="ms-emoji" style="font-size:48px;margin-bottom:12px">&#x1FA7A;</div>
     <h2 id="caseSummaryTitle" style="font-size:22px;margin-bottom:8px"></h2>
     <div id="caseSummaryStats" style="color:#888;font-size:15px;margin-bottom:20px"></div>
-    <button class="retry-btn" onclick="goBack()">Back to Modes</button>
+    <button class="retry-btn" onclick="startCaseMode()" style="margin-bottom:10px">Try Another Case</button>
+    <button class="retry-btn" onclick="goBack()" style="background:transparent;border:1px solid #2a2a4a;color:#888">Back to Modes</button>
   </div>
   <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
@@ -2287,7 +2288,7 @@ const cases=[
     topic: "Topic 3: Inflammatory",
     title: "The Morning Stiffness Mystery",
     titleTh: "ปริศนาอาการข้อฝืดตอนเช้า",
-    image: "https://images.unsplash.com/photo-1671339590104-5707468e5342?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F590}\uFE0F", heroGradient: ["#f97316","#ef4444"],
     setting: "Outpatient Clinic",
     steps: [
       {
@@ -2358,7 +2359,7 @@ const cases=[
     topic: "Topic 3: Inflammatory",
     title: "The Midnight Joint Attack",
     titleTh: "อาการข้อปวดกลางดึก",
-    image: "https://images.unsplash.com/photo-1503342003479-b290e397387e?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F319}", heroGradient: ["#6366f1","#4f46e5"],
     setting: "Emergency Department",
     steps: [
       {
@@ -2429,7 +2430,7 @@ const cases=[
     topic: "Topic 4: OA & AVN",
     title: "The Reluctant Retiree",
     titleTh: "ผู้เกษียณที่ไม่เต็มใจ",
-    image: "https://images.unsplash.com/photo-1499598568193-b1345914c339?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F9D3}", heroGradient: ["#10b981","#0d9488"],
     setting: "Outpatient Rehabilitation",
     steps: [
       {
@@ -2504,7 +2505,7 @@ const cases=[
     topic: "Topic 5: Motor Control Theories",
     title: "The Systems Approach to Recovery",
     titleTh: "แนวทางระบบสู่การฟื้นตัว",
-    image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F9E0}", heroGradient: ["#3b82f6","#8b5cf6"],
     setting: "Motor Control Lab",
     steps: [
       {
@@ -2575,7 +2576,7 @@ const cases=[
     topic: "Topic 6: Motor Learning",
     title: "The Feedback Dilemma",
     titleTh: "ปัญหาเรื่องผลป้อนกลับ",
-    image: "https://images.unsplash.com/photo-1485727749690-d091e8284ef3?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F3AF}", heroGradient: ["#06b6d4","#0891b2"],
     setting: "Sports Rehabilitation Clinic",
     steps: [
       {
@@ -2646,7 +2647,7 @@ const cases=[
     topic: "Topic 5: Motor Control Theories",
     title: "Unlocking Degrees of Freedom",
     titleTh: "การปลดล็อกองศาอิสระ",
-    image: "https://images.unsplash.com/photo-1584493548078-64a61088686a?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F513}", heroGradient: ["#a855f7","#ec4899"],
     setting: "Physical Therapy Clinic",
     steps: [
       {
@@ -2721,7 +2722,7 @@ const cases=[
     topic: "Topic 9: Consciousness & GCS",
     title: "The Construction Site Emergency",
     titleTh: "เหตุฉุกเฉินที่สถานที่ก่อสร้าง",
-    image: "https://images.unsplash.com/photo-1712232420820-50733a53b961?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F6A8}", heroGradient: ["#ef4444","#f43f5e"],
     setting: "Trauma Center ICU",
     steps: [
       {
@@ -2791,7 +2792,7 @@ const cases=[
     topic: "Topic 10: Muscle Tone",
     title: "The Spasticity Puzzle",
     titleTh: "\u0e1b\u0e23\u0e34\u0e28\u0e19\u0e32\u0e20\u0e32\u0e27\u0e30\u0e01\u0e25\u0e49\u0e32\u0e21\u0e40\u0e19\u0e37\u0e49\u0e2d\u0e2b\u0e14\u0e40\u0e01\u0e23\u0e47\u0e07",
-    image: "https://images.unsplash.com/photo-1528152819407-8e0b168985ee?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F9E9}", heroGradient: ["#f59e0b","#f97316"],
     setting: "Neuro Rehabilitation Clinic",
     steps: [
       {
@@ -2860,7 +2861,7 @@ const cases=[
     topic: "Topic 12: Coordination Balance & Gait",
     title: "The Unsteady Walker",
     titleTh: "\u0e1c\u0e39\u0e49\u0e1b\u0e48\u0e27\u0e22\u0e40\u0e14\u0e34\u0e19\u0e44\u0e21\u0e48\u0e21\u0e31\u0e48\u0e19\u0e04\u0e07",
-    image: "https://images.unsplash.com/photo-1761507377860-0df7e6df73f0?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F6B6}", heroGradient: ["#3b82f6","#10b981"],
     setting: "Balance & Gait Lab",
     steps: [
       {
@@ -2929,7 +2930,7 @@ const cases=[
     topic: "Topic 1: Clinical Reasoning",
     title: "The Referred Pain Puzzle",
     titleTh: "ปริศนาอาการปวดร้าว",
-    image: "https://images.unsplash.com/photo-1615997380705-504484cd99c4?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F3AD}", heroGradient: ["#f43f5e","#f59e0b"],
     setting: "Outpatient Orthopaedic Clinic",
     steps: [
       {
@@ -2998,7 +2999,7 @@ const cases=[
     topic: "Topic 2: Bone & Joint",
     title: "The Weekend Warrior's Wrist",
     titleTh: "ข้อมือนักกีฬาวันหยุด",
-    image: "https://images.unsplash.com/photo-1609113160023-4e31f3765fd7?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F3CB}\uFE0F", heroGradient: ["#3b82f6","#6366f1"],
     setting: "Sports Medicine Clinic",
     steps: [
       {
@@ -3067,7 +3068,7 @@ const cases=[
     topic: "Topic 7: Classification Systems",
     title: "Classifying Mrs. Chen",
     titleTh: "การจัดประเภทคุณนายเฉิน",
-    image: "https://images.unsplash.com/photo-1631558553269-03a775c388b5?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F4CB}", heroGradient: ["#10b981","#06b6d4"],
     setting: "Inpatient Rehabilitation Unit",
     steps: [
       {
@@ -3136,7 +3137,7 @@ const cases=[
     topic: "Topic 8: Neuro Clinical Reasoning",
     title: "The Sudden Stumbler",
     titleTh: "ผู้สะดุดล้มฉับพลัน",
-    image: "https://images.unsplash.com/photo-1758876734777-dcc6981f3671?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F4AB}", heroGradient: ["#7c3aed","#a855f7"],
     setting: "Neurology Outpatient Clinic",
     steps: [
       {
@@ -3205,7 +3206,7 @@ const cases=[
     topic: "Topic 11: Strength & Reflexes & Sensation",
     title: "The Motorcycle Accident",
     titleTh: "อุบัติเหตุมอเตอร์ไซค์",
-    image: "https://images.unsplash.com/photo-1713623311317-d3c43a4be4cf?w=800&h=300&fit=crop&auto=format",
+    heroEmoji: "\u{1F3CD}\uFE0F", heroGradient: ["#ef4444","#f97316"],
     setting: "Spinal Cord Injury Unit",
     steps: [
       {
@@ -3771,6 +3772,7 @@ function continuePlaying(){
   idx++;
   if(idx>=deck.length){showResults();return}
   if(mode==='mcq'){showScreen('quiz');renderMCQ()}
+  else if(mode==='fitb'){showScreen('fitbScreen');renderFitb()}
   else{showScreen('flashScreen');renderFlash()}
 }
 
@@ -4063,6 +4065,7 @@ function retryWrong(){
   startQuizTimer();
   qAnswered=false;pickedIdx=-1;
   if(mode==='mcq'){showScreen('quiz');renderMCQ()}
+  else if(mode==='fitb'){showScreen('fitbScreen');renderFitb()}
   else{showScreen('flashScreen');renderFlash()}
 }
 
@@ -4248,13 +4251,14 @@ function startCaseMode(){
   document.getElementById('caseOptions').innerHTML='';
   document.getElementById('caseFeedback').classList.remove('show');
   document.getElementById('caseNext').style.display='none';
-  // Show hero image
+  document.getElementById('caseSummary').style.display='none';
+  // Show hero card with gradient + emoji
   const heroEl=document.getElementById('caseHero');
-  if(currentCase.image){
-    document.getElementById('caseHeroImg').src=currentCase.image;
-    document.getElementById('caseHeroImg').onerror=function(){heroEl.style.display='none'};
+  if(currentCase.heroEmoji){
+    heroEl.style.background='linear-gradient(135deg,'+currentCase.heroGradient[0]+','+currentCase.heroGradient[1]+')';
+    document.getElementById('caseHeroEmoji').textContent=currentCase.heroEmoji;
     document.getElementById('caseHeroSetting').textContent=currentCase.setting||'';
-    heroEl.style.display='block';
+    heroEl.style.display='flex';
   } else {heroEl.style.display='none'}
   // Show instruction banner
   document.getElementById('caseInstruction').style.display='block';
