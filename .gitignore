@@ -1,0 +1,10 @@
+# Extracted lecture slides (intermediate files, not needed in repo)
+*-extracted.md
+*-slides-*.md
+*-complete.md
+*-slide-*.md
+motor-control-lecture-slides.md
+
+# Temp scripts
+merge-questions.js
+strip-old.js
