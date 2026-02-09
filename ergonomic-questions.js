@@ -7,10 +7,10 @@ const ergonomicQuestions = [
   q:"What is the definition of ergonomics?",
   th:"การยศาสตร์ (Ergonomics) คืออะไร?",
   options:[
-    "ศาสตร์ที่ปรับเปลี่ยนสภาพงานให้เหมาะกับผู้ปฏิบัติงาน เพื่อประสิทธิภาพสูงสุดและไม่เกิดการบาดเจ็บ",
-    "ศาสตร์ที่ศึกษาเกี่ยวกับการออกกำลังกายในที่ทำงาน",
-    "ศาสตร์ที่ปรับเปลี่ยนผู้ปฏิบัติงานให้เหมาะกับสภาพงาน",
-    "ศาสตร์ที่ศึกษาเกี่ยวกับการรักษาโรคจากการทำงาน"
+    "Science of adjusting work conditions to suit workers for maximum efficiency without injury (ศาสตร์ที่ปรับเปลี่ยนสภาพงานให้เหมาะกับผู้ปฏิบัติงาน เพื่อประสิทธิภาพสูงสุดและไม่เกิดการบาดเจ็บ)",
+    "Science of studying exercise in the workplace (ศาสตร์ที่ศึกษาเกี่ยวกับการออกกำลังกายในที่ทำงาน)",
+    "Science of adjusting workers to suit work conditions (ศาสตร์ที่ปรับเปลี่ยนผู้ปฏิบัติงานให้เหมาะกับสภาพงาน)",
+    "Science of studying treatment of work-related diseases (ศาสตร์ที่ศึกษาเกี่ยวกับการรักษาโรคจากการทำงาน)"
   ],
   answer:0,
   hint:"Ergonomics fits the job to the worker, not the worker to the job.",
@@ -84,10 +84,10 @@ const ergonomicQuestions = [
   q:"How many risk factors for WMSDs are listed in the lecture?",
   th:"ปัจจัยเสี่ยงของ WMSDs ที่ระบุในบทเรียนมีกี่ข้อ?",
   options:[
-    "5 ข้อ",
-    "6 ข้อ",
-    "7 ข้อ",
-    "8 ข้อ"
+    "5 items (5 ข้อ)",
+    "6 items (6 ข้อ)",
+    "7 items (7 ข้อ)",
+    "8 items (8 ข้อ)"
   ],
   answer:2,
   hint:"Count: Awkward Postures, Prolonged Activities, Forceful Exertions, Repetitive Motions, Vibration, Organization/Psychosocial Factors, Temperature.",
@@ -101,10 +101,10 @@ const ergonomicQuestions = [
   q:"What is the difference between Over-exertion and Over-use injury?",
   th:"Over-exertion และ Over-use injury ต่างกันอย่างไร?",
   options:[
-    "Over-exertion เกิดจากแรงที่มากเกินจนโครงสร้างล้มเหลว / Over-use เกิดจากการสะสมของ micro-trauma ซ้ำๆ",
-    "Over-exertion เกิดจากการสะสม / Over-use เกิดจากแรงกระทำครั้งเดียว",
-    "Over-exertion เกิดจากท่าทางไม่เหมาะสม / Over-use เกิดจากอุณหภูมิ",
-    "ไม่มีความแตกต่าง ทั้งสองเป็นสิ่งเดียวกัน"
+    "Over-exertion is caused by excessive force leading to structural failure / Over-use is caused by accumulated repeated micro-trauma (Over-exertion เกิดจากแรงที่มากเกินจนโครงสร้างล้มเหลว / Over-use เกิดจากการสะสมของ micro-trauma ซ้ำๆ)",
+    "Over-exertion is caused by accumulation / Over-use is caused by a single force event (Over-exertion เกิดจากการสะสม / Over-use เกิดจากแรงกระทำครั้งเดียว)",
+    "Over-exertion is caused by awkward posture / Over-use is caused by temperature (Over-exertion เกิดจากท่าทางไม่เหมาะสม / Over-use เกิดจากอุณหภูมิ)",
+    "No difference, both are the same thing (ไม่มีความแตกต่าง ทั้งสองเป็นสิ่งเดียวกัน)"
   ],
   answer:0,
   hint:"One involves peak loading failure, the other involves repeated micro-damage exceeding repair rate.",
@@ -727,10 +727,10 @@ const ergonomicQuestions = [
   q:"How many principles of Universal Design are there?",
   th:"หลักการของ Universal Design มีกี่ข้อ?",
   options:[
-    "7 ข้อ",
-    "5 ข้อ",
-    "6 ข้อ",
-    "10 ข้อ"
+    "7 principles (7 ข้อ)",
+    "5 principles (5 ข้อ)",
+    "6 principles (6 ข้อ)",
+    "10 principles (10 ข้อ)"
   ],
   answer:0,
   hint:"Count from Equitability to Size and Space.",

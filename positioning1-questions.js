@@ -261,10 +261,10 @@ const positioning1Questions = [
   q:"How many main surgical approaches are there for total hip replacement (การผ่าตัดเปลี่ยนข้อสะโพก)?",
   th:"การผ่าตัดเปลี่ยนข้อสะโพก แพทย์จะผ่าตัดหลักๆ กี่แบบ?",
   options:[
-    "1 แบบ",
-    "2 แบบ",
-    "3 แบบ",
-    "4 แบบ"
+    "1 type (1 แบบ)",
+    "2 types (2 แบบ)",
+    "3 types (3 แบบ)",
+    "4 types (4 แบบ)"
   ],
   answer:1,
   hint:"The lecture mentions two main approaches.",

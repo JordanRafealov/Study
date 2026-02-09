@@ -21,10 +21,10 @@ const liftingQuestions = [
   q:"What is friction (แรงเสียดทาน) according to the lecture?",
   th:"แรงเสียดทาน (friction) ตามที่ระบุในบทเรียนหมายถึงอะไร?",
   options:[
-    "แรงที่ทำให้วัตถุหยุดการเคลื่อนไหวหรือแรงที่ทำให้วัตถุอยู่กับที่",
-    "แรงที่ทำให้วัตถุเคลื่อนที่เร็วขึ้น",
-    "แรงที่ดึงวัตถุลงสู่พื้น",
-    "แรงที่ทำให้วัตถุลอยตัวได้"
+    "Force that stops object movement or keeps objects stationary (แรงที่ทำให้วัตถุหยุดการเคลื่อนไหวหรือแรงที่ทำให้วัตถุอยู่กับที่)",
+    "Force that makes objects move faster (แรงที่ทำให้วัตถุเคลื่อนที่เร็วขึ้น)",
+    "Force that pulls objects down to the ground (แรงที่ดึงวัตถุลงสู่พื้น)",
+    "Force that makes objects float (แรงที่ทำให้วัตถุลอยตัวได้)"
   ],
   answer:0,
   hint:"This force keeps objects stationary or stops their movement.",
@@ -52,9 +52,9 @@ const liftingQuestions = [
   th:"ท่ายกของที่ถูกต้องมีวัตถุประสงค์อะไร?",
   options:[
     "Prevention of low back pain (ป้องกันการปวดหลังช่วงล่าง)",
-    "เพิ่มความแข็งแรงของกล้ามเนื้อแขน",
-    "เพิ่มความยืดหยุ่นของข้อต่อ",
-    "ลดน้ำหนักตัว"
+    "Increase arm muscle strength (เพิ่มความแข็งแรงของกล้ามเนื้อแขน)",
+    "Increase joint flexibility (เพิ่มความยืดหยุ่นของข้อต่อ)",
+    "Reduce body weight (ลดน้ำหนักตัว)"
   ],
   answer:0,
   hint:"The lecture links lifting technique directly to back health.",
@@ -66,10 +66,10 @@ const liftingQuestions = [
   q:"During the 'Plan and assess the situation' step, what should you do if the object is too heavy?",
   th:"ในขั้นตอน 'วางแผนและประเมินสถานการณ์' หากสิ่งของหนักเกินไปควรทำอย่างไร?",
   options:[
-    "ควรมีคนอื่นหรือเครื่องมือในการช่วยยก",
-    "ควรใช้หลังในการยกแทนขา",
-    "ควรยกโดยเร็วที่สุด",
-    "ควรยกสิ่งของขณะอยู่ไกลจากตัว"
+    "Have other people or equipment to help lift (ควรมีคนอื่นหรือเครื่องมือในการช่วยยก)",
+    "Use the back instead of legs to lift (ควรใช้หลังในการยกแทนขา)",
+    "Lift as quickly as possible (ควรยกโดยเร็วที่สุด)",
+    "Lift the object while it is far from the body (ควรยกสิ่งของขณะอยู่ไกลจากตัว)"
   ],
   answer:0,
   hint:"You need assistance when the load is too heavy.",
@@ -186,10 +186,10 @@ const liftingQuestions = [
   q:"When bracing the abdomen correctly for patient lifting, which of the following should NOT occur?",
   th:"การเกร็งกล้ามเนื้อที่ถูกต้องขณะยกผู้ป่วย ข้อใดไม่ควรเกิดขึ้น?",
   options:[
-    "มีการกลั้นหายใจ",
-    "กล้ามเนื้อหน้าท้องส่วนล่างจะเคลื่อนขึ้น",
-    "ผนังท้องด้านข้างจะป่องออก",
-    "ไม่มีผลต่อระดับความดันโลหิต"
+    "Breath holding occurs (มีการกลั้นหายใจ)",
+    "Lower abdominal muscles move upward (กล้ามเนื้อหน้าท้องส่วนล่างจะเคลื่อนขึ้น)",
+    "Lateral abdominal wall bulges out (ผนังท้องด้านข้างจะป่องออก)",
+    "No effect on blood pressure level (ไม่มีผลต่อระดับความดันโลหิต)"
   ],
   answer:0,
   hint:"Correct bracing should allow normal breathing.",
@@ -201,10 +201,10 @@ const liftingQuestions = [
   q:"Why should the weight being moved be kept close to the body?",
   th:"เหตุใดจึงต้องให้น้ำหนักที่เคลื่อนย้ายอยู่ใกล้ลำตัวมากที่สุด?",
   options:[
-    "เพื่อให้แนวของจุดศูนย์รวมมวลตกภายในฐานรองรับของร่างกาย",
-    "เพื่อลดน้ำหนักของวัตถุที่ยก",
-    "เพื่อเพิ่มความเร็วในการยก",
-    "เพื่อให้มองเห็นวัตถุได้ชัดเจน"
+    "So the center of mass line falls within the body's base of support (เพื่อให้แนวของจุดศูนย์รวมมวลตกภายในฐานรองรับของร่างกาย)",
+    "To reduce the weight of the lifted object (เพื่อลดน้ำหนักของวัตถุที่ยก)",
+    "To increase lifting speed (เพื่อเพิ่มความเร็วในการยก)",
+    "To see the object more clearly (เพื่อให้มองเห็นวัตถุได้ชัดเจน)"
   ],
   answer:0,
   hint:"This relates to balance and center of mass.",
@@ -216,10 +216,10 @@ const liftingQuestions = [
   q:"When more than one person is moving a patient, who should give the starting signal?",
   th:"เมื่อมีผู้เคลื่อนย้ายผู้ป่วยมากกว่า 1 คน ใครควรเป็นผู้ให้สัญญาณการเริ่มต้น?",
   options:[
-    "ผู้ที่ต้องเคลื่อนส่วนที่หนักที่สุดหรืออยู่ใกล้กับจุดศูนย์รวมมวลร่างกาย",
-    "ผู้ที่มีอาวุโสที่สุดในทีม",
-    "ผู้ที่อยู่ใกล้ศีรษะผู้ป่วย",
-    "ผู้ที่อยู่ปลายเท้าผู้ป่วย"
+    "The person moving the heaviest part or closest to the center of mass (ผู้ที่ต้องเคลื่อนส่วนที่หนักที่สุดหรืออยู่ใกล้กับจุดศูนย์รวมมวลร่างกาย)",
+    "The most senior person on the team (ผู้ที่มีอาวุโสที่สุดในทีม)",
+    "The person closest to the patient's head (ผู้ที่อยู่ใกล้ศีรษะผู้ป่วย)",
+    "The person at the patient's feet (ผู้ที่อยู่ปลายเท้าผู้ป่วย)"
   ],
   answer:0,
   hint:"The person handling the heaviest part gives the command.",
@@ -231,10 +231,10 @@ const liftingQuestions = [
   q:"Why should the helper NOT stand with feet close together when transferring a patient?",
   th:"เหตุใดผู้ช่วยเหลือจึงไม่ควรยืนเท้าชิดกันขณะเคลื่อนย้ายผู้ป่วย?",
   options:[
-    "ฐานรองรับร่างกายจะมีขนาดเล็ก แนวจุดศูนย์รวมมวลจะตกนอกฐานรองรับ มีความเสี่ยงต่อการเสียสมดุล",
-    "เท้าจะชนกันขณะเดิน",
-    "จะทำให้ไม่สามารถก้มลงได้",
-    "จะทำให้เกิดแรงเสียดทานมากเกินไป"
+    "Base of support becomes small, center of mass falls outside the base, risk of losing balance (ฐานรองรับร่างกายจะมีขนาดเล็ก แนวจุดศูนย์รวมมวลจะตกนอกฐานรองรับ มีความเสี่ยงต่อการเสียสมดุล)",
+    "Feet will collide while walking (เท้าจะชนกันขณะเดิน)",
+    "Will be unable to bend down (จะทำให้ไม่สามารถก้มลงได้)",
+    "Will cause too much friction (จะทำให้เกิดแรงเสียดทานมากเกินไป)"
   ],
   answer:0,
   hint:"It's about balance and the base of support.",
@@ -246,10 +246,10 @@ const liftingQuestions = [
   q:"How many lifting techniques in the workplace are listed in the lecture?",
   th:"บทเรียนระบุเทคนิคการยกในที่ทำงานกี่แบบ?",
   options:[
-    "7 แบบ",
-    "5 แบบ",
-    "9 แบบ",
-    "3 แบบ"
+    "7 types (7 แบบ)",
+    "5 types (5 แบบ)",
+    "9 types (9 แบบ)",
+    "3 types (3 แบบ)"
   ],
   answer:0,
   hint:"Count all the named techniques on Page 18.",
@@ -263,8 +263,8 @@ const liftingQuestions = [
   options:[
     "สิ่งของชิ้นเล็ก (small objects)",
     "สิ่งของที่หนักมาก (very heavy objects)",
-    "สิ่งของที่มีน้ำหนักไม่สม่ำเสมอ",
-    "สิ่งของที่อยู่เหนือศีรษะ"
+    "Objects with uneven weight (สิ่งของที่มีน้ำหนักไม่สม่ำเสมอ)",
+    "Overhead objects (สิ่งของที่อยู่เหนือศีรษะ)"
   ],
   answer:0,
   hint:"This is a basic lifting technique for smaller items.",
@@ -292,9 +292,9 @@ const liftingQuestions = [
   th:"Tripod Lift เหมาะสำหรับผู้ที่มีภาวะใด แต่ไม่เหมาะสำหรับผู้ที่มีปัญหาใด?",
   options:[
     "เหมาะสำหรับผู้ที่มีกำลังแขนลดลง (decreased arm strength) / ไม่เหมาะสำหรับผู้ที่มีปัญหาข้อเข่า",
-    "เหมาะสำหรับผู้ที่มีปวดหลัง / ไม่เหมาะสำหรับผู้ที่มีปัญหาข้อไหล่",
-    "เหมาะสำหรับผู้สูงอายุ / ไม่เหมาะสำหรับเด็ก",
-    "เหมาะสำหรับผู้ที่มีกำลังขาลดลง / ไม่เหมาะสำหรับผู้ที่ปวดหลัง"
+    "Suitable for back pain / Not suitable for shoulder problems (เหมาะสำหรับผู้ที่มีปวดหลัง / ไม่เหมาะสำหรับผู้ที่มีปัญหาข้อไหล่)",
+    "Suitable for elderly / Not suitable for children (เหมาะสำหรับผู้สูงอายุ / ไม่เหมาะสำหรับเด็ก)",
+    "Suitable for decreased leg strength / Not suitable for back pain (เหมาะสำหรับผู้ที่มีกำลังขาลดลง / ไม่เหมาะสำหรับผู้ที่ปวดหลัง)"
   ],
   answer:0,
   hint:"One is about arm weakness, the other about knee problems.",
@@ -306,10 +306,10 @@ const liftingQuestions = [
   q:"Tripod Lift is used for lifting what type of objects?",
   th:"Tripod Lift ใช้สำหรับยกสิ่งของชนิดใด?",
   options:[
-    "สิ่งของที่มีน้ำหนักไม่สม่ำเสมอและไม่เท่ากัน",
-    "สิ่งของที่มีขนาดเล็กมาก",
-    "สิ่งของที่อยู่เหนือศีรษะ",
-    "สิ่งของที่หนักมากและมีน้ำหนักสม่ำเสมอ"
+    "Objects with uneven and unequal weight (สิ่งของที่มีน้ำหนักไม่สม่ำเสมอและไม่เท่ากัน)",
+    "Very small objects (สิ่งของที่มีขนาดเล็กมาก)",
+    "Overhead objects (สิ่งของที่อยู่เหนือศีรษะ)",
+    "Very heavy objects with even weight (สิ่งของที่หนักมากและมีน้ำหนักสม่ำเสมอ)"
   ],
   answer:0,
   hint:"The weight is not evenly distributed.",
@@ -322,8 +322,8 @@ const liftingQuestions = [
   th:"Golfers' Lift เหมาะสำหรับผู้ที่มีอาการใด?",
   options:[
     "ปวดเข่าและอ่อนแรงของขา (lower limb)",
-    "ปวดไหล่และคอ",
-    "ปวดหลังส่วนล่าง",
+    "Shoulder and neck pain (ปวดไหล่และคอ)",
+    "Lower back pain (ปวดหลังส่วนล่าง)",
     "แขนอ่อนแรง (decreased arm strength)"
   ],
   answer:0,
@@ -337,9 +337,9 @@ const liftingQuestions = [
   th:"Pivot Technique มีวัตถุประสงค์เพื่ออะไร?",
   options:[
     "เพื่อหลีกเลี่ยงการบิดตัว (twisting) ขณะยกของ",
-    "เพื่อยกของให้สูงขึ้นเหนือศีรษะ",
-    "เพื่อยกของที่หนักมาก",
-    "เพื่อยกของที่มีน้ำหนักไม่สม่ำเสมอ"
+    "To lift objects higher overhead (เพื่อยกของให้สูงขึ้นเหนือศีรษะ)",
+    "To lift very heavy objects (เพื่อยกของที่หนักมาก)",
+    "To lift objects with uneven weight (เพื่อยกของที่มีน้ำหนักไม่สม่ำเสมอ)"
   ],
   answer:0,
   hint:"Twisting while lifting can injure back tissue.",
@@ -351,10 +351,10 @@ const liftingQuestions = [
   q:"In the Pivot Technique, at what angle should you move your foot?",
   th:"ในเทคนิค Pivot ควรเคลื่อนเท้ากี่องศาไปยังทิศทางที่ต้องการหมุนตัว?",
   options:[
-    "90 องศา",
-    "45 องศา",
-    "180 องศา",
-    "60 องศา"
+    "90 degrees (90 องศา)",
+    "45 degrees (45 องศา)",
+    "180 degrees (180 องศา)",
+    "60 degrees (60 องศา)"
   ],
   answer:0,
   hint:"A right angle turn.",
@@ -368,8 +368,8 @@ const liftingQuestions = [
   options:[
     "สิ่งของที่หนัก (heavy objects)",
     "สิ่งของขนาดเล็ก (small objects)",
-    "สิ่งของที่อยู่เหนือศีรษะ",
-    "สิ่งของที่มีน้ำหนักไม่สม่ำเสมอ"
+    "Overhead objects (สิ่งของที่อยู่เหนือศีรษะ)",
+    "Objects with uneven weight (สิ่งของที่มีน้ำหนักไม่สม่ำเสมอ)"
   ],
   answer:0,
   hint:"This lift requires the most power.",
@@ -381,10 +381,10 @@ const liftingQuestions = [
   q:"A patient who has been bedridden for a long time may experience postural hypotension when changing position. What are the symptoms?",
   th:"ผู้ป่วยที่นอนนานๆ อาจเกิดภาวะ postural hypotension เมื่อเปลี่ยนท่าทาง อาการคืออะไร?",
   options:[
-    "วิงเวียน หาว หน้ามืด คล้ายจะเป็นลม หน้าซีด",
-    "ปวดศีรษะ คลื่นไส้ อาเจียน ตาพร่ามัว",
-    "ใจสั่น เหงื่อออก มือสั่น หายใจเร็ว",
-    "ปวดหลัง ขาอ่อนแรง ชาปลายมือปลายเท้า"
+    "Dizziness, yawning, lightheadedness, near-fainting, pale face (วิงเวียน หาว หน้ามืด คล้ายจะเป็นลม หน้าซีด)",
+    "Headache, nausea, vomiting, blurred vision (ปวดศีรษะ คลื่นไส้ อาเจียน ตาพร่ามัว)",
+    "Palpitations, sweating, trembling hands, rapid breathing (ใจสั่น เหงื่อออก มือสั่น หายใจเร็ว)",
+    "Back pain, leg weakness, numbness in hands and feet (ปวดหลัง ขาอ่อนแรง ชาปลายมือปลายเท้า)"
   ],
   answer:0,
   hint:"These symptoms relate to blood pressure dropping when posture changes.",
@@ -396,10 +396,10 @@ const liftingQuestions = [
   q:"How should postural hypotension be managed during patient transfer?",
   th:"ควรแก้ไข postural hypotension ระหว่างเคลื่อนย้ายผู้ป่วยอย่างไร?",
   options:[
-    "ปรับศีรษะผู้ป่วยให้ต่ำลง โดยนอนราบหรือกระดกรถเข็นนั่งไปด้านหลัง",
-    "ให้ผู้ป่วยนั่งตัวตรงและดื่มน้ำ",
-    "ให้ผู้ป่วยยืนขึ้นทันทีเพื่อเพิ่มการไหลเวียนเลือด",
-    "ยกขาผู้ป่วยขึ้นสูงเหนือศีรษะ"
+    "Lower the patient's head by lying flat or tilting wheelchair backward (ปรับศีรษะผู้ป่วยให้ต่ำลง โดยนอนราบหรือกระดกรถเข็นนั่งไปด้านหลัง)",
+    "Have the patient sit upright and drink water (ให้ผู้ป่วยนั่งตัวตรงและดื่มน้ำ)",
+    "Have the patient stand up immediately to increase blood circulation (ให้ผู้ป่วยยืนขึ้นทันทีเพื่อเพิ่มการไหลเวียนเลือด)",
+    "Elevate the patient's legs above the head (ยกขาผู้ป่วยขึ้นสูงเหนือศีรษะ)"
   ],
   answer:0,
   hint:"Lower the head to restore blood flow to the brain.",
@@ -411,10 +411,10 @@ const liftingQuestions = [
   q:"When transferring a patient using a sheet, how long should the sheet ideally be?",
   th:"ผ้าที่ใช้ในการเคลื่อนย้ายผู้ป่วยควรมีความยาวเท่าใด?",
   options:[
-    "ตั้งแต่ไหล่ถึงเข่าผู้ป่วย",
-    "ตั้งแต่ศีรษะถึงเท้าผู้ป่วย",
-    "ตั้งแต่เอวถึงเข่าผู้ป่วย",
-    "ตั้งแต่คอถึงสะโพกผู้ป่วย"
+    "From shoulders to knees of the patient (ตั้งแต่ไหล่ถึงเข่าผู้ป่วย)",
+    "From head to feet of the patient (ตั้งแต่ศีรษะถึงเท้าผู้ป่วย)",
+    "From waist to knees of the patient (ตั้งแต่เอวถึงเข่าผู้ป่วย)",
+    "From neck to hips of the patient (ตั้งแต่คอถึงสะโพกผู้ป่วย)"
   ],
   answer:0,
   hint:"The sheet spans from the upper body to just above the lower leg.",
@@ -426,10 +426,10 @@ const liftingQuestions = [
   q:"When two people lift a patient using their hands (without a sheet), who gives the signal and why?",
   th:"เมื่อมีผู้ยก 2 คนใช้มือยกผู้ป่วย (ไม่ใช้ผ้า) ใครเป็นผู้ให้สัญญาณและเพราะเหตุใด?",
   options:[
-    "ผู้ยกที่อยู่บริเวณสะโพก เนื่องจากเป็นผู้ที่ต้องรับน้ำหนักมากที่สุด",
-    "ผู้ยกที่อยู่บริเวณไหล่ เนื่องจากอยู่ใกล้ศีรษะผู้ป่วย",
-    "ผู้ยกที่มีอาวุโสกว่า",
-    "ผู้ยกที่อยู่ด้านขวาของผู้ป่วย"
+    "The lifter at the hip area, as they bear the most weight (ผู้ยกที่อยู่บริเวณสะโพก เนื่องจากเป็นผู้ที่ต้องรับน้ำหนักมากที่สุด)",
+    "The lifter at the shoulder area, as they are near the patient's head (ผู้ยกที่อยู่บริเวณไหล่ เนื่องจากอยู่ใกล้ศีรษะผู้ป่วย)",
+    "The more senior lifter (ผู้ยกที่มีอาวุโสกว่า)",
+    "The lifter on the right side of the patient (ผู้ยกที่อยู่ด้านขวาของผู้ป่วย)"
   ],
   answer:0,
   hint:"The person at the heaviest part of the body gives the command.",
@@ -456,10 +456,10 @@ const liftingQuestions = [
   q:"What are the precautions when using the Through Arm Grasp?",
   th:"ข้อควรระวังในการใช้ Through Arm Grasp คืออะไร?",
   options:[
-    "อย่ากดหน้าอกผู้ป่วย และอย่าออกแรงผ่านใต้รักแร้ เพราะจะทำให้เส้นเลือด เส้นประสาทบริเวณนั้นบาดเจ็บ",
-    "อย่าจับแน่นเกินไปที่ข้อมือ",
-    "อย่าให้ผู้ป่วยก้มหลัง",
-    "อย่ายกผู้ป่วยเกิน 30 วินาที"
+    "Do not press the patient's chest, and do not apply force through the axilla as it can injure blood vessels and nerves (อย่ากดหน้าอกผู้ป่วย และอย่าออกแรงผ่านใต้รักแร้ เพราะจะทำให้เส้นเลือด เส้นประสาทบริเวณนั้นบาดเจ็บ)",
+    "Do not grip the wrist too tightly (อย่าจับแน่นเกินไปที่ข้อมือ)",
+    "Do not let the patient bend their back (อย่าให้ผู้ป่วยก้มหลัง)",
+    "Do not lift the patient for more than 30 seconds (อย่ายกผู้ป่วยเกิน 30 วินาที)"
   ],
   answer:0,
   hint:"Two areas to avoid pressing: the chest and the axilla.",
@@ -471,10 +471,10 @@ const liftingQuestions = [
   q:"Australia Shoulder Lift has which characteristics?",
   th:"Australia Shoulder Lift มีลักษณะเด่นอย่างไร?",
   options:[
-    "เป็นการยกที่ใช้บ่อย ปลอดภัยและง่ายที่สุด",
-    "ไม่มั่นคง แต่ใช้ได้กับผู้ป่วยที่ปวดไหล่",
-    "ใช้สำหรับผู้ป่วยที่หมดสติ",
-    "ผู้ยกหันหน้าไปทางเดียวกับผู้ป่วย"
+    "Most frequently used, safest and easiest lift (เป็นการยกที่ใช้บ่อย ปลอดภัยและง่ายที่สุด)",
+    "Unstable, but can be used for patients with shoulder pain (ไม่มั่นคง แต่ใช้ได้กับผู้ป่วยที่ปวดไหล่)",
+    "Used for unconscious patients (ใช้สำหรับผู้ป่วยที่หมดสติ)",
+    "Lifters face the same direction as the patient (ผู้ยกหันหน้าไปทางเดียวกับผู้ป่วย)"
   ],
   answer:0,
   hint:"It's the most commonly used and safest patient lift.",
@@ -486,10 +486,10 @@ const liftingQuestions = [
   q:"Australia Shoulder Lift should NOT be used in which patients?",
   th:"Australia Shoulder Lift ไม่ควรใช้ในผู้ป่วยกลุ่มใด?",
   options:[
-    "ผู้ป่วยที่ไม่สามารถนั่งได้ และผู้ป่วยที่มีอาการปวดบริเวณหน้าอกหรือข้อไหล่",
-    "ผู้ป่วยที่มีน้ำหนักเกิน 100 กก.",
-    "ผู้ป่วยที่มีปัญหาข้อเข่า",
-    "ผู้ป่วยที่มีอาการอ่อนแรงของขา"
+    "Patients who cannot sit, and patients with chest or shoulder pain (ผู้ป่วยที่ไม่สามารถนั่งได้ และผู้ป่วยที่มีอาการปวดบริเวณหน้าอกหรือข้อไหล่)",
+    "Patients weighing over 100 kg (ผู้ป่วยที่มีน้ำหนักเกิน 100 กก.)",
+    "Patients with knee problems (ผู้ป่วยที่มีปัญหาข้อเข่า)",
+    "Patients with leg weakness (ผู้ป่วยที่มีอาการอ่อนแรงของขา)"
   ],
   answer:0,
   hint:"Two contraindications: inability to sit and pain in specific areas.",
@@ -501,10 +501,10 @@ const liftingQuestions = [
   q:"In the Orthodox Lift, the lifters face which direction relative to the patient?",
   th:"ใน Orthodox Lift ผู้ยกหันหน้าไปทิศทางใดเมื่อเทียบกับผู้ป่วย?",
   options:[
-    "หันหน้าไปทางเดียวกับผู้ป่วย",
-    "หันหน้าไปด้านตรงข้ามกับผู้ป่วย",
-    "หันหน้าเข้าหากัน",
-    "หันหลังให้ผู้ป่วย"
+    "Face the same direction as the patient (หันหน้าไปทางเดียวกับผู้ป่วย)",
+    "Face the opposite direction from the patient (หันหน้าไปด้านตรงข้ามกับผู้ป่วย)",
+    "Face each other (หันหน้าเข้าหากัน)",
+    "Turn their backs to the patient (หันหลังให้ผู้ป่วย)"
   ],
   answer:0,
   hint:"Compare with Australia Shoulder Lift where lifters face the opposite way.",
@@ -516,10 +516,10 @@ const liftingQuestions = [
   q:"Orthodox Lift can be used for patients with painful shoulders. How should the patient position their hands?",
   th:"Orthodox Lift ใช้ยกได้ในผู้ป่วยที่ปวดไหล่ ผู้ป่วยควรวางมืออย่างไร?",
   options:[
-    "วางมือไว้บนตัก",
-    "ยกมือขึ้นเหนือศีรษะ",
-    "โอบรอบคอผู้ยก",
-    "วางมือบนไหล่ผู้ยก"
+    "Place hands on their lap (วางมือไว้บนตัก)",
+    "Raise hands above the head (ยกมือขึ้นเหนือศีรษะ)",
+    "Wrap arms around the lifter's neck (โอบรอบคอผู้ยก)",
+    "Place hands on the lifter's shoulders (วางมือบนไหล่ผู้ยก)"
   ],
   answer:0,
   hint:"The hands rest somewhere comfortable for painful shoulders.",
@@ -532,9 +532,9 @@ const liftingQuestions = [
   th:"Two Handed-Seat ใช้ช่วยเหลือผู้ป่วยกลุ่มใด?",
   options:[
     "ผู้ป่วยที่หมดสติ (unconscious)",
-    "ผู้ป่วยที่มีสติดี",
-    "ผู้ป่วยที่ปวดไหล่",
-    "ผู้ป่วยที่ไม่สามารถนั่งได้"
+    "Conscious patients (ผู้ป่วยที่มีสติดี)",
+    "Patients with shoulder pain (ผู้ป่วยที่ปวดไหล่)",
+    "Patients who cannot sit (ผู้ป่วยที่ไม่สามารถนั่งได้)"
   ],
   answer:0,
   hint:"This patient cannot hold on to the lifter.",
@@ -546,10 +546,10 @@ const liftingQuestions = [
   q:"Four Handed-Seat requires what from the patient?",
   th:"Four Handed-Seat ต้องการอะไรจากผู้ป่วย?",
   options:[
-    "ผู้บาดเจ็บจะต้องมีการรับรู้สติเพียงพอที่จะยึดเกาะผู้ยกไว้ได้",
-    "ผู้ป่วยต้องหมดสติ",
-    "ผู้ป่วยต้องสามารถยืนได้ด้วยตนเอง",
-    "ผู้ป่วยต้องจับมือไว้ที่หลังผู้ยก"
+    "The patient must be conscious enough to hold on to the lifters (ผู้บาดเจ็บจะต้องมีการรับรู้สติเพียงพอที่จะยึดเกาะผู้ยกไว้ได้)",
+    "The patient must be unconscious (ผู้ป่วยต้องหมดสติ)",
+    "The patient must be able to stand on their own (ผู้ป่วยต้องสามารถยืนได้ด้วยตนเอง)",
+    "The patient must hold on to the lifter's back (ผู้ป่วยต้องจับมือไว้ที่หลังผู้ยก)"
   ],
   answer:0,
   hint:"The patient needs to actively participate by holding on.",
@@ -591,10 +591,10 @@ const liftingQuestions = [
   q:"In the Carrying step, where should the elbows be positioned?",
   th:"ในขั้นตอน Carrying ข้อศอกควรอยู่ในตำแหน่งใด?",
   options:[
-    "ข้อศอกแนบลำตัว",
-    "ข้อศอกกางออก",
-    "ข้อศอกยกขึ้นระดับไหล่",
-    "ข้อศอกเหยียดตรง"
+    "Elbows close to the body (ข้อศอกแนบลำตัว)",
+    "Elbows spread out (ข้อศอกกางออก)",
+    "Elbows raised to shoulder level (ข้อศอกยกขึ้นระดับไหล่)",
+    "Elbows fully extended (ข้อศอกเหยียดตรง)"
   ],
   answer:0,
   hint:"Keep elbows close for stability.",
@@ -606,10 +606,10 @@ const liftingQuestions = [
   q:"When using the Orthodox Lift, why is it prohibited on wide beds?",
   th:"เหตุใด Orthodox Lift จึงห้ามใช้ยกบนเตียงที่กว้าง?",
   options:[
-    "ผู้ยกไม่สามารถเข้าใกล้ผู้ป่วยได้เพียงพอที่จะทำให้การยกปลอดภัย",
-    "เตียงกว้างจะทำให้ผู้ป่วยตกจากเตียง",
-    "ผู้ยกไม่สามารถยืนทั้ง 2 ข้างได้",
-    "เตียงกว้างจะทำให้แรงเสียดทานมากเกินไป"
+    "Lifters cannot get close enough to the patient for safe lifting (ผู้ยกไม่สามารถเข้าใกล้ผู้ป่วยได้เพียงพอที่จะทำให้การยกปลอดภัย)",
+    "Wide bed will cause the patient to fall off (เตียงกว้างจะทำให้ผู้ป่วยตกจากเตียง)",
+    "Lifters cannot stand on both sides (ผู้ยกไม่สามารถยืนทั้ง 2 ข้างได้)",
+    "Wide bed will cause too much friction (เตียงกว้างจะทำให้แรงเสียดทานมากเกินไป)"
   ],
   answer:0,
   hint:"The lifters cannot get close enough to the patient.",
