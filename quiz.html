@@ -144,8 +144,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .score-label{color:#888;font-size:15px;margin-bottom:20px}
 .topic-breakdown{text-align:left;margin:16px 0}
 .breakdown-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1a1a2e;font-size:14px}
-.retry-btn{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;border:none;border-radius:10px;padding:14px;width:100%;cursor:pointer;font-size:16px;margin-top:12px}
-.back-btn{background:none;border:1px solid #2a2a4a;color:#888;border-radius:10px;padding:12px;width:100%;cursor:pointer;font-size:14px;margin-top:8px}
+.retry-btn{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;border:none;border-radius:12px;padding:14px;width:100%;cursor:pointer;font-size:15px;margin-top:12px}
+.back-btn{background:none;border:1px solid #2a2a4a;color:#888;border-radius:12px;padding:14px;width:100%;cursor:pointer;font-size:15px;margin-top:8px}
 .back-btn:hover{border-color:#666;color:#ccc}
 .hidden{display:none!important}
 .screen{display:none}
@@ -4390,6 +4390,7 @@ function startDailyChallenge(){
   ll5050Used=false;llHintUsed=false;llAudienceUsed=false;usedMilestones=[];
   xp=0;combo=0;maxCombo=0;maxStreak=0;qAnswered=false;pickedIdx=-1;
   startQuizTimer();window._isDailyChallenge=true;
+  startMusic();
   navStack.push('modeSelect');navStack.push('quiz');showScreen('quiz');renderMCQ();
 }
 function completeDailyChallenge(pct){
@@ -4410,6 +4411,55 @@ function updateDailyBtn(){
   const btn=document.getElementById('dailyChallengeBtn');if(!btn)return;
   const av=isDailyChallengeAvailable();btn.disabled=!av;
   btn.innerHTML=av?('&#x1F4C5; '+(lang==='th'?'\u0e17\u0e49\u0e32\u0e17\u0e32\u0e22\u0e1b\u0e23\u0e30\u0e08\u0e33\u0e27\u0e31\u0e19 (2x XP)':'Daily Challenge (2x XP)')):('&#x2705; '+(lang==='th'?'\u0e17\u0e33\u0e41\u0e25\u0e49\u0e27\u0e27\u0e31\u0e19\u0e19\u0e35\u0e49':'Done for today'));
+}
+
+// ─── BACKGROUND MUSIC (Common Saints via YouTube IFrame API) ───
+const csTracks=[
+  {id:'ApSZDlw9diI',title:'Summer Sun'},
+  {id:'F1hQdBnjoEo',title:'Idol Eyes (Full EP)'},
+  {id:'GEIuKGBjTZU',title:'Sandman'},
+  {id:'iiAfEc1VVz4',title:'Letting Go'},
+  {id:'Syzmvs8Pagk',title:'Lovesong'},
+  {id:'ucE_cG_jzn4',title:'Sweet Release'},
+  {id:'Rm6_s8vjqQw',title:'Illusions'},
+  {id:'XMDm2ABc8_c',title:'Equinox'},
+  {id:'zRt_S_-4svg',title:'Night Light'}
+];
+let ytPlayer=null,ytReady=false,musicPlaying=false,csShuffled=[],csIdx=0;
+// Load YouTube IFrame API
+(function(){const tag=document.createElement('script');tag.src='https://www.youtube.com/iframe_api';document.head.appendChild(tag)})();
+function onYouTubeIframeAPIReady(){
+  // Create hidden player div
+  let pd=document.getElementById('ytPlayerDiv');
+  if(!pd){pd=document.createElement('div');pd.id='ytPlayerDiv';pd.style.cssText='position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;pointer-events:none';document.body.appendChild(pd)}
+  ytPlayer=new YT.Player('ytPlayerDiv',{
+    height:'1',width:'1',
+    playerVars:{autoplay:0,controls:0,disablekb:1,fs:0,modestbranding:1,rel:0,playsinline:1},
+    events:{onReady:function(){ytReady=true},onStateChange:function(e){if(e.data===YT.PlayerState.ENDED)playNextTrack()}}
+  });
+}
+function shuffleTracks(){csShuffled=[...csTracks];for(let i=csShuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[csShuffled[i],csShuffled[j]]=[csShuffled[j],csShuffled[i]]}csIdx=0}
+function startMusic(){
+  if(!ytReady||musicPlaying)return;
+  shuffleTracks();musicPlaying=true;
+  ytPlayer.loadVideoById(csShuffled[0].id);ytPlayer.setVolume(30);
+  showNowPlaying(csShuffled[0].title);
+}
+function stopMusic(){
+  if(!ytReady||!musicPlaying)return;
+  try{ytPlayer.stopVideo()}catch(e){}musicPlaying=false;
+  const np=document.getElementById('nowPlaying');if(np)np.remove();
+}
+function playNextTrack(){
+  if(!musicPlaying)return;
+  csIdx++;if(csIdx>=csShuffled.length){shuffleTracks()}
+  ytPlayer.loadVideoById(csShuffled[csIdx].id);ytPlayer.setVolume(30);
+  showNowPlaying(csShuffled[csIdx].title);
+}
+function showNowPlaying(title){
+  let np=document.getElementById('nowPlaying');
+  if(!np){np=document.createElement('div');np.id='nowPlaying';np.style.cssText='position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(15,15,35,.9);border:1px solid #2a2a4a;border-radius:20px;padding:6px 16px;font-size:11px;color:#888;z-index:500;display:flex;align-items:center;gap:6px;backdrop-filter:blur(8px);max-width:90vw';document.body.appendChild(np)}
+  np.innerHTML='<span style="color:#6ee7b7">&#9835;</span> Common Saints - '+title+' <span onclick="playNextTrack()" style="cursor:pointer;color:#666;margin-left:4px">&#x23ED;</span>';
 }
 
 // ─── STATS DASHBOARD ───
@@ -4905,7 +4955,7 @@ function rateCard(r){
 
 // ─── RESULTS ───
 function showResults(){
-  stopQuizTimer();const totalTime=Date.now()-quizStartTime;
+  stopQuizTimer();stopMusic();const totalTime=Date.now()-quizStartTime;
   // Clean navStack: remove the completed activity screen so back doesn't revisit it
   while(navStack.length>0&&['quiz','flashScreen','fitbScreen'].includes(navStack[navStack.length-1])){navStack.pop()}
   showScreen('results');
