@@ -20,13 +20,20 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 
 .home{text-align:center;padding-top:36px;display:flex;flex-direction:column;min-height:calc(100vh - 60px)}
 .home-header{display:flex;justify-content:flex-end;padding:0 0 12px}
-.home-icon{margin-bottom:8px}.home-icon img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #3b82f6;box-shadow:0 2px 12px rgba(59,130,246,.3)}
-.home h1{font-size:26px;margin-bottom:3px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
-.home .sub{color:#888;margin-bottom:2px;font-size:13px}
-.home .sub-th{color:#555;margin-bottom:0;font-size:12px;font-style:italic}
-.home-divider{width:36px;height:3px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);border-radius:2px;margin:10px auto 14px}
-.home-footer{margin-top:20px;padding:10px 0 20px;border-top:1px solid #1a1a2e;color:#333;font-size:11px;letter-spacing:.3px;text-align:center}
+.home-icon{margin-bottom:6px}.home-icon img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #3b82f6;box-shadow:0 2px 8px rgba(59,130,246,.25)}
+.home h1{font-size:20px;margin-bottom:2px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.3px}
+.home .sub{color:#888;margin-bottom:0;font-size:12px}
+.home-divider{width:36px;height:3px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);border-radius:2px;margin:8px auto 10px}
+.home-footer{margin-top:16px;padding:8px 0 16px;border-top:1px solid #1a1a2e;color:#333;font-size:11px;letter-spacing:.3px;text-align:center}
 .home-footer .hf-heart{color:#ef4444}
+.home-stats-bar{display:flex;align-items:center;justify-content:space-between;background:#111122;border:1px solid #1e1e38;border-radius:14px;padding:8px 14px;margin-bottom:10px;gap:8px}
+.home-stats-bar .hsb-item{display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;min-width:42px}
+.home-stats-bar .hsb-val{font-size:16px;font-weight:800;color:#e0e0e0;line-height:1.1}
+.home-stats-bar .hsb-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.home-stats-bar .hsb-xp{flex:1;min-width:0}
+.home-stats-bar .hsb-xp-label{font-size:10px;color:#666;text-align:center;margin-bottom:2px}
+.home-stats-bar .hsb-xp-bar{height:6px;background:#1a1a2e;border-radius:3px;overflow:hidden}
+.home-stats-bar .hsb-xp-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#3b82f6);border-radius:3px;transition:width .8s cubic-bezier(.22,1,.36,1)}
 .topic-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
 .topic-btn{background:linear-gradient(135deg,#131525,#1a1a2e);border:none;border-left:3px solid #6ee7b7;border-radius:10px;padding:12px 38px 12px 14px;text-align:left;cursor:pointer;transition:all .2s;position:relative}
 @media(hover:hover){.topic-btn:hover{border-left-color:#3b82f6;background:linear-gradient(135deg,#161830,#1e1e35)}}
@@ -438,27 +445,26 @@ document.getElementById('pwInput').addEventListener('keydown',function(e){if(e.k
 
 <div id="home" class="screen active home">
   <div class="home-icon"><img src="data:image/jpeg;base64,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" alt="Nephisa"></div>
-  <h1>Exam Preparation Learning App For Nephisa (My Wife &#x1F48D;)</h1>
-  <p class="sub">Physical Therapy Exam Prep</p>
-  <p class="sub-th">เตรียมสอบกายภาพบำบัด</p>
+  <h1>Nephisa's PT Prep &#x1F48D;</h1>
+  <p class="sub" id="homeSubtitle">Physical Therapy Exam Prep</p>
   <div class="home-divider"></div>
-  <div class="home-stats-row" id="homeStatsRow">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-      <div class="level-badge" id="homeLevelBadge">1</div>
-      <div style="font-size:10px;color:#6ee7b7;font-weight:600">LEVEL</div>
+  <div class="home-stats-bar" id="homeStatsRow">
+    <div class="hsb-item" onclick="showDashboard()">
+      <div class="hsb-val" style="color:#6ee7b7" id="homeLevelBadge">1</div>
+      <div class="hsb-label" style="color:#6ee7b7">Level</div>
     </div>
-    <div class="level-bar-container">
-      <div class="level-bar-label" id="homeLevelLabel">0 / 100 XP</div>
-      <div class="level-bar"><div class="level-bar-fill" id="homeLevelFill" style="width:0%"></div></div>
+    <div class="hsb-xp">
+      <div class="hsb-xp-label" id="homeLevelLabel">0 / 100 XP</div>
+      <div class="hsb-xp-bar"><div class="hsb-xp-fill" id="homeLevelFill" style="width:0%"></div></div>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-      <div class="streak-badge" id="homeStreakBadge"><span class="streak-fire">&#x1F525;</span> <span id="homeStreakNum">0</span></div>
-      <div style="font-size:10px;color:#f59e0b;font-weight:600">STREAK</div>
+    <div class="hsb-item" id="homeStreakBadge">
+      <div class="hsb-val" style="color:#f59e0b"><span class="streak-fire">&#x1F525;</span><span id="homeStreakNum">0</span></div>
+      <div class="hsb-label" style="color:#f59e0b">Streak</div>
     </div>
-  </div>
-  <div class="home-actions">
-    <div class="home-icon-btn" onclick="showBadgeShelf()">&#x1F3C6;<span class="hib-label" id="badgeCountLabel">0/15</span></div>
-    <div class="home-icon-btn" onclick="showDashboard()">&#x1F4CA;<span class="hib-label" id="statsLabel">Stats</span></div>
+    <div class="hsb-item" onclick="showBadgeShelf()">
+      <div class="hsb-val" id="badgeCountLabel">0<span style="font-size:10px;color:#666">/15</span></div>
+      <div class="hsb-label" style="color:#888">Badges</div>
+    </div>
   </div>
   <button class="daily-btn" id="dailyChallengeBtn" onclick="startDailyChallenge()">&#x1F4C5; Daily Challenge (2x XP)</button>
   <button class="all-btn" onclick="startQuiz('all')">All Subjects / ทุกวิชา</button>
@@ -4007,7 +4013,7 @@ function splitOpt(text){
 function updateLang(){
   // Home screen
   document.querySelector('.home .sub').textContent=lang==='th'?'\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e2a\u0e2d\u0e1a\u0e01\u0e32\u0e22\u0e20\u0e32\u0e1e\u0e1a\u0e33\u0e1a\u0e31\u0e14':'Physical Therapy Exam Prep';
-  document.querySelector('.home .sub-th').textContent=lang==='th'?'Physical Therapy Exam Prep':'\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e2a\u0e2d\u0e1a\u0e01\u0e32\u0e22\u0e20\u0e32\u0e1e\u0e1a\u0e33\u0e1a\u0e31\u0e14';
+  // sub-th removed from layout
   document.querySelector('.all-btn').textContent=lang==='th'?'\u0e17\u0e38\u0e01\u0e27\u0e34\u0e0a\u0e32':'All Subjects';
   // Subject grid on home
   const g=document.getElementById('subjectGrid');g.innerHTML='';
@@ -4341,7 +4347,7 @@ function updateBadgeCount(){const el=document.getElementById('badgeCountLabel');
 let survivalHearts=3,survivalQ=0,survivalXp=0,inSurvival=false;
 let survivalHighScore=0;try{survivalHighScore=parseInt(localStorage.getItem('survivalHighScore'))||0}catch(e){}
 function startSurvival(){
-  inSurvival=true;survivalHearts=3;survivalQ=0;survivalXp=0;mode='mcq';
+  inSurvival=true;survivalHearts=3;survivalQ=0;survivalXp=0;mode='mcq';startMusic();
   let pool=selectedTopic==='all'?questions.filter(q=>getVisibleTopicKeys().includes(q.topic)):getPool();
   const easy=pool.filter(q=>q.diff===1);const med=pool.filter(q=>q.diff===2);const hard=pool.filter(q=>q.diff===3);
   shuffle(easy);shuffle(med);shuffle(hard);
@@ -4360,7 +4366,7 @@ function updateSurvivalHearts(){
   el.innerHTML='';for(let i=0;i<3;i++){el.innerHTML+='<span class="'+(i<survivalHearts?'heart-full':'heart-empty')+'">'+(i<survivalHearts?'\u2764\uFE0F':'\uD83D\uDDA4')+'</span>'}
 }
 function showSurvivalGameOver(){
-  inSurvival=false;stopQuizTimer();clearInterval(speedTimerInterval);
+  inSurvival=false;stopQuizTimer();clearInterval(speedTimerInterval);stopMusic();
   document.getElementById('survivalHeartsDisplay').style.display='none';
   const survived=survivalQ;
   if(survived>survivalHighScore){survivalHighScore=survived;try{localStorage.setItem('survivalHighScore',survivalHighScore)}catch(e){}}
@@ -4674,7 +4680,8 @@ function showMilestone(ms){
   const sl=lang==='th'?'\u0e04\u0e30\u0e41\u0e19\u0e19:':' Score so far:';
   document.getElementById('msStat').textContent=`${sl} ${score}/${idx+1} (${pct}%)`;
   const msImg=document.getElementById('msImg');
-  if(ms.img){msImg.src=ms.img;msImg.style.display='block'}else{msImg.style.display='none'}
+  const msEmojiEl=document.getElementById('msEmoji');
+  if(ms.img){msImg.src=ms.img;msImg.style.display='block';msEmojiEl.style.fontSize='60px'}else{msImg.style.display='none';msEmojiEl.style.fontSize='100px'}
   showScreen('milestone');
 }
 
