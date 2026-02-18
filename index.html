@@ -4153,7 +4153,8 @@ function toggleSound(){
   soundOn=!soundOn;try{localStorage.setItem('quizSoundOn',soundOn)}catch(e){}
   const btn=document.getElementById('soundBtn');
   if(btn){btn.innerHTML=soundOn?'&#x1F50A;':'&#x1F507;';btn.classList.toggle('active',soundOn)}
-  if(soundOn){ensureAudio();playCorrect()}
+  if(soundOn){ensureAudio();playCorrect();if((inSurvival||window._isDailyChallenge)&&!musicPlaying)startMusic()}
+  else{if(musicPlaying)stopMusic()}
 }
 // ─── REWARD ANIMATIONS ───
 function spawnCoins(count){
@@ -4446,7 +4447,7 @@ function onYouTubeIframeAPIReady(){
 }
 function shuffleTracks(){csShuffled=[...csTracks];for(let i=csShuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[csShuffled[i],csShuffled[j]]=[csShuffled[j],csShuffled[i]]}csIdx=0}
 function startMusic(){
-  if(!ytReady||musicPlaying)return;
+  if(!ytReady||musicPlaying||!soundOn)return;
   shuffleTracks();musicPlaying=true;
   ytPlayer.loadVideoById(csShuffled[0].id);ytPlayer.setVolume(30);
   showNowPlaying(csShuffled[0].title);
