@@ -462,7 +462,7 @@ document.getElementById('pwInput').addEventListener('keydown',function(e){if(e.k
       <div class="hsb-label" style="color:#f59e0b">Streak</div>
     </div>
     <div class="hsb-item" onclick="showBadgeShelf()">
-      <div class="hsb-val" id="badgeCountLabel">0<span style="font-size:10px;color:#666">/15</span></div>
+      <div class="hsb-val" id="badgeCountLabel">0/25</div>
       <div class="hsb-label" style="color:#888">Badges</div>
     </div>
   </div>
@@ -660,6 +660,7 @@ document.getElementById('pwInput').addEventListener('keydown',function(e){if(e.k
   <h2>&#x1F4CA; Stats Dashboard</h2>
   <div id="dashContent"></div>
   <button class="back-btn" onclick="goBack()" style="margin-top:16px">Back / กลับ</button>
+  <button onclick="if(confirm('Reset ALL progress? XP, level, streak, badges, stats — everything goes back to zero.'))resetAllProgress()" style="margin-top:24px;background:none;border:1px solid #333;color:#555;padding:8px 16px;border-radius:8px;font-size:12px;cursor:pointer;display:block;margin-left:auto;margin-right:auto">Reset All Progress</button>
   <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
@@ -4294,7 +4295,17 @@ const badges=[
   {id:'comeback',emoji:'\uD83D\uDCAA',en:'Comeback Kid',th:'\u0e01\u0e25\u0e31\u0e1a\u0e21\u0e32\u0e44\u0e14\u0e49',descEn:'90%+ on retry wrong',descTh:'\u0e44\u0e14\u0e49 90%+ \u0e08\u0e32\u0e01\u0e17\u0e33\u0e02\u0e49\u0e2d\u0e1c\u0e34\u0e14\u0e0b\u0e49\u0e33'},
   {id:'streak7',emoji:'\u2B50',en:'Dedicated',th:'\u0e17\u0e38\u0e48\u0e21\u0e40\u0e17',descEn:'7-day streak',descTh:'\u0e40\u0e25\u0e48\u0e19 7 \u0e27\u0e31\u0e19\u0e15\u0e34\u0e14'},
   {id:'streak14',emoji:'\uD83D\uDC8E',en:'On Fire',th:'\u0e44\u0e1f\u0e25\u0e38\u0e01',descEn:'14-day streak',descTh:'\u0e40\u0e25\u0e48\u0e19 14 \u0e27\u0e31\u0e19\u0e15\u0e34\u0e14'},
-  {id:'streak30',emoji:'\uD83C\uDFC6',en:'Legendary',th:'\u0e15\u0e33\u0e19\u0e32\u0e19',descEn:'30-day streak',descTh:'\u0e40\u0e25\u0e48\u0e19 30 \u0e27\u0e31\u0e19\u0e15\u0e34\u0e14'}
+  {id:'streak30',emoji:'\uD83C\uDFC6',en:'Legendary',th:'\u0e15\u0e33\u0e19\u0e32\u0e19',descEn:'30-day streak',descTh:'\u0e40\u0e25\u0e48\u0e19 30 \u0e27\u0e31\u0e19\u0e15\u0e34\u0e14'},
+  {id:'survivor5',emoji:'\uD83D\uDEE1\uFE0F',en:'Survivor',th:'\u0e1c\u0e39\u0e49\u0e23\u0e2d\u0e14\u0e0a\u0e35\u0e27\u0e34\u0e15',descEn:'Survive 5 in Survival',descTh:'\u0e23\u0e2d\u0e14 5 \u0e02\u0e49\u0e2d\u0e43\u0e19 Survival'},
+  {id:'survivor15',emoji:'\u2694\uFE0F',en:'Gladiator',th:'\u0e19\u0e31\u0e01\u0e23\u0e1a',descEn:'Survive 15 in Survival',descTh:'\u0e23\u0e2d\u0e14 15 \u0e02\u0e49\u0e2d\u0e43\u0e19 Survival'},
+  {id:'survivor30',emoji:'\uD83E\uDDB8',en:'Unkillable',th:'\u0e2d\u0e21\u0e15\u0e30',descEn:'Survive 30 in Survival',descTh:'\u0e23\u0e2d\u0e14 30 \u0e02\u0e49\u0e2d\u0e43\u0e19 Survival'},
+  {id:'daily5',emoji:'\uD83D\uDCC5',en:'Regular',th:'\u0e2a\u0e21\u0e48\u0e33\u0e40\u0e2a\u0e21\u0e2d',descEn:'5 Daily Challenges',descTh:'\u0e17\u0e33 Daily Challenge 5 \u0e04\u0e23\u0e31\u0e49\u0e07'},
+  {id:'daily15',emoji:'\uD83C\uDF1F',en:'Devoted',th:'\u0e17\u0e38\u0e48\u0e21\u0e40\u0e17\u0e2a\u0e38\u0e14\u0e46',descEn:'15 Daily Challenges',descTh:'\u0e17\u0e33 Daily Challenge 15 \u0e04\u0e23\u0e31\u0e49\u0e07'},
+  {id:'level5',emoji:'\uD83C\uDF1E',en:'Rising Star',th:'\u0e14\u0e32\u0e27\u0e23\u0e38\u0e48\u0e07',descEn:'Reach Level 5',descTh:'\u0e16\u0e36\u0e07\u0e40\u0e25\u0e40\u0e27\u0e25 5'},
+  {id:'level10',emoji:'\uD83D\uDE80',en:'Rocket',th:'\u0e08\u0e23\u0e27\u0e14',descEn:'Reach Level 10',descTh:'\u0e16\u0e36\u0e07\u0e40\u0e25\u0e40\u0e27\u0e25 10'},
+  {id:'level20',emoji:'\uD83D\uDC51',en:'Royalty',th:'\u0e23\u0e32\u0e0a\u0e34\u0e19\u0e35',descEn:'Reach Level 20',descTh:'\u0e16\u0e36\u0e07\u0e40\u0e25\u0e40\u0e27\u0e25 20'},
+  {id:'allsub',emoji:'\uD83C\uDF0D',en:'Well-Rounded',th:'\u0e23\u0e2d\u0e1a\u0e23\u0e39\u0e49',descEn:'Quiz every subject',descTh:'\u0e17\u0e33\u0e04\u0e23\u0e1a\u0e17\u0e38\u0e01\u0e27\u0e34\u0e0a\u0e32'},
+  {id:'thousand',emoji:'\u267E\uFE0F',en:'Infinite Learner',th:'\u0e40\u0e23\u0e35\u0e22\u0e19\u0e44\u0e21\u0e48\u0e2b\u0e22\u0e38\u0e14',descEn:'1000 lifetime questions',descTh:'\u0e15\u0e2d\u0e1a 1000 \u0e02\u0e49\u0e2d'}
 ];
 let unlockedBadges=[],lifetimeQuestions=0,perfectRounds=0;
 try{unlockedBadges=JSON.parse(localStorage.getItem('achievements')||'[]')}catch(e){unlockedBadges=[]}
@@ -4326,12 +4337,28 @@ function checkAchievements(quizPct,avgTime,isRetry){
   if(isRetry&&quizPct>=90&&!hasBadge('comeback'))unlockBadge('comeback');
   if(lifetimeQuestions>=100&&!hasBadge('scholar'))unlockBadge('scholar');
   if(lifetimeQuestions>=500&&!hasBadge('marathon'))unlockBadge('marathon');
+  if(lifetimeQuestions>=1000&&!hasBadge('thousand'))unlockBadge('thousand');
   const h=new Date().getHours();
   if(h>=22&&!hasBadge('night_owl'))unlockBadge('night_owl');
   if(h<7&&!hasBadge('early_bird'))unlockBadge('early_bird');
   if(dailyStreak>=7&&!hasBadge('streak7'))unlockBadge('streak7');
   if(dailyStreak>=14&&!hasBadge('streak14'))unlockBadge('streak14');
   if(dailyStreak>=30&&!hasBadge('streak30'))unlockBadge('streak30');
+  // Level badges
+  const lvl=getLevel(lifetimeXp);
+  if(lvl>=5&&!hasBadge('level5'))unlockBadge('level5');
+  if(lvl>=10&&!hasBadge('level10'))unlockBadge('level10');
+  if(lvl>=20&&!hasBadge('level20'))unlockBadge('level20');
+  // Daily challenge count
+  const dcCount=Object.keys(dailyChallengeHistory).length;
+  if(dcCount>=5&&!hasBadge('daily5'))unlockBadge('daily5');
+  if(dcCount>=15&&!hasBadge('daily15'))unlockBadge('daily15');
+  // All subjects badge
+  if(!hasBadge('allsub')){
+    const subKeys=subjects.filter(s=>!s.hidden).map(s=>s.key);
+    const quizzed=subKeys.every(k=>{const s=subjects.find(x=>x.key===k);return s&&s.topics.some(t=>topicScores[t]&&topicScores[t].total>0)});
+    if(quizzed)unlockBadge('allsub');
+  }
 }
 function renderBadgeShelf(){
   const grid=document.getElementById('badgeGrid');const sub=document.getElementById('bsSubtext');if(!grid)return;
@@ -4380,6 +4407,10 @@ function showSurvivalGameOver(){
   document.getElementById('sgHighScore').textContent=(lang==='th'?'\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14: ':'High Score: ')+survivalHighScore;
   document.getElementById('sgXp').textContent=(lang==='th'?'\u0e44\u0e14\u0e49 ':'Earned ')+survivalXp+' XP (1.5x)';
   playStreakBreak();if(survived>=10)launchConfetti();
+  // Survival badges
+  if(survived>=5&&!hasBadge('survivor5'))unlockBadge('survivor5');
+  if(survived>=15&&!hasBadge('survivor15'))unlockBadge('survivor15');
+  if(survived>=30&&!hasBadge('survivor30'))unlockBadge('survivor30');
   updateHomeLevel();updateHomeStreak();updateBadgeCount();
 }
 
@@ -4526,6 +4557,18 @@ function renderDashboard(){
   }html+='</div></div>';el.innerHTML=html;
 }
 
+function resetAllProgress(){
+  const keys=['lifetimeXp','currentLevel','dailyStreak','lastPlayDate','streakFreezes','achievements','lifetimeQuestions','perfectRounds','survivalHighScore','dailyChallengeHistory','lastDailyChallengeDate','lifetimeStats','quizSoundOn'];
+  keys.forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+  // Also clear quiz history
+  for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('quizHistory_')){try{localStorage.removeItem(k)}catch(e){}}}
+  lifetimeXp=0;currentLevel=1;dailyStreak=0;lastPlayDate='';streakFreezes=0;
+  unlockedBadges=[];lifetimeQuestions=0;perfectRounds=0;survivalHighScore=0;
+  dailyChallengeHistory={};lastDailyChallengeDate='';lifetimeStats={};
+  soundOn=true;
+  updateHomeLevel();updateHomeStreak();updateBadgeCount();renderDailyCalendar();updateDailyBtn();
+  goBack();
+}
 function init(){
   const saved=localStorage.getItem('quizLang');
   if(saved)lang=saved;
