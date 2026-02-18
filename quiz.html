@@ -4729,10 +4729,13 @@ function pickAnswer(i){
     spawnXpPopup(earned,opts[i]);
     if(speed.label)spawnSpeedPopup(speed.label,speed.cls,opts[i]);
     if(mult>1)spawnComboPopup(mult,opts[i]);
+    // Sparkles on EVERY correct answer
+    const rect=opts[i].getBoundingClientRect();
+    spawnSparkles(rect.left+rect.width/2,rect.top+rect.height/2);
     if(combo===10){showSlotReward('🔥','10x COMBO!',lang==='th'?'สุดยอด! คุณหยุดไม่ได้แล้ว!':'UNSTOPPABLE! You\'re on fire!');spawnCoins(12)}
     else if(combo===5){showSlotReward('⚡','5x COMBO!',lang==='th'?'เก่งมาก!':'You\'re crushing it!');spawnCoins(8)}
     else if(combo===3){playCombo();spawnCoins(5);document.body.classList.add('combo-flash');setTimeout(()=>document.body.classList.remove('combo-flash'),600)}
-    else playCorrect();
+    else{playCorrect();if(combo===2)spawnCoins(3)}
     flashScreen('rgba(110,231,183,.3)');
     msgObj=encourageMsg[Math.floor(Math.random()*encourageMsg.length)];
   } else {
@@ -4741,6 +4744,9 @@ function pickAnswer(i){
     streak=0;combo=0;wrongOnes.push(q);
     playWrong();
     flashScreen('rgba(239,68,68,.2)');
+    // Shake the whole screen on wrong answer
+    const qc=document.querySelector('.container');
+    if(qc){qc.style.animation='wrongShake .4s ease';setTimeout(()=>qc.style.animation='',500)}
     msgObj=missMsg[Math.floor(Math.random()*missMsg.length)];
     if(inSurvival){
       survivalHearts--;survivalQ++;updateSurvivalHearts();
@@ -4884,6 +4890,10 @@ function rateCard(r){
   if(r==='easy'||r==='ok'){score++;topicScores[q.topic].right++;streak++;combo++;
     if(streak>maxStreak)maxStreak=streak;if(combo>maxCombo)maxCombo=combo;
     xp+=Math.round(xpBase[q.diff]*getMultiplier());playCorrect();
+    // Sparkles on flashcard correct
+    const fcBtn=document.querySelector('.flash-rate [onclick*="'+r+'"]');
+    if(fcBtn){const fr=fcBtn.getBoundingClientRect();spawnSparkles(fr.left+fr.width/2,fr.top)}
+    if(combo===3||combo===5||combo===10)spawnCoins(combo);
   } else{wrongOnes.push(q);streak=0;combo=0;playWrong()}
   markQuestionTime();
   const ms=checkMilestone();
@@ -4946,9 +4956,11 @@ function showResults(){
   const rb=document.querySelector('.retry-btn');
   if(wrongOnes.length>0){rb.textContent=lang==='th'?`\u0e17\u0e33\u0e02\u0e49\u0e2d\u0e1c\u0e34\u0e14\u0e2d\u0e35\u0e01 ${wrongOnes.length} \u0e02\u0e49\u0e2d`:`Retry ${wrongOnes.length} Wrong`;rb.style.display='block'}
   else{rb.style.display='none'}
-  // Confetti for good results
-  if(pct>=70)setTimeout(launchConfetti,500);
-  if(pct>=95)setTimeout(launchConfetti,1500);
+  // Celebrations based on score
+  if(pct===100){setTimeout(()=>showSlotReward('💎','PERFECT SCORE!',lang==='th'?'สมบูรณ์แบบ! คุณเก่งมาก!':'Flawless! You nailed every question!'),600);spawnCoins(25);setTimeout(launchConfetti,400);setTimeout(launchConfetti,1200)}
+  else if(pct>=90){setTimeout(()=>{playMilestone();spawnCoins(15)},300);setTimeout(launchConfetti,500)}
+  else if(pct>=70){setTimeout(()=>{playMilestone();spawnCoins(8)},300);setTimeout(launchConfetti,500)}
+  else if(pct>=50){setTimeout(()=>spawnCoins(4),300)}
   // ─── DOPAMINE FEATURES ───
   clearInterval(speedTimerInterval);
   document.getElementById('survivalHeartsDisplay').style.display='none';
