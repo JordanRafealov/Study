@@ -4551,6 +4551,9 @@ function showScreen(id){
 function goBack(){
   navStack.pop();
   const prev=navStack.length>0?navStack[navStack.length-1]:'home';
+  if(musicPlaying)stopMusic();
+  if(inSurvival){inSurvival=false;stopQuizTimer();clearInterval(speedTimerInterval);document.getElementById('survivalHeartsDisplay').style.display='none'}
+  if(window._isDailyChallenge){window._isDailyChallenge=false}
   showScreen(prev);
 }
 function backToTopics(){
