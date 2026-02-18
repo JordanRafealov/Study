@@ -4466,7 +4466,16 @@ function playNextTrack(){
 function showNowPlaying(title){
   let np=document.getElementById('nowPlaying');
   if(!np){np=document.createElement('div');np.id='nowPlaying';np.style.cssText='position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(15,15,35,.9);border:1px solid #2a2a4a;border-radius:20px;padding:6px 16px;font-size:11px;color:#888;z-index:500;display:flex;align-items:center;gap:6px;backdrop-filter:blur(8px);max-width:90vw';document.body.appendChild(np)}
-  np.innerHTML='<span style="color:#6ee7b7">&#9835;</span> Common Saints - '+title+' <span onclick="playNextTrack()" style="cursor:pointer;color:#666;margin-left:4px">&#x23ED;</span>';
+  np.innerHTML='<span style="color:#6ee7b7">&#9835;</span> Common Saints - '+title+' <span id="npPause" onclick="toggleMusicPause()" style="cursor:pointer;color:#666;margin-left:4px">&#x23F8;</span> <span onclick="playNextTrack()" style="cursor:pointer;color:#666;margin-left:2px">&#x23ED;</span>';
+}
+function toggleMusicPause(){
+  if(!ytReady||!musicPlaying)return;
+  const btn=document.getElementById('npPause');
+  try{
+    const state=ytPlayer.getPlayerState();
+    if(state===YT.PlayerState.PLAYING){ytPlayer.pauseVideo();if(btn)btn.innerHTML='&#x25B6;'}
+    else{ytPlayer.playVideo();if(btn)btn.innerHTML='&#x23F8;'}
+  }catch(e){}
 }
 
 // ─── STATS DASHBOARD ───
