@@ -695,7 +695,7 @@ const frenkelQuestions = [
   topic:"Frenkel's Exercise",diff:3,
   q:"Shoeb DM et al. (2021) compared Frenkel's Exercise with which other technique in patients with cerebral palsy?",
   th:"Shoeb DM et al. (2021) เปรียบเทียบ Frenkel's Exercise กับเทคนิคใดในผู้ป่วยสมองพิการ?",
-  options:["Bobath technique (เทคนิค Bobath)","Brunnstrom approach (วิธี Brunnstrom)","Motor Relearning Programme (โปรแกรมเรียนรู้การเคลื่อนไหวใหม่)","PNF (Proprioceptive Neuromuscular Facilitation)"],
+  options:["Bobath technique (เทคนิค Bobath)","Brunnstrom approach (วิธี Brunnstrom)","Motor Relearning Programme (โปรแกรมเรียนรู้การเคลื่อนไหวใหม่)","PNF (Proprioceptive Neuromuscular Facilitation — การอำนวยความสะดวกระบบประสาทและกล้ามเนื้อ)"],
   answer:3,
   hint:"This technique also addresses coordination through diagonal patterns.",
   explain:"From slide 52: Shoeb DM et al. (2021) studied Frenkel's vs PNF on coordination in cerebral palsy.",

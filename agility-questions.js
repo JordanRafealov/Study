@@ -718,7 +718,7 @@ const agilityQuestions = [
   options:["Increase athletic ability (เพิ่มความสามารถทางกีฬา)","Improved ability to be independent and participate, especially in elderly (เพิ่มความสามารถในการช่วยเหลือตนเองและมีส่วนร่วม โดยเฉพาะผู้สูงอายุ)","Increase speed and quickness (เพิ่มความเร็วและความว่องไว)","Increased cardiovascular fitness (เพิ่มสมรรถภาพหัวใจหลอดเลือด)"],
   answer:1,
   hint:"Think about functional independence for elderly.",
-  explain:"Slide 24 objective #7: improved ability to be independent and participated, especially in elderly — most relevant for this patient.",
+  explain:"Slide 24 objective #7: improved ability to be independent and participate, especially in elderly — most relevant for this patient.",
   explainTh:"สไลด์ 24 วัตถุประสงค์ข้อ 7: เพิ่มความสามารถในการช่วยเหลือตนเองและมีส่วนร่วม โดยเฉพาะผู้สูงอายุ — เกี่ยวข้องมากที่สุดสำหรับผู้ป่วยรายนี้"
 },
 {

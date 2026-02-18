@@ -115,11 +115,11 @@ const relaxationQuestions = [
   topic:"Relaxation Exercise",diff:2,
   q:"During the stress response, what does the liver do?",
   th:"ระหว่างการตอบสนองต่อความเครียด ตับทำอะไร?",
-  options:["Produces more bile for digestion (ผลิตน้ำดีมากขึ้นเพื่อการย่อยอาหาร)","Converts glycogen to sugar (สลายกลูโคสเป็นน้ำตาล)","Filters toxins at an increased rate (กรองสารพิษเร็วขึ้น)","Stops all metabolic functions (หยุดการทำงานทางเมตาบอลิซึมทั้งหมด)"],
+  options:["Produces more bile for digestion (ผลิตน้ำดีมากขึ้นเพื่อการย่อยอาหาร)","Converts glycogen to sugar (สลายไกลโคเจนเป็นน้ำตาล)","Filters toxins at an increased rate (กรองสารพิษเร็วขึ้น)","Stops all metabolic functions (หยุดการทำงานทางเมตาบอลิซึมทั้งหมด)"],
   answer:1,
   hint:"The body needs quick energy during stress — the liver releases stored energy.",
-  explain:"From slide 9: During stress response, the liver converts glycogen to sugar (ตับสลายกลูโคสเป็นน้ำตาล).",
-  explainTh:"จากสไลด์ 9: ระหว่างตอบสนองต่อความเครียด ตับสลายกลูโคสเป็นน้ำตาล"
+  explain:"From slide 9: During stress response, the liver converts glycogen to sugar (ตับสลายไกลโคเจนเป็นน้ำตาล).",
+  explainTh:"จากสไลด์ 9: ระหว่างตอบสนองต่อความเครียด ตับสลายไกลโคเจนเป็นน้ำตาล"
 },
 {
   topic:"Relaxation Exercise",diff:2,
@@ -129,7 +129,7 @@ const relaxationQuestions = [
   answer:2,
   hint:"One of these is actually the opposite of what happens during stress.",
   explain:"From slide 9: The stress response causes dry mouth (ปากแห้ง), not increased saliva. The 7 symptoms are: pupils dilate, heart rate increases, rapid breathing, increased sweating, blood pressure increases, dry mouth, liver converts glycogen to sugar.",
-  explainTh:"จากสไลด์ 9: การตอบสนองต่อความเครียดทำให้ปากแห้ง ไม่ใช่น้ำลายออกมาก — อาการ 7 ข้อ: มานตาขยาย หัวใจเต้นเร็ว หายใจเร็ว เหงื่อออกมาก ความดันเลือดสูง ปากแห้ง ตับสลายกลูโคสเป็นน้ำตาล"
+  explainTh:"จากสไลด์ 9: การตอบสนองต่อความเครียดทำให้ปากแห้ง ไม่ใช่น้ำลายออกมาก — อาการ 7 ข้อ: มานตาขยาย หัวใจเต้นเร็ว หายใจเร็ว เหงื่อออกมาก ความดันเลือดสูง ปากแห้ง ตับสลายไกลโคเจนเป็นน้ำตาล"
 },
 {
   topic:"Relaxation Exercise",diff:1,
@@ -139,7 +139,7 @@ const relaxationQuestions = [
   answer:1,
   hint:"Count: pupils, heart rate, breathing, sweating, blood pressure, mouth, liver.",
   explain:"From slide 9: There are 7 stress response symptoms: pupils dilate, heart rate increases, rapid breathing, increased sweating, blood pressure increases, dry mouth, liver converts glycogen to sugar.",
-  explainTh:"จากสไลด์ 9: มี 7 อาการ: มานตาขยาย หัวใจเต้นเร็ว หายใจเร็ว เหงื่อออกมาก ความดันเลือดสูง ปากแห้ง ตับสลายกลูโคสเป็นน้ำตาล"
+  explainTh:"จากสไลด์ 9: มี 7 อาการ: มานตาขยาย หัวใจเต้นเร็ว หายใจเร็ว เหงื่อออกมาก ความดันเลือดสูง ปากแห้ง ตับสลายไกลโคเจนเป็นน้ำตาล"
 },
 {
   topic:"Relaxation Exercise",diff:1,

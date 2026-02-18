@@ -465,7 +465,7 @@ const mckenzieQuestions = [
   topic:"McKenzie Exercise",diff:1,
   q:"What does 5D, 2N, 1T stand for in McKenzie contraindications for neck pain?",
   th:"5D, 2N, 1T ย่อมาจากอะไรในข้อห้ามของ McKenzie สำหรับอาการปวดคอ?",
-  options:["5 Discs, 2 Nerves, 1 Tumor","5D: Dizziness, Diplopia, Dysarthria, Disturbance of vision, Drop attack; 2N: Nausea, Nystagmus; 1T: Tinnitus","5 Diseases, 2 Nerves, 1 Tendon","5D: Deformity, Dysfunction, Displacement, Degeneration, Dislocation; 2N: Numbness, Neurosis; 1T: Tingling"],
+  options:["5 Discs, 2 Nerves, 1 Tumor (5 หมอนรองกระดูก, 2 เส้นประสาท, 1 เนื้องอก)","5D: Dizziness, Diplopia, Dysarthria, Disturbance of vision, Drop attack; 2N: Nausea, Nystagmus; 1T: Tinnitus (เวียนศีรษะ, เห็นภาพซ้อน, พูดลำบาก, การมองเห็นผิดปกติ, หมดสติชั่วขณะ; คลื่นไส้, ตากระตุก; หูอื้อ)","5 Diseases, 2 Nerves, 1 Tendon (5 โรค, 2 เส้นประสาท, 1 เอ็น)","5D: Deformity, Dysfunction, Displacement, Degeneration, Dislocation; 2N: Numbness, Neurosis; 1T: Tingling (ความผิดรูป, ความผิดปกติ, การเคลื่อน, ความเสื่อม, ข้อเคลื่อน; ชา, โรคประสาท; อาการเสียวซ่า)"],
   answer:1,
   hint:"These are symptoms of vertebrobasilar insufficiency.",
   explain:"From slides 36-40: 5D = Dizziness, Diplopia, Dysarthria, Disturbance of vision, Drop attack; 2N = Nausea, Nystagmus; 1T = Tinnitus. These indicate possible VBI.",
