@@ -291,11 +291,136 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 .case-instruction{background:linear-gradient(135deg,#0d1b2a,#111827);border:1px solid #2a3a4a;border-left:3px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:#aaa;line-height:1.6;text-align:center}
 .case-instruction strong{color:#6ee7b7}
 .case-choose-label{font-size:12px;color:#888;margin-bottom:8px;text-align:center;letter-spacing:.5px}
+
+/* SOUND TOGGLE */
+.sound-btn{padding:6px 10px;border-radius:18px;border:none;background:transparent;color:#555;font-size:16px;cursor:pointer;transition:all .25s}
+.sound-btn.active{color:#6ee7b7}
+
+/* LEVEL SYSTEM */
+.home-stats-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.level-badge{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-size:16px;font-weight:900;box-shadow:0 2px 12px rgba(110,231,183,.3);flex-shrink:0}
+.level-bar-container{flex:1;max-width:200px;min-width:120px}
+.level-bar-label{font-size:11px;color:#666;margin-bottom:3px;text-align:center}
+.level-bar{height:8px;background:#1a1a2e;border-radius:4px;overflow:hidden}
+.level-bar-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#3b82f6);border-radius:4px;transition:width .8s cubic-bezier(.22,1,.36,1)}
+.level-up-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);z-index:500;display:flex;align-items:center;justify-content:center;animation:fadeIn .3s}
+.level-up-modal{text-align:center;padding:40px 30px;background:linear-gradient(145deg,#1a1a2e,#252545);border:2px solid #6ee7b7;border-radius:20px;max-width:320px;animation:levelUpPop .5s cubic-bezier(.22,1,.36,1)}
+.level-up-modal h2{font-size:28px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.level-up-modal .lu-level{font-size:64px;font-weight:900;background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:12px 0}
+.level-up-modal .lu-msg{color:#888;font-size:14px;margin-bottom:20px}
+.level-up-modal button{background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;border:none;border-radius:10px;padding:12px 32px;font-size:15px;cursor:pointer}
+@keyframes levelUpPop{0%{transform:scale(0) rotate(-10deg);opacity:0}50%{transform:scale(1.1) rotate(2deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+
+/* STREAK */
+.streak-badge{display:inline-flex;align-items:center;gap:4px;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:20px;padding:6px 14px;font-size:14px;font-weight:700;color:#f59e0b}
+.streak-fire{display:inline-block;font-size:18px;animation:firePulse 1.5s ease-in-out infinite}
+@keyframes firePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.freeze-count{font-size:11px;color:#3b82f6;margin-left:4px}
+
+/* SPEED BONUS */
+.speed-ring-wrap{display:inline-flex;align-items:center;vertical-align:middle;margin-right:4px}
+.speed-ring-wrap svg{width:32px;height:32px;transform:rotate(-90deg)}
+.speed-ring-wrap .sr-bg{fill:none;stroke:#1a1a2e;stroke-width:3}
+.speed-ring-wrap .sr-fg{fill:none;stroke:#6ee7b7;stroke-width:3;stroke-linecap:round;transition:stroke .3s}
+.speed-ring-num{position:absolute;font-size:11px;font-weight:700;color:#e0e0e0;pointer-events:none}
+.speed-popup{position:fixed;font-weight:800;font-size:16px;pointer-events:none;z-index:200;animation:speedPop .8s ease-out forwards;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.speed-popup.lightning{color:#fbbf24}
+.speed-popup.quick{color:#6ee7b7}
+@keyframes speedPop{0%{opacity:1;transform:translateY(0) scale(1.2)}100%{opacity:0;transform:translateY(-40px) scale(.8)}}
+
+/* ACHIEVEMENTS */
+.home-actions{display:flex;justify-content:center;gap:10px;margin-bottom:10px}
+.home-icon-btn{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:10px 16px;cursor:pointer;font-size:18px;transition:all .25s;display:flex;align-items:center;gap:6px}
+.home-icon-btn:hover{border-color:#6ee7b7;background:#1e1e35;transform:translateY(-1px)}
+.home-icon-btn:active{transform:scale(.95)}
+.home-icon-btn .hib-label{font-size:12px;color:#888;font-weight:500}
+.badge-shelf{padding-top:60px}
+.badge-shelf h2{font-size:22px;text-align:center;margin-bottom:6px;background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.badge-shelf .bs-sub{text-align:center;color:#666;font-size:13px;margin-bottom:16px}
+.badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:400px){.badge-grid{grid-template-columns:repeat(2,1fr)}}
+.badge-item{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:14px 10px;text-align:center;transition:all .3s}
+.badge-item.unlocked{border-color:#6ee7b7;background:linear-gradient(145deg,#0d2d1f,#1a2e1a)}
+.badge-item .bi-emoji{font-size:28px;margin-bottom:4px}
+.badge-item .bi-name{font-size:11px;font-weight:600;color:#e0e0e0}
+.badge-item .bi-desc{font-size:10px;color:#666;margin-top:2px}
+.badge-locked{filter:grayscale(1) brightness(.4)}
+.badge-locked .bi-emoji{opacity:.3}
+.badge-locked .bi-name{color:#444}
+.badge-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#1a2e1a,#0d2d1f);border:2px solid #6ee7b7;border-radius:14px;padding:14px 24px;z-index:600;display:flex;align-items:center;gap:10px;animation:toastSlide .5s ease-out,toastFade .5s ease-in 2.5s forwards;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:90vw}
+.badge-toast .bt-emoji{font-size:28px}
+.badge-toast .bt-text{font-size:13px;font-weight:600;color:#6ee7b7}
+.badge-toast .bt-name{font-size:11px;color:#888}
+@keyframes toastSlide{0%{transform:translateX(-50%) translateY(-80px);opacity:0}100%{transform:translateX(-50%) translateY(0);opacity:1}}
+@keyframes toastFade{0%{opacity:1}100%{opacity:0}}
+
+/* SURVIVAL MODE */
+.survival-hearts{display:flex;gap:4px;font-size:20px}
+.heart-full{color:#ef4444}
+.heart-empty{color:#333;transition:all .3s}
+@keyframes heartBreak{0%{transform:scale(1)}30%{transform:scale(1.3)}100%{transform:scale(.8);opacity:.3}}
+.survival-score{font-size:13px;color:#f59e0b;font-weight:700}
+.survival-go{text-align:center;padding-top:60px}
+.survival-go h2{font-size:28px;margin-bottom:8px;color:#ef4444}
+.survival-go .sg-survived{font-size:48px;font-weight:900;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:16px 0}
+.survival-go .sg-hs{font-size:14px;color:#f59e0b;margin-bottom:8px}
+
+/* DAILY CHALLENGE */
+.daily-btn{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#000;font-weight:700;font-size:15px;border:none;border-radius:12px;padding:12px;width:100%;cursor:pointer;margin-bottom:8px;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px}
+.daily-btn:hover{opacity:.9;transform:translateY(-1px)}
+.daily-btn:active{transform:scale(.98)}
+.daily-btn:disabled{opacity:.4;cursor:default;transform:none}
+.daily-calendar{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-bottom:10px}
+.cal-dot{width:10px;height:10px;border-radius:50%;background:#1a1a2e;border:1px solid #2a2a4a}
+.cal-dot.done{background:#6ee7b7;border-color:#6ee7b7;box-shadow:0 0 6px rgba(110,231,183,.4)}
+.cal-dot.today{border-color:#f59e0b}
+
+/* STATS DASHBOARD */
+.dashboard{padding-top:60px}
+.dashboard h2{font-size:22px;text-align:center;margin-bottom:16px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:400px){.stat-grid{grid-template-columns:1fr}}
+.stat-card{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:14px;text-align:center}
+.stat-card .sc-val{font-size:24px;font-weight:900;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-card .sc-label{font-size:11px;color:#666;margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+.mastery-section{margin-bottom:16px}
+.mastery-section h3{font-size:14px;color:#a78bfa;margin-bottom:10px;font-weight:600}
+.mastery-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.mastery-row .mr-label{width:100px;color:#888;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mastery-row .mr-track{flex:1;height:8px;background:#111827;border-radius:4px;overflow:hidden}
+.mastery-row .mr-fill{height:100%;border-radius:4px;transition:width .8s}
+.mastery-row .mr-pct{width:36px;text-align:right;font-weight:600;font-size:12px}
+.heatmap-section{margin-bottom:16px}
+.heatmap-section h3{font-size:14px;color:#a78bfa;margin-bottom:10px;font-weight:600}
+.heatmap-grid{display:flex;flex-wrap:wrap;gap:3px}
+.hm-cell{width:14px;height:14px;border-radius:3px;background:#111827}
+.hm-cell.hm-1{background:#0d2d1f}
+.hm-cell.hm-2{background:#1a4a2e}
+.hm-cell.hm-3{background:#6ee7b7}
+
+/* COMBO BORDER FLASH */
+.combo-flash .container{animation:comboBorderFlash .6s ease-out}
+@keyframes comboBorderFlash{0%{box-shadow:inset 0 0 0 3px #fbbf24}50%{box-shadow:inset 0 0 20px 3px rgba(251,191,36,.3)}100%{box-shadow:none}}
 </style>
 </head>
 <body>
+<div id="passwordGate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0f0f1a;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px">
+<div style="text-align:center;max-width:340px;padding:20px">
+<div style="font-size:40px;margin-bottom:12px">🔒</div>
+<h2 style="font-size:22px;margin-bottom:6px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Private Study App</h2>
+<p style="color:#888;font-size:14px;margin-bottom:20px">Enter the password to continue</p>
+<input id="pwInput" type="password" placeholder="Password" autocomplete="off" style="width:100%;padding:14px 18px;background:#1a1a2e;border:2px solid #2a2a4a;border-radius:10px;color:#e0e0e0;font-size:16px;outline:none;margin-bottom:12px;transition:border-color .2s" onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#2a2a4a'">
+<button id="pwBtn" onclick="checkPw()" style="width:100%;padding:14px;background:linear-gradient(135deg,#6ee7b7,#3b82f6);color:#000;font-weight:700;font-size:16px;border:none;border-radius:12px;cursor:pointer;transition:opacity .2s">Enter</button>
+<p id="pwError" style="color:#ef4444;font-size:13px;margin-top:10px;display:none">Incorrect password</p>
+</div>
+</div>
+<script>
+function checkPw(){var p=document.getElementById('pwInput').value;if(p==='ilovejordan'){document.getElementById('passwordGate').style.display='none'}else{var e=document.getElementById('pwError');e.style.display='block';document.getElementById('pwInput').style.borderColor='#ef4444';setTimeout(function(){e.style.display='none';document.getElementById('pwInput').style.borderColor='#2a2a4a'},2000)}}
+document.getElementById('pwInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw()});
+</script>
 <div class="container">
-<div class="lang-toggle" id="langToggle"><button class="lang-btn active" onclick="setLang('en')">EN</button><button class="lang-btn" onclick="setLang('th')">TH</button></div>
+<div class="lang-toggle" id="langToggle"><button class="sound-btn active" id="soundBtn" onclick="toggleSound()">&#x1F50A;</button><button class="lang-btn active" onclick="setLang('en')">EN</button><button class="lang-btn" onclick="setLang('th')">TH</button></div>
 <div class="back-link" id="backLink" style="display:none" onclick="goBack()"><span class="back-link-btn">Back</span></div>
 
 <div id="home" class="screen active home">
@@ -304,6 +429,20 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
   <p class="sub">Physical Therapy Exam Prep</p>
   <p class="sub-th">เตรียมสอบกายภาพบำบัด</p>
   <div class="home-divider"></div>
+  <div class="home-stats-row" id="homeStatsRow">
+    <div class="level-badge" id="homeLevelBadge">1</div>
+    <div class="level-bar-container">
+      <div class="level-bar-label" id="homeLevelLabel">0 / 100 XP</div>
+      <div class="level-bar"><div class="level-bar-fill" id="homeLevelFill" style="width:0%"></div></div>
+    </div>
+    <div class="streak-badge" id="homeStreakBadge"><span class="streak-fire">&#x1F525;</span> <span id="homeStreakNum">0</span></div>
+  </div>
+  <div class="home-actions">
+    <div class="home-icon-btn" onclick="showBadgeShelf()">&#x1F3C6;<span class="hib-label" id="badgeCountLabel">0/15</span></div>
+    <div class="home-icon-btn" onclick="showDashboard()">&#x1F4CA;<span class="hib-label" id="statsLabel">Stats</span></div>
+  </div>
+  <div class="daily-calendar" id="dailyCalendar"></div>
+  <button class="daily-btn" id="dailyChallengeBtn" onclick="startDailyChallenge()">&#x1F4C5; Daily Challenge (2x XP)</button>
   <button class="all-btn" onclick="startQuiz('all')">All Subjects / ทุกวิชา</button>
   <div class="topic-grid" id="subjectGrid"></div>
   <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
@@ -340,6 +479,11 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
       <div class="m-name">Match Pairs / จับคู่</div>
       <div class="m-desc">Connect terms with their definitions</div>
     </div>
+    <div class="mode-btn" onclick="selectMode('survival')">
+      <div class="m-icon">&#x2764;&#xFE0F;</div>
+      <div class="m-name">Survival / เอาชีวิตรอด</div>
+      <div class="m-desc">3 hearts, endless questions, how far can you go?</div>
+    </div>
     <div class="mode-btn" onclick="selectMode('case')">
       <div class="m-icon">&#x1FA7A;</div>
       <div class="m-name">Clinical Case / เคสผู้ป่วย</div>
@@ -352,7 +496,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
 <div id="quiz" class="screen quiz">
   <div class="quiz-nav"></div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span class="combo-display" id="comboDisplay"></span></div>
+  <div class="xp-bar"><span class="xp-display" id="xpDisplay">0 XP</span><span id="survivalHeartsDisplay" class="survival-hearts" style="display:none"></span><span class="combo-display" id="comboDisplay"></span></div>
   <div class="quiz-header">
     <span><span class="quiz-topic" id="qTopic"></span><span class="diff-badge" id="diffBadge"></span></span>
     <span class="quiz-count" id="qCount"></span>
@@ -477,6 +621,32 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f1
   <div class="topic-breakdown" id="breakdown"></div>
   <button class="retry-btn" onclick="retryWrong()">Retry Wrong Answers / ทำข้อที่ผิดอีกครั้ง</button>
   <button class="back-btn" onclick="backToTopics()">Back to Topics / กลับหน้าหลัก</button>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
+</div>
+
+<div id="badgeShelf" class="screen badge-shelf">
+  <h2>&#x1F3C6; Achievements</h2>
+  <p class="bs-sub" id="bsSubtext">0 of 15 unlocked</p>
+  <div class="badge-grid" id="badgeGrid"></div>
+  <button class="back-btn" onclick="goBack()" style="margin-top:16px">Back / กลับ</button>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
+</div>
+
+<div id="statsDashboard" class="screen dashboard">
+  <h2>&#x1F4CA; Stats Dashboard</h2>
+  <div id="dashContent"></div>
+  <button class="back-btn" onclick="goBack()" style="margin-top:16px">Back / กลับ</button>
+  <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
+</div>
+
+<div id="survivalGameOver" class="screen survival-go">
+  <h2>&#x1F480; Game Over!</h2>
+  <div id="sgSubtitle" style="color:#888;font-size:15px">Questions survived:</div>
+  <div class="sg-survived" id="sgSurvived">0</div>
+  <div class="sg-hs" id="sgHighScore"></div>
+  <div class="xp-summary" id="sgXp"></div>
+  <button class="retry-btn" onclick="startSurvival()" style="margin-top:16px">Try Again / ลองใหม่</button>
+  <button class="back-btn" onclick="backToTopics()" style="margin-top:8px">Back Home / กลับหน้าหลัก</button>
   <div class="home-footer">Designed by Daddy J with <span class="hf-heart">&#x2764;&#xFE0F;</span></div>
 </div>
 
@@ -3459,6 +3629,7 @@ function saveHistory(key,entry){try{const h=getHistory(key);h.push(entry);if(h.l
 let pendingMilestone=false;
 let lang='en';try{lang=localStorage.getItem('quizLang')||'en'}catch(e){}
 
+
 const topics=[
   {key:"Agility",en:"Agility",th:"ความคล่องตัว",emoji:"🏃"},
   {key:"Frenkel's Exercise",en:"Frenkel's Exercise",th:"การออกกำลังกายแบบ Frenkel",emoji:"🧠"},
@@ -3476,7 +3647,6 @@ const subjects=[
   {key:"relaxation",en:"Relaxation Exercise",th:"การออกกำลังกายเพื่อผ่อนคลาย",emoji:"🧘",
    topics:["Relaxation Exercise"]}
 ]
-
 
 const cases=[]
 let currentSubject=null;
@@ -3823,7 +3993,7 @@ function updateLang(){
   document.querySelector('.all-btn').textContent=lang==='th'?'\u0e17\u0e38\u0e01\u0e27\u0e34\u0e0a\u0e32':'All Subjects';
   // Subject grid on home
   const g=document.getElementById('subjectGrid');g.innerHTML='';
-  subjects.forEach(s=>{
+  subjects.filter(s=>!s.hidden).forEach(s=>{
     const tCount=s.topics.length;
     const qCount=questions.filter(q=>s.topics.includes(q.topic)).length;
     const primary=lang==='th'?s.th:s.en;
@@ -3839,7 +4009,11 @@ function updateLang(){
   if(mbs[1]){mbs[1].querySelector('.m-name').textContent=lang==='th'?'\u0e1a\u0e31\u0e15\u0e23\u0e04\u0e33':'Flashcards';mbs[1].querySelector('.m-desc').textContent=lang==='th'?'\u0e1e\u0e25\u0e34\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e04\u0e33\u0e15\u0e2d\u0e1a \u0e43\u0e2b\u0e49\u0e04\u0e30\u0e41\u0e19\u0e19\u0e04\u0e27\u0e32\u0e21\u0e21\u0e31\u0e48\u0e19\u0e43\u0e08':'Flip to reveal, rate your confidence'}
   if(mbs[2]){mbs[2].querySelector('.m-name').textContent=lang==='th'?'\u0e40\u0e15\u0e34\u0e21\u0e04\u0e33':'Fill in the Blank';mbs[2].querySelector('.m-desc').textContent=lang==='th'?'\u0e40\u0e15\u0e34\u0e21\u0e04\u0e33\u0e17\u0e35\u0e48\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e25\u0e07\u0e43\u0e19\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07':'Complete the statement with the correct term'}
   if(mbs[3]){mbs[3].querySelector('.m-name').textContent=lang==='th'?'\u0e08\u0e31\u0e1a\u0e04\u0e39\u0e48':'Match Pairs';mbs[3].querySelector('.m-desc').textContent=lang==='th'?'\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e42\u0e22\u0e07\u0e04\u0e33\u0e28\u0e31\u0e1e\u0e17\u0e4c\u0e01\u0e31\u0e1a\u0e04\u0e33\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22':'Connect terms with their definitions'}
-  if(mbs[4]){mbs[4].querySelector('.m-name').textContent=lang==='th'?'\u0e40\u0e04\u0e2a\u0e1c\u0e39\u0e49\u0e1b\u0e48\u0e27\u0e22':'Clinical Case';mbs[4].querySelector('.m-desc').textContent=lang==='th'?'\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22\u0e1c\u0e39\u0e49\u0e1b\u0e48\u0e27\u0e22\u0e1c\u0e48\u0e32\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e01\u0e32\u0e23\u0e13\u0e4c\u0e08\u0e33\u0e25\u0e2d\u0e07':'Diagnose patients through scenario stories'}
+  if(mbs[4]){mbs[4].querySelector('.m-name').textContent=lang==='th'?'\u0e40\u0e2d\u0e32\u0e0a\u0e35\u0e27\u0e34\u0e15\u0e23\u0e2d\u0e14':'Survival';mbs[4].querySelector('.m-desc').textContent=lang==='th'?'3 \u0e2b\u0e31\u0e27\u0e43\u0e08 \u0e15\u0e2d\u0e1a\u0e44\u0e14\u0e49\u0e44\u0e01\u0e25\u0e41\u0e04\u0e48\u0e44\u0e2b\u0e19?':'3 hearts, endless questions, how far can you go?'}
+  if(mbs[5]){mbs[5].querySelector('.m-name').textContent=lang==='th'?'\u0e40\u0e04\u0e2a\u0e1c\u0e39\u0e49\u0e1b\u0e48\u0e27\u0e22':'Clinical Case';mbs[5].querySelector('.m-desc').textContent=lang==='th'?'\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22\u0e1c\u0e39\u0e49\u0e1b\u0e48\u0e27\u0e22\u0e1c\u0e48\u0e32\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e01\u0e32\u0e23\u0e13\u0e4c\u0e08\u0e33\u0e25\u0e2d\u0e07':'Diagnose patients through scenario stories'}
+  // Update dopamine feature labels
+  const sl=document.getElementById('statsLabel');if(sl)sl.textContent=lang==='th'?'\u0e2a\u0e16\u0e34\u0e15\u0e34':'Stats';
+  updateDailyBtn();
   // Flash buttons
   const fbs=document.querySelectorAll('.flash-btn');
   if(fbs[0])fbs[0].textContent=lang==='th'?'\u0e22\u0e32\u0e01':'Hard';
@@ -3863,12 +4037,360 @@ function setLang(l){
   updateLang();
 }
 
+// ─── SOUND SYSTEM ───
+let soundOn=true;let audioCtx=null;
+try{soundOn=localStorage.getItem('quizSoundOn')!=='false'}catch(e){}
+function getAudioCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx}
+function playTone(freq,dur,type,vol){
+  if(!soundOn)return;try{const ctx=getAudioCtx();const o=ctx.createOscillator();const g=ctx.createGain();
+  o.connect(g);g.connect(ctx.destination);o.type=type||'sine';o.frequency.value=freq;
+  g.gain.value=vol||0.15;g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
+  o.start(ctx.currentTime);o.stop(ctx.currentTime+dur)}catch(e){}
+}
+function playCorrect(){
+  if(!soundOn)return;try{const ctx=getAudioCtx();const now=ctx.currentTime;
+  [523,659,784].forEach((f,i)=>{const o=ctx.createOscillator();const g=ctx.createGain();
+  o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;
+  g.gain.value=0.12;g.gain.exponentialRampToValueAtTime(0.001,now+0.08*(i+1)+0.15);
+  o.start(now+0.06*i);o.stop(now+0.06*i+0.2)})}catch(e){}
+}
+function playWrong(){playTone(150,0.3,'sawtooth',0.1)}
+function playCombo(){
+  if(!soundOn)return;try{const ctx=getAudioCtx();const now=ctx.currentTime;
+  [523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator();const g=ctx.createGain();
+  o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;
+  g.gain.value=0.1;g.gain.exponentialRampToValueAtTime(0.001,now+0.08*(i+1)+0.12);
+  o.start(now+0.07*i);o.stop(now+0.07*i+0.2)})}catch(e){}
+}
+function playLevelUp(){
+  if(!soundOn)return;try{const ctx=getAudioCtx();const now=ctx.currentTime;
+  [523,659,784,1047,784,1047].forEach((f,i)=>{const o=ctx.createOscillator();const g=ctx.createGain();
+  o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;
+  g.gain.value=0.12;g.gain.exponentialRampToValueAtTime(0.001,now+0.1*(i+1)+0.15);
+  o.start(now+0.1*i);o.stop(now+0.1*i+0.3)})}catch(e){}
+}
+function playStreakBreak(){
+  if(!soundOn)return;try{const ctx=getAudioCtx();const now=ctx.currentTime;
+  [400,300,200].forEach((f,i)=>{const o=ctx.createOscillator();const g=ctx.createGain();
+  o.connect(g);g.connect(ctx.destination);o.type='sawtooth';o.frequency.value=f;
+  g.gain.value=0.08;g.gain.exponentialRampToValueAtTime(0.001,now+0.12*(i+1)+0.1);
+  o.start(now+0.12*i);o.stop(now+0.12*i+0.25)})}catch(e){}
+}
+function playMilestone(){
+  if(!soundOn)return;try{const ctx=getAudioCtx();const now=ctx.currentTime;
+  [392,523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator();const g=ctx.createGain();
+  o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;
+  g.gain.value=0.1;g.gain.exponentialRampToValueAtTime(0.001,now+0.15*(i+1)+0.2);
+  o.start(now+0.12*i);o.stop(now+0.12*i+0.35)})}catch(e){}
+}
+function toggleSound(){
+  soundOn=!soundOn;try{localStorage.setItem('quizSoundOn',soundOn)}catch(e){}
+  const btn=document.getElementById('soundBtn');
+  if(btn){btn.innerHTML=soundOn?'&#x1F50A;':'&#x1F507;';btn.classList.toggle('active',soundOn)}
+  if(soundOn)playCorrect();
+}
+
+// ─── LEVEL SYSTEM ───
+const levelThresholds=[0,100,250,500,850,1300,1900,2700,3800,5200,7000,9200,12000,15500,20000,25500,32000,40000,50000,62000];
+let lifetimeXp=0,currentLevel=1;
+try{lifetimeXp=parseInt(localStorage.getItem('lifetimeXp'))||0}catch(e){}
+try{currentLevel=parseInt(localStorage.getItem('currentLevel'))||1}catch(e){}
+function getLevel(xpVal){for(let i=levelThresholds.length-1;i>=0;i--){if(xpVal>=levelThresholds[i])return i+1}return 1}
+function getLevelProgress(xpVal){
+  const lvl=getLevel(xpVal);const curr=levelThresholds[lvl-1]||0;
+  const next=levelThresholds[lvl]||levelThresholds[lvl-1]+5000;
+  return{level:lvl,current:xpVal-curr,needed:next-curr,pct:Math.min(100,Math.round(((xpVal-curr)/(next-curr))*100))};
+}
+function addLifetimeXp(amount){
+  const oldXp=lifetimeXp;lifetimeXp+=amount;
+  try{localStorage.setItem('lifetimeXp',lifetimeXp)}catch(e){}
+  const oldLvl=getLevel(oldXp);const newLvl=getLevel(lifetimeXp);
+  currentLevel=newLvl;try{localStorage.setItem('currentLevel',currentLevel)}catch(e){}
+  if(newLvl>oldLvl)showLevelUp(newLvl);
+}
+function showLevelUp(level){
+  playLevelUp();launchConfetti();
+  const o=document.createElement('div');o.className='level-up-overlay';
+  o.innerHTML='<div class="level-up-modal"><h2>'+(lang==='th'?'\u0e40\u0e25\u0e40\u0e27\u0e25\u0e2d\u0e31\u0e1e!':'LEVEL UP!')+'</h2><div class="lu-level">'+level+'</div><div class="lu-msg">'+(lang==='th'?'\u0e22\u0e34\u0e19\u0e14\u0e35\u0e14\u0e49\u0e27\u0e22! \u0e04\u0e38\u0e13\u0e16\u0e36\u0e07\u0e40\u0e25\u0e40\u0e27\u0e25 '+level+' \u0e41\u0e25\u0e49\u0e27':'Congratulations! You reached Level '+level)+'</div><button onclick="this.closest(\'.level-up-overlay\').remove()">'+(lang==='th'?'\u0e40\u0e22\u0e35\u0e48\u0e22\u0e21!':'Awesome!')+'</button></div>';
+  document.body.appendChild(o);setTimeout(()=>{if(o.parentNode)o.remove()},6000);
+}
+function updateHomeLevel(){
+  const p=getLevelProgress(lifetimeXp);
+  const badge=document.getElementById('homeLevelBadge');
+  const fill=document.getElementById('homeLevelFill');
+  const label=document.getElementById('homeLevelLabel');
+  if(badge)badge.textContent=p.level;
+  if(fill)fill.style.width=p.pct+'%';
+  if(label)label.textContent=p.current+' / '+p.needed+' XP';
+}
+
+// ─── DAILY STREAK ───
+let dailyStreak=0,lastPlayDate='',streakFreezes=0;
+try{dailyStreak=parseInt(localStorage.getItem('dailyStreak'))||0}catch(e){}
+try{lastPlayDate=localStorage.getItem('lastPlayDate')||''}catch(e){}
+try{streakFreezes=parseInt(localStorage.getItem('streakFreezes'))||0}catch(e){}
+function getTodayStr(){return new Date().toISOString().split('T')[0]}
+function getYesterdayStr(){const d=new Date();d.setDate(d.getDate()-1);return d.toISOString().split('T')[0]}
+function checkStreakOnLoad(){
+  const today=getTodayStr();const yesterday=getYesterdayStr();
+  if(lastPlayDate===today||lastPlayDate===yesterday)return;
+  if(lastPlayDate&&streakFreezes>0){streakFreezes--;try{localStorage.setItem('streakFreezes',streakFreezes)}catch(e){}}
+  else if(lastPlayDate){dailyStreak=0;try{localStorage.setItem('dailyStreak',0)}catch(e){}}
+}
+function markTodayPlayed(){
+  const today=getTodayStr();const yesterday=getYesterdayStr();
+  if(lastPlayDate===today)return;
+  if(lastPlayDate===yesterday||lastPlayDate===''){dailyStreak++;
+    if(dailyStreak>0&&dailyStreak%7===0&&streakFreezes<2){streakFreezes++;try{localStorage.setItem('streakFreezes',streakFreezes)}catch(e){}}
+  } else if(!lastPlayDate){dailyStreak=1}
+  lastPlayDate=today;
+  try{localStorage.setItem('dailyStreak',dailyStreak);localStorage.setItem('lastPlayDate',lastPlayDate)}catch(e){}
+}
+function updateHomeStreak(){
+  const el=document.getElementById('homeStreakNum');
+  if(el)el.textContent=dailyStreak;
+  const badge=document.getElementById('homeStreakBadge');
+  if(badge){let fz=badge.querySelector('.freeze-count');
+    if(streakFreezes>0){if(!fz){fz=document.createElement('span');fz.className='freeze-count';badge.appendChild(fz)}fz.textContent='\u2744\uFE0F'+streakFreezes}
+    else if(fz)fz.remove();
+  }
+}
+
+// ─── SPEED BONUS ───
+let questionTimerStart=0,speedTimerInterval=null;
+function startSpeedTimer(){
+  questionTimerStart=Date.now();clearInterval(speedTimerInterval);
+  const fg=document.getElementById('speedRing');if(!fg)return;
+  const circ=2*Math.PI*12;fg.style.strokeDasharray=circ;fg.style.strokeDashoffset='0';fg.style.stroke='#6ee7b7';
+  const num=document.getElementById('speedNum');
+  speedTimerInterval=setInterval(()=>{
+    const el=(Date.now()-questionTimerStart)/1000;const pct=Math.min(el/15,1);
+    fg.style.strokeDashoffset=(circ*pct)+'';
+    fg.style.stroke=el<=5?'#6ee7b7':el<=10?'#f59e0b':'#ef4444';
+    if(num)num.textContent=Math.max(0,Math.ceil(15-el));
+    if(el>=15)clearInterval(speedTimerInterval);
+  },100);
+}
+function getSpeedBonus(){
+  const el=(Date.now()-questionTimerStart)/1000;
+  if(el<=5)return{mult:1.5,label:'LIGHTNING!',cls:'lightning'};
+  if(el<=10)return{mult:1.25,label:'QUICK!',cls:'quick'};
+  return{mult:1,label:'',cls:''};
+}
+function spawnSpeedPopup(label,cls,el){
+  if(!label)return;const r=el.getBoundingClientRect();
+  const p=document.createElement('div');p.className='speed-popup '+cls;p.textContent=label;
+  p.style.left=(r.left+r.width/2-40)+'px';p.style.top=(r.top-30)+'px';
+  document.body.appendChild(p);setTimeout(()=>p.remove(),800);
+}
+
+// ─── ACHIEVEMENT BADGES ───
+const badges=[
+  {id:'first_steps',emoji:'\uD83D\uDC76',en:'First Steps',th:'\u0e01\u0e49\u0e32\u0e27\u0e41\u0e23\u0e01',descEn:'Complete 1 quiz',descTh:'\u0e17\u0e33\u0e41\u0e1a\u0e1a\u0e17\u0e14\u0e2a\u0e2d\u0e1a 1 \u0e04\u0e23\u0e31\u0e49\u0e07'},
+  {id:'perfect',emoji:'\uD83D\uDCAF',en:'Perfect Round',th:'\u0e04\u0e30\u0e41\u0e19\u0e19\u0e40\u0e15\u0e47\u0e21',descEn:'100% on any quiz',descTh:'\u0e44\u0e14\u0e49 100%'},
+  {id:'speed_demon',emoji:'\u26A1',en:'Speed Demon',th:'\u0e2a\u0e32\u0e22\u0e1f\u0e49\u0e32',descEn:'Avg < 8s per question',descTh:'\u0e40\u0e09\u0e25\u0e35\u0e48\u0e22 < 8 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35/\u0e02\u0e49\u0e2d'},
+  {id:'night_owl',emoji:'\uD83E\uDD89',en:'Night Owl',th:'\u0e19\u0e01\u0e2e\u0e39\u0e01',descEn:'Study after 10pm',descTh:'\u0e40\u0e23\u0e35\u0e22\u0e19\u0e2b\u0e25\u0e31\u0e07 4 \u0e17\u0e38\u0e48\u0e21'},
+  {id:'early_bird',emoji:'\uD83D\uDC26',en:'Early Bird',th:'\u0e19\u0e01\u0e40\u0e0a\u0e49\u0e32',descEn:'Study before 7am',descTh:'\u0e40\u0e23\u0e35\u0e22\u0e19\u0e01\u0e48\u0e2d\u0e19 7 \u0e42\u0e21\u0e07'},
+  {id:'streak_master',emoji:'\uD83D\uDD25',en:'Streak Master',th:'\u0e15\u0e2d\u0e1a\u0e16\u0e39\u0e01\u0e23\u0e31\u0e27',descEn:'10+ answer streak',descTh:'\u0e15\u0e2d\u0e1a\u0e16\u0e39\u0e01\u0e23\u0e31\u0e27 10+'},
+  {id:'combo_king',emoji:'\uD83D\uDC51',en:'Combo King',th:'\u0e23\u0e32\u0e0a\u0e32\u0e04\u0e2d\u0e21\u0e42\u0e1a',descEn:'Hit 3x multiplier',descTh:'\u0e44\u0e14\u0e49\u0e15\u0e31\u0e27\u0e04\u0e39\u0e13 3x'},
+  {id:'topic_master',emoji:'\uD83C\uDF93',en:'Topic Master',th:'\u0e1c\u0e39\u0e49\u0e40\u0e0a\u0e35\u0e48\u0e22\u0e27\u0e0a\u0e32\u0e0d',descEn:'90%+ on one topic',descTh:'\u0e44\u0e14\u0e49 90%+ \u0e43\u0e19 1 \u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d'},
+  {id:'scholar',emoji:'\uD83D\uDCDA',en:'Scholar',th:'\u0e19\u0e31\u0e01\u0e27\u0e34\u0e0a\u0e32\u0e01\u0e32\u0e23',descEn:'100 lifetime questions',descTh:'\u0e15\u0e2d\u0e1a 100 \u0e02\u0e49\u0e2d'},
+  {id:'marathon',emoji:'\uD83C\uDFC3',en:'Marathon Runner',th:'\u0e21\u0e32\u0e23\u0e32\u0e18\u0e2d\u0e19',descEn:'500 lifetime questions',descTh:'\u0e15\u0e2d\u0e1a 500 \u0e02\u0e49\u0e2d'},
+  {id:'perfectionist',emoji:'\u2728',en:'Perfectionist',th:'\u0e2a\u0e21\u0e1a\u0e39\u0e23\u0e13\u0e4c\u0e41\u0e1a\u0e1a',descEn:'3 perfect rounds',descTh:'\u0e04\u0e30\u0e41\u0e19\u0e19\u0e40\u0e15\u0e47\u0e21 3 \u0e04\u0e23\u0e31\u0e49\u0e07'},
+  {id:'comeback',emoji:'\uD83D\uDCAA',en:'Comeback Kid',th:'\u0e01\u0e25\u0e31\u0e1a\u0e21\u0e32\u0e44\u0e14\u0e49',descEn:'90%+ on retry wrong',descTh:'\u0e44\u0e14\u0e49 90%+ \u0e08\u0e32\u0e01\u0e17\u0e33\u0e02\u0e49\u0e2d\u0e1c\u0e34\u0e14\u0e0b\u0e49\u0e33'},
+  {id:'streak7',emoji:'\u2B50',en:'Dedicated',th:'\u0e17\u0e38\u0e48\u0e21\u0e40\u0e17',descEn:'7-day streak',descTh:'\u0e40\u0e25\u0e48\u0e19 7 \u0e27\u0e31\u0e19\u0e15\u0e34\u0e14'},
+  {id:'streak14',emoji:'\uD83D\uDC8E',en:'On Fire',th:'\u0e44\u0e1f\u0e25\u0e38\u0e01',descEn:'14-day streak',descTh:'\u0e40\u0e25\u0e48\u0e19 14 \u0e27\u0e31\u0e19\u0e15\u0e34\u0e14'},
+  {id:'streak30',emoji:'\uD83C\uDFC6',en:'Legendary',th:'\u0e15\u0e33\u0e19\u0e32\u0e19',descEn:'30-day streak',descTh:'\u0e40\u0e25\u0e48\u0e19 30 \u0e27\u0e31\u0e19\u0e15\u0e34\u0e14'}
+];
+let unlockedBadges=[],lifetimeQuestions=0,perfectRounds=0;
+try{unlockedBadges=JSON.parse(localStorage.getItem('achievements')||'[]')}catch(e){unlockedBadges=[]}
+try{lifetimeQuestions=parseInt(localStorage.getItem('lifetimeQuestions'))||0}catch(e){}
+try{perfectRounds=parseInt(localStorage.getItem('perfectRounds'))||0}catch(e){}
+function hasBadge(id){return unlockedBadges.includes(id)}
+function unlockBadge(id){
+  if(hasBadge(id))return;unlockedBadges.push(id);
+  try{localStorage.setItem('achievements',JSON.stringify(unlockedBadges))}catch(e){}
+  const b=badges.find(x=>x.id===id);if(b)showBadgeToast(b);playCombo();
+}
+function showBadgeToast(b){
+  const t=document.createElement('div');t.className='badge-toast';
+  t.innerHTML='<span class="bt-emoji">'+b.emoji+'</span><div><div class="bt-text">'+(lang==='th'?'\u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e04!':'Unlocked!')+'</div><div class="bt-name">'+(lang==='th'?b.th:b.en)+'</div></div>';
+  document.body.appendChild(t);setTimeout(()=>t.remove(),3200);
+}
+function checkAchievements(quizPct,avgTime,isRetry){
+  if(!hasBadge('first_steps'))unlockBadge('first_steps');
+  if(quizPct===100&&!hasBadge('perfect'))unlockBadge('perfect');
+  if(avgTime>0&&avgTime<8&&!hasBadge('speed_demon'))unlockBadge('speed_demon');
+  if(maxStreak>=10&&!hasBadge('streak_master'))unlockBadge('streak_master');
+  if(maxCombo>=10&&!hasBadge('combo_king'))unlockBadge('combo_king');
+  for(const[topic,s]of Object.entries(topicScores)){
+    if(s.total>=5&&(s.right/s.total)>=0.9&&!hasBadge('topic_master')){unlockBadge('topic_master');break}
+  }
+  if(quizPct===100){perfectRounds++;try{localStorage.setItem('perfectRounds',perfectRounds)}catch(e){}}
+  if(perfectRounds>=3&&!hasBadge('perfectionist'))unlockBadge('perfectionist');
+  if(isRetry&&quizPct>=90&&!hasBadge('comeback'))unlockBadge('comeback');
+  if(lifetimeQuestions>=100&&!hasBadge('scholar'))unlockBadge('scholar');
+  if(lifetimeQuestions>=500&&!hasBadge('marathon'))unlockBadge('marathon');
+  const h=new Date().getHours();
+  if(h>=22&&!hasBadge('night_owl'))unlockBadge('night_owl');
+  if(h<7&&!hasBadge('early_bird'))unlockBadge('early_bird');
+  if(dailyStreak>=7&&!hasBadge('streak7'))unlockBadge('streak7');
+  if(dailyStreak>=14&&!hasBadge('streak14'))unlockBadge('streak14');
+  if(dailyStreak>=30&&!hasBadge('streak30'))unlockBadge('streak30');
+}
+function renderBadgeShelf(){
+  const grid=document.getElementById('badgeGrid');const sub=document.getElementById('bsSubtext');if(!grid)return;
+  grid.innerHTML='';const count=unlockedBadges.length;
+  sub.textContent=count+' '+(lang==='th'?'\u0e08\u0e32\u0e01':'of')+' '+badges.length+' '+(lang==='th'?'\u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e04\u0e41\u0e25\u0e49\u0e27':'unlocked');
+  badges.forEach(b=>{const u=hasBadge(b.id);
+    grid.innerHTML+='<div class="badge-item '+(u?'unlocked':'badge-locked')+'"><div class="bi-emoji">'+b.emoji+'</div><div class="bi-name">'+(lang==='th'?b.th:b.en)+'</div><div class="bi-desc">'+(lang==='th'?b.descTh:b.descEn)+'</div></div>';
+  });
+}
+function showBadgeShelf(){renderBadgeShelf();navStack.push('badgeShelf');showScreen('badgeShelf')}
+function updateBadgeCount(){const el=document.getElementById('badgeCountLabel');if(el)el.textContent=unlockedBadges.length+'/'+badges.length}
+
+// ─── SURVIVAL MODE ───
+let survivalHearts=3,survivalQ=0,survivalXp=0,inSurvival=false;
+let survivalHighScore=0;try{survivalHighScore=parseInt(localStorage.getItem('survivalHighScore'))||0}catch(e){}
+function startSurvival(){
+  inSurvival=true;survivalHearts=3;survivalQ=0;survivalXp=0;mode='mcq';
+  let pool=selectedTopic==='all'?questions.filter(q=>getVisibleTopicKeys().includes(q.topic)):getPool();
+  const easy=pool.filter(q=>q.diff===1);const med=pool.filter(q=>q.diff===2);const hard=pool.filter(q=>q.diff===3);
+  shuffle(easy);shuffle(med);shuffle(hard);
+  deck=[...easy.slice(0,5),...med.slice(0,5),...hard,...easy.slice(5),...med.slice(5)];
+  if(deck.length===0)deck=[...pool];
+  idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
+  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;usedMilestones=[];
+  xp=0;combo=0;maxCombo=0;maxStreak=0;qAnswered=false;pickedIdx=-1;
+  startQuizTimer();
+  document.getElementById('survivalHeartsDisplay').style.display='flex';
+  updateSurvivalHearts();
+  navStack.push('quiz');showScreen('quiz');renderMCQ();
+}
+function updateSurvivalHearts(){
+  const el=document.getElementById('survivalHeartsDisplay');if(!el||!inSurvival)return;
+  el.innerHTML='';for(let i=0;i<3;i++){el.innerHTML+='<span class="'+(i<survivalHearts?'heart-full':'heart-empty')+'">'+(i<survivalHearts?'\u2764\uFE0F':'\uD83D\uDDA4')+'</span>'}
+}
+function showSurvivalGameOver(){
+  inSurvival=false;stopQuizTimer();clearInterval(speedTimerInterval);
+  document.getElementById('survivalHeartsDisplay').style.display='none';
+  const survived=survivalQ;
+  if(survived>survivalHighScore){survivalHighScore=survived;try{localStorage.setItem('survivalHighScore',survivalHighScore)}catch(e){}}
+  addLifetimeXp(survivalXp);markTodayPlayed();
+  lifetimeQuestions+=survived;try{localStorage.setItem('lifetimeQuestions',lifetimeQuestions)}catch(e){}
+  updateLifetimeStats(survived,Date.now()-quizStartTime,maxStreak,maxCombo,topicScores);
+  while(navStack.length>0&&['quiz','flashScreen'].includes(navStack[navStack.length-1]))navStack.pop();
+  showScreen('survivalGameOver');
+  document.getElementById('sgSurvived').textContent=survived;
+  document.getElementById('sgHighScore').textContent=(lang==='th'?'\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14: ':'High Score: ')+survivalHighScore;
+  document.getElementById('sgXp').textContent=(lang==='th'?'\u0e44\u0e14\u0e49 ':'Earned ')+survivalXp+' XP (1.5x)';
+  playStreakBreak();if(survived>=10)launchConfetti();
+  updateHomeLevel();updateHomeStreak();updateBadgeCount();
+}
+
+// ─── DAILY CHALLENGE ───
+let dailyChallengeHistory={},lastDailyChallengeDate='';
+try{dailyChallengeHistory=JSON.parse(localStorage.getItem('dailyChallengeHistory')||'{}')}catch(e){dailyChallengeHistory={}}
+try{lastDailyChallengeDate=localStorage.getItem('lastDailyChallengeDate')||''}catch(e){}
+window._isDailyChallenge=false;
+function isDailyChallengeAvailable(){return lastDailyChallengeDate!==getTodayStr()}
+function startDailyChallenge(){
+  if(!isDailyChallengeAvailable())return;
+  inSurvival=false;selectedTopic='all';mode='mcq';
+  let pool=questions.filter(q=>getVisibleTopicKeys().includes(q.topic));shuffle(pool);
+  deck=pool.slice(0,10);idx=0;score=0;streak=0;wrongOnes=[];topicScores={};
+  ll5050Used=false;llHintUsed=false;llAudienceUsed=false;usedMilestones=[];
+  xp=0;combo=0;maxCombo=0;maxStreak=0;qAnswered=false;pickedIdx=-1;
+  startQuizTimer();window._isDailyChallenge=true;
+  navStack.push('modeSelect');navStack.push('quiz');showScreen('quiz');renderMCQ();
+}
+function completeDailyChallenge(pct){
+  const today=getTodayStr();lastDailyChallengeDate=today;dailyChallengeHistory[today]=pct;
+  try{localStorage.setItem('lastDailyChallengeDate',lastDailyChallengeDate);
+  localStorage.setItem('dailyChallengeHistory',JSON.stringify(dailyChallengeHistory))}catch(e){}
+  window._isDailyChallenge=false;
+}
+function renderDailyCalendar(){
+  const cal=document.getElementById('dailyCalendar');if(!cal)return;cal.innerHTML='';
+  const today=new Date();
+  for(let i=29;i>=0;i--){const d=new Date(today);d.setDate(d.getDate()-i);
+    const ds=d.toISOString().split('T')[0];const done=dailyChallengeHistory[ds]!==undefined;const isToday=ds===getTodayStr();
+    cal.innerHTML+='<div class="cal-dot'+(done?' done':'')+(isToday?' today':'')+'" title="'+ds+'"></div>';
+  }
+}
+function updateDailyBtn(){
+  const btn=document.getElementById('dailyChallengeBtn');if(!btn)return;
+  const av=isDailyChallengeAvailable();btn.disabled=!av;
+  btn.innerHTML=av?('&#x1F4C5; '+(lang==='th'?'\u0e17\u0e49\u0e32\u0e17\u0e32\u0e22\u0e1b\u0e23\u0e30\u0e08\u0e33\u0e27\u0e31\u0e19 (2x XP)':'Daily Challenge (2x XP)')):('&#x2705; '+(lang==='th'?'\u0e17\u0e33\u0e41\u0e25\u0e49\u0e27\u0e27\u0e31\u0e19\u0e19\u0e35\u0e49':'Done for today'));
+}
+
+// ─── STATS DASHBOARD ───
+let lifetimeStats={};
+try{lifetimeStats=JSON.parse(localStorage.getItem('lifetimeStats')||'{}')}catch(e){lifetimeStats={}}
+if(!lifetimeStats.totalQuestions)lifetimeStats={totalQuestions:0,totalTime:0,bestStreak:0,bestCombo:0,topicAccuracy:{},studyDates:[]};
+function updateLifetimeStats(deckLen,totalTime,mStreak,mCombo,tScores){
+  lifetimeStats.totalQuestions=(lifetimeStats.totalQuestions||0)+deckLen;
+  lifetimeStats.totalTime=(lifetimeStats.totalTime||0)+totalTime;
+  if(mStreak>(lifetimeStats.bestStreak||0))lifetimeStats.bestStreak=mStreak;
+  if(mCombo>(lifetimeStats.bestCombo||0))lifetimeStats.bestCombo=mCombo;
+  if(!lifetimeStats.topicAccuracy)lifetimeStats.topicAccuracy={};
+  for(const[t,s]of Object.entries(tScores)){
+    if(!lifetimeStats.topicAccuracy[t])lifetimeStats.topicAccuracy[t]={right:0,total:0};
+    lifetimeStats.topicAccuracy[t].right+=s.right;lifetimeStats.topicAccuracy[t].total+=s.total;
+  }
+  const today=getTodayStr();if(!lifetimeStats.studyDates)lifetimeStats.studyDates=[];
+  if(!lifetimeStats.studyDates.includes(today))lifetimeStats.studyDates.push(today);
+  const cutoff=new Date();cutoff.setDate(cutoff.getDate()-90);const cutStr=cutoff.toISOString().split('T')[0];
+  lifetimeStats.studyDates=lifetimeStats.studyDates.filter(d=>d>=cutStr);
+  try{localStorage.setItem('lifetimeStats',JSON.stringify(lifetimeStats))}catch(e){}
+}
+function showDashboard(){renderDashboard();navStack.push('statsDashboard');showScreen('statsDashboard')}
+function renderDashboard(){
+  const el=document.getElementById('dashContent');if(!el)return;const s=lifetimeStats;
+  let html='<div class="stat-grid">';
+  html+='<div class="stat-card"><div class="sc-val">'+(s.totalQuestions||0)+'</div><div class="sc-label">'+(lang==='th'?'\u0e02\u0e49\u0e2d\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14':'Questions')+'</div></div>';
+  html+='<div class="stat-card"><div class="sc-val">'+lifetimeXp+'</div><div class="sc-label">'+(lang==='th'?'XP \u0e15\u0e25\u0e2d\u0e14\u0e01\u0e32\u0e25':'Lifetime XP')+'</div></div>';
+  html+='<div class="stat-card"><div class="sc-val">Lv.'+currentLevel+'</div><div class="sc-label">'+(lang==='th'?'\u0e40\u0e25\u0e40\u0e27\u0e25':'Level')+'</div></div>';
+  html+='<div class="stat-card"><div class="sc-val">'+dailyStreak+'</div><div class="sc-label">'+(lang==='th'?'\u0e27\u0e31\u0e19\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d':'Day Streak')+'</div></div>';
+  html+='<div class="stat-card"><div class="sc-val">'+(s.bestStreak||0)+'</div><div class="sc-label">'+(lang==='th'?'\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e15\u0e2d\u0e1a\u0e16\u0e39\u0e01\u0e23\u0e31\u0e27':'Best Streak')+'</div></div>';
+  html+='<div class="stat-card"><div class="sc-val">'+(s.bestCombo||0)+'x</div><div class="sc-label">'+(lang==='th'?'\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e04\u0e2d\u0e21\u0e42\u0e1a':'Best Combo')+'</div></div>';
+  html+='<div class="stat-card"><div class="sc-val">'+((s.totalTime||0)>0?fmtTime(s.totalTime):'0:00')+'</div><div class="sc-label">'+(lang==='th'?'\u0e40\u0e27\u0e25\u0e32\u0e40\u0e23\u0e35\u0e22\u0e19':'Study Time')+'</div></div>';
+  html+='<div class="stat-card"><div class="sc-val">'+survivalHighScore+'</div><div class="sc-label">'+(lang==='th'?'\u0e2a\u0e16\u0e34\u0e15\u0e34 Survival':'Survival Best')+'</div></div>';
+  html+='</div>';
+  const ta=s.topicAccuracy||{};
+  if(Object.keys(ta).length>0){
+    html+='<div class="mastery-section"><h3>'+(lang==='th'?'\u0e04\u0e27\u0e32\u0e21\u0e40\u0e0a\u0e35\u0e48\u0e22\u0e27\u0e0a\u0e32\u0e0d':'Topic Mastery')+'</h3>';
+    for(const[t,v]of Object.entries(ta).sort((a,b)=>(b[1].right/b[1].total)-(a[1].right/a[1].total))){
+      const pct=Math.round((v.right/v.total)*100);const c=pct>=80?'#6ee7b7':pct>=60?'#3b82f6':pct>=40?'#f59e0b':'#ef4444';
+      html+='<div class="mastery-row"><span class="mr-label">'+t+'</span><div class="mr-track"><div class="mr-fill" style="width:'+pct+'%;background:'+c+'"></div></div><span class="mr-pct" style="color:'+c+'">'+pct+'%</span></div>';
+    }html+='</div>';
+  }
+  const dates=s.studyDates||[];
+  html+='<div class="heatmap-section"><h3>'+(lang==='th'?'\u0e1b\u0e0f\u0e34\u0e17\u0e34\u0e19\u0e01\u0e32\u0e23\u0e40\u0e23\u0e35\u0e22\u0e19':'Study Calendar')+'</h3><div class="heatmap-grid">';
+  const today=new Date();for(let i=59;i>=0;i--){const d=new Date(today);d.setDate(d.getDate()-i);
+    const ds=d.toISOString().split('T')[0];html+='<div class="hm-cell'+(dates.includes(ds)?' hm-3':'')+'" title="'+ds+'"></div>';
+  }html+='</div></div>';el.innerHTML=html;
+}
+
 function init(){
   const saved=localStorage.getItem('quizLang');
   if(saved)lang=saved;
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===lang.toUpperCase()));
+  // Sound button state
+  const sb=document.getElementById('soundBtn');
+  if(sb){sb.innerHTML=soundOn?'&#x1F50A;':'&#x1F507;';sb.classList.toggle('active',soundOn)}
+  checkStreakOnLoad();
   showScreen('home');
   updateLang();
+  updateHomeLevel();
+  updateHomeStreak();
+  updateBadgeCount();
+  renderDailyCalendar();
+  updateDailyBtn();
+  // Check time-based badges on load
+  const h=new Date().getHours();
+  if(h>=22&&!hasBadge('night_owl'))unlockBadge('night_owl');
+  if(h<7&&!hasBadge('early_bird'))unlockBadge('early_bird');
 }
 
 let navStack=['home'];
@@ -3876,10 +4398,11 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   const lt=document.getElementById('langToggle');
-  if(lt) lt.style.display=(id==='milestone'||id==='results')?'none':'flex';
+  const hideToggle=['milestone','results','survivalGameOver'];
+  if(lt) lt.style.display=hideToggle.includes(id)?'none':'flex';
   const bl=document.getElementById('backLink');
-  const showBack=id!=='home'&&id!=='milestone'&&id!=='results';
-  if(bl) bl.style.display=showBack?'inline-flex':'none';
+  const hideBack=['home','milestone','results','survivalGameOver'];
+  if(bl) bl.style.display=hideBack.includes(id)?'none':'inline-flex';
 }
 function goBack(){
   navStack.pop();
@@ -3939,14 +4462,15 @@ function startQuiz(topic){
   selectedTopic=topic;
   // Hide Clinical Case mode if no cases for selected topic
   const caseBtns=document.querySelectorAll('.mode-btn');
-  if(caseBtns[4]){
+  if(caseBtns[5]){
     const hasCases=getCasesForTopic().length>0;
-    caseBtns[4].style.display=hasCases?'':'none';
+    caseBtns[5].style.display=hasCases?'':'none';
   }
   navStack.push('modeSelect');showScreen('modeSelect');
 }
+function getVisibleTopicKeys(){return subjects.filter(s=>!s.hidden).flatMap(s=>s.topics)}
 function getCasesForTopic(){
-  if(selectedTopic==='all')return[...cases];
+  if(selectedTopic==='all')return cases.filter(c=>getVisibleTopicKeys().includes(c.topic));
   if(selectedTopic.startsWith('subject:')){
     const sKey=selectedTopic.split(':')[1];
     const subj=subjects.find(s=>s.key===sKey);
@@ -3957,7 +4481,7 @@ function getCasesForTopic(){
 }
 
 function getPool(){
-  if(selectedTopic==='all')return[...questions];
+  if(selectedTopic==='all')return questions.filter(q=>getVisibleTopicKeys().includes(q.topic));
   if(selectedTopic.startsWith('subject:')){
     const sKey=selectedTopic.split(':')[1];
     const subj=subjects.find(s=>s.key===sKey);
@@ -3968,6 +4492,7 @@ function getPool(){
 }
 function selectMode(m){
   mode=m;
+  if(mode==='survival'){startSurvival();return}
   if(mode==='case'){startCaseMode();return}
   if(mode==='match'){startMatchMode();return}
   let pool=getPool();
@@ -3980,6 +4505,8 @@ function selectMode(m){
   ll5050Used=false;llHintUsed=false;llAudienceUsed=false;pendingMilestone=false;usedMilestones=[];
   xp=0;combo=0;maxCombo=0;maxStreak=0;
   qAnswered=false;pickedIdx=-1;
+  inSurvival=false;window._isDailyChallenge=false;
+  document.getElementById('survivalHeartsDisplay').style.display='none';
   startQuizTimer();
   if(mode==='mcq'){navStack.push('quiz');showScreen('quiz');renderMCQ()}
   else if(mode==='flash'){navStack.push('flashScreen');showScreen('flashScreen');renderFlash()}
@@ -4026,9 +4553,15 @@ function continuePlaying(){
 // ─── MCQ ───
 function renderMCQ(){
   const q=deck[idx];
-  document.getElementById('progressFill').style.width=((idx/deck.length)*100)+'%';
+  document.getElementById('progressFill').style.width=(inSurvival?100:(idx/deck.length)*100)+'%';
   document.getElementById('qTopic').textContent=q.topic;
-  document.getElementById('qCount').textContent=`${idx+1} / ${deck.length}`;
+  if(inSurvival){
+    document.getElementById('qCount').innerHTML='<span class="speed-ring-wrap"><svg viewBox="0 0 28 28"><circle class="sr-bg" cx="14" cy="14" r="12"/><circle class="sr-fg" id="speedRing" cx="14" cy="14" r="12"/></svg></span> Q'+(survivalQ+1);
+    updateSurvivalHearts();
+  } else {
+    document.getElementById('qCount').innerHTML='<span class="speed-ring-wrap"><svg viewBox="0 0 28 28"><circle class="sr-bg" cx="14" cy="14" r="12"/><circle class="sr-fg" id="speedRing" cx="14" cy="14" r="12"/></svg></span> '+(idx+1)+' / '+deck.length;
+  }
+  startSpeedTimer();
   const db=document.getElementById('diffBadge');
   const dLabels={1:lang==='th'?'\u0e07\u0e48\u0e32\u0e22':'Easy',2:lang==='th'?'\u0e1b\u0e32\u0e19\u0e01\u0e25\u0e32\u0e07':'Medium',3:lang==='th'?'\u0e22\u0e32\u0e01':'Hard'};
   db.textContent=dLabels[q.diff];
@@ -4091,6 +4624,7 @@ function pickAnswer(i){
   opts.forEach(o=>{o.classList.add('disabled');o.onclick=null});
   document.getElementById('lifelines').style.display='none';
   let msgObj,isCorrect=i===q.answer;
+  clearInterval(speedTimerInterval);
   if(isCorrect){
     opts[i].classList.add('correct');score++;streak++;combo++;
     if(streak>maxStreak)maxStreak=streak;
@@ -4098,18 +4632,33 @@ function pickAnswer(i){
     if(!topicScores[q.topic])topicScores[q.topic]={right:0,total:0};
     topicScores[q.topic].right++;
     const mult=getMultiplier();
-    const earned=Math.round(xpBase[q.diff]*mult);
+    const speed=getSpeedBonus();
+    const survMult=inSurvival?1.5:1;
+    const dailyMult=window._isDailyChallenge?2:1;
+    const earned=Math.round(xpBase[q.diff]*mult*speed.mult*survMult*dailyMult);
     xp+=earned;
+    if(inSurvival){survivalXp+=earned;survivalQ++}
     spawnXpPopup(earned,opts[i]);
+    if(speed.label)spawnSpeedPopup(speed.label,speed.cls,opts[i]);
     if(mult>1)spawnComboPopup(mult,opts[i]);
+    if(combo===3||combo===5||combo===10){playCombo();document.body.classList.add('combo-flash');setTimeout(()=>document.body.classList.remove('combo-flash'),600)}
+    else playCorrect();
     flashScreen('rgba(110,231,183,.3)');
     msgObj=encourageMsg[Math.floor(Math.random()*encourageMsg.length)];
   } else {
     opts[i].classList.add('wrong');
     opts.forEach((o,j)=>{if(j===q.answer)o.classList.add('show-correct')});
     streak=0;combo=0;wrongOnes.push(q);
+    playWrong();
     flashScreen('rgba(239,68,68,.2)');
     msgObj=missMsg[Math.floor(Math.random()*missMsg.length)];
+    if(inSurvival){
+      survivalHearts--;survivalQ++;updateSurvivalHearts();
+      if(survivalHearts<=0){
+        // Delay game over to show the wrong answer first
+        setTimeout(()=>showSurvivalGameOver(),1200);
+      }
+    }
   }
   if(!topicScores[q.topic])topicScores[q.topic]={right:0,total:0};
   topicScores[q.topic].total++;
@@ -4132,8 +4681,14 @@ function pickAnswer(i){
 }
 
 function nextQuestion(){
+  if(inSurvival){
+    if(survivalHearts<=0)return;// game over already triggered
+    markQuestionTime();qAnswered=false;pickedIdx=-1;whyOpen=false;
+    idx++;if(idx>=deck.length){shuffle(deck);idx=0}// loop deck in survival
+    renderMCQ();return;
+  }
   const ms=checkMilestone();
-  if(ms&&pendingMilestone){showMilestone(ms);return}
+  if(ms&&pendingMilestone){playMilestone();showMilestone(ms);return}
   markQuestionTime();qAnswered=false;pickedIdx=-1;whyOpen=false;
   idx++;
   if(idx>=deck.length){showResults();return}
@@ -4238,8 +4793,8 @@ function rateCard(r){
   topicScores[q.topic].total++;
   if(r==='easy'||r==='ok'){score++;topicScores[q.topic].right++;streak++;combo++;
     if(streak>maxStreak)maxStreak=streak;if(combo>maxCombo)maxCombo=combo;
-    xp+=Math.round(xpBase[q.diff]*getMultiplier());
-  } else{wrongOnes.push(q);streak=0;combo=0}
+    xp+=Math.round(xpBase[q.diff]*getMultiplier());playCorrect();
+  } else{wrongOnes.push(q);streak=0;combo=0;playWrong()}
   markQuestionTime();
   const ms=checkMilestone();
   if(ms){pendingMilestone=true;showMilestone(ms);return}
@@ -4304,6 +4859,18 @@ function showResults(){
   // Confetti for good results
   if(pct>=70)setTimeout(launchConfetti,500);
   if(pct>=95)setTimeout(launchConfetti,1500);
+  // ─── DOPAMINE FEATURES ───
+  clearInterval(speedTimerInterval);
+  document.getElementById('survivalHeartsDisplay').style.display='none';
+  inSurvival=false;
+  const isRetry=wrongOnes.length===0&&deck.length<20;// rough heuristic for retry mode
+  markTodayPlayed();
+  addLifetimeXp(xp);// daily/survival multipliers already applied in pickAnswer
+  lifetimeQuestions+=deck.length;try{localStorage.setItem('lifetimeQuestions',lifetimeQuestions)}catch(e){}
+  updateLifetimeStats(deck.length,totalTime,maxStreak,maxCombo,topicScores);
+  checkAchievements(pct,avgQ,isRetry);
+  updateHomeLevel();updateHomeStreak();updateBadgeCount();renderDailyCalendar();updateDailyBtn();
+  if(window._isDailyChallenge)completeDailyChallenge(pct);
 }
 
 function retryWrong(){
@@ -4368,7 +4935,6 @@ function pickFitb(i){
     if(o.id==='fitbOpt'+i)o.classList.add(isCorrect?'correct':'wrong');
     if(!isCorrect&&o.id==='fitbOpt'+q.answer)o.classList.add('show-correct');
   });
-  // Reveal the blank
   const blank=document.querySelector('.fitb-blank');
   if(blank){blank.textContent=splitOpt(q.options[q.answer]).en;blank.classList.add('revealed')}
   if(isCorrect){
@@ -4378,10 +4944,13 @@ function pickFitb(i){
     if(!topicScores[q.topic])topicScores[q.topic]={right:0,total:0};
     topicScores[q.topic].right++;
     const mult=getMultiplier();
-    xp+=Math.round(xpBase[q.diff]*mult);
+    const dailyMult=window._isDailyChallenge?2:1;
+    xp+=Math.round(xpBase[q.diff]*mult*dailyMult);
+    playCorrect();
     flashScreen('rgba(110,231,183,.3)');
   } else {
     streak=0;combo=0;wrongOnes.push(q);
+    playWrong();
     flashScreen('rgba(239,68,68,.2)');
   }
   if(!topicScores[q.topic])topicScores[q.topic]={right:0,total:0};
