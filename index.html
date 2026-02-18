@@ -4611,7 +4611,8 @@ function renderSubjectDetail(){
     const prim=lang==='th'?tp.th:tp.en;
     const sec=lang==='th'?tp.en:tp.th;
     const localNum=i+1;
-    grid.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${tp.key}')"><div class="t-num">${tp.emoji} Topic ${localNum}</div><div class="t-title">${prim}</div><div class="t-sub">${sec}</div><div class="t-count">${c} ${lang==='th'?'\u0e02\u0e49\u0e2d':'questions'}</div></div>`;
+    const safeKey=tp.key.replace(/'/g,"\\'");
+    grid.innerHTML+=`<div class="topic-btn" onclick="startQuiz('${safeKey}')"><div class="t-num">${tp.emoji} Topic ${localNum}</div><div class="t-title">${prim}</div><div class="t-sub">${sec}</div><div class="t-count">${c} ${lang==='th'?'\u0e02\u0e49\u0e2d':'questions'}</div></div>`;
   });
 }
 function confirmQuit(){goBack()}
