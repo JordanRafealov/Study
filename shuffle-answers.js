@@ -23,7 +23,8 @@ const files = [
   'ergonomic-questions.js',
   'lifting-questions.js',
   'positioning1-questions.js',
-  'positioning2-questions.js'
+  'positioning2-questions.js',
+  'frenkel-questions.js'
 ];
 
 for (const file of files) {
