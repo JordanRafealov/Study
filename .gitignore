@@ -7,3 +7,10 @@ credentials.*
 *.pem
 .staticrypt.json
 quiz.html
+
+# PDF extraction working files
+*-extracted.md
+*-complete.md
+*-slides-*.md
+*-slide-*.md
+*-lecture-slides.md
