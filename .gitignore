@@ -6,3 +6,4 @@ credentials.*
 *.key
 *.pem
 .staticrypt.json
+quiz.html
