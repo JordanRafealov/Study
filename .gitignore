@@ -7,6 +7,7 @@ credentials.*
 *.pem
 .staticrypt.json
 quiz.html
+password-template.html
 
 # PDF extraction working files
 *-extracted.md
