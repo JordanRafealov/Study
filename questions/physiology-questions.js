@@ -5,7 +5,12 @@ const questions = [
     diff: 1,
     q: "What is the formula for cardiac output (CO)?",
     th: "สูตรของปริมาตรเลือดที่ออกจากหัวใจใน 1 นาที (CO) คืออะไร?",
-    options: ["CO = HR x SV", "CO = SBP x DBP", "CO = EDV - ESV", "CO = VO2 x HR"],
+    options: [
+      "CO = HR x SV (ปริมาตรเลือดออกจากหัวใจ = อัตราการเต้นหัวใจ x ปริมาตรต่อครั้ง)",
+      "CO = SBP x DBP (ปริมาตรเลือด = ความดันซิสโทลิก x ความดันไดแอสโทลิก)",
+      "CO = EDV - ESV (ปริมาตรเลือด = ปริมาตรสิ้นสุดคลายตัว - ปริมาตรสิ้นสุดบีบตัว)",
+      "CO = VO2 x HR (ปริมาตรเลือด = ปริมาณออกซิเจน x อัตราการเต้นหัวใจ)"
+    ],
     answer: 0,
     hint: "It involves heart rate and how much blood is pumped per beat.",
     explain: "Cardiac output equals heart rate multiplied by stroke volume (CO = HR x SV). At rest, CO is approximately 5 L/min and can increase to 20-30 L/min during exercise.",
@@ -16,7 +21,12 @@ const questions = [
     diff: 1,
     q: "Which component of the cardiac cycle represents the relaxation phase?",
     th: "ส่วนใดของรอบการเต้นของหัวใจเป็นระยะคลายตัว?",
-    options: ["Diastole", "Systole", "Ejection", "Isovolumetric contraction"],
+    options: [
+      "Diastole (ระยะคลายตัว)",
+      "Systole (ระยะบีบตัว)",
+      "Ejection (ระยะบีบเลือดออก)",
+      "Isovolumetric contraction (การหดตัวแบบปริมาตรคงที่)"
+    ],
     answer: 0,
     hint: "Think about when the heart fills with blood.",
     explain: "Diastole is the relaxation phase when the heart chambers fill with blood. Systole is the contraction phase when blood is ejected. One complete cardiac cycle = one systole + one diastole.",
@@ -28,10 +38,10 @@ const questions = [
     q: "What is VO2max?",
     th: "VO2max คืออะไร?",
     options: [
-      "The maximum rate of oxygen consumption during maximal exercise",
-      "The resting oxygen consumption rate",
-      "The oxygen saturation level in arterial blood",
-      "The maximum heart rate achievable during exercise"
+      "The maximum rate of oxygen consumption during maximal exercise (อัตราการใช้ออกซิเจนสูงสุดขณะออกกำลังกายเต็มที่)",
+      "The resting oxygen consumption rate (อัตราการใช้ออกซิเจนขณะพัก)",
+      "The oxygen saturation level in arterial blood (ระดับออกซิเจนอิ่มตัวในเลือดแดง)",
+      "The maximum heart rate achievable during exercise (อัตราการเต้นหัวใจสูงสุดขณะออกกำลังกาย)"
     ],
     answer: 0,
     hint: "It measures the body's peak capacity to use oxygen.",
@@ -44,10 +54,10 @@ const questions = [
     q: "During dynamic exercise, what happens to systolic blood pressure (SBP)?",
     th: "ขณะออกกำลังกายแบบ dynamic ความดันซิสโทลิก (SBP) เปลี่ยนแปลงอย่างไร?",
     options: [
-      "SBP increases proportionally with exercise intensity",
-      "SBP decreases significantly",
-      "SBP remains unchanged",
-      "SBP increases only at low intensity then drops"
+      "SBP increases proportionally with exercise intensity (ความดันซิสโทลิกเพิ่มตามความหนักของการออกกำลังกาย)",
+      "SBP decreases significantly (ความดันซิสโทลิกลดลงอย่างมาก)",
+      "SBP remains unchanged (ความดันซิสโทลิกไม่เปลี่ยนแปลง)",
+      "SBP increases only at low intensity then drops (ความดันซิสโทลิกเพิ่มที่ความหนักต่ำแล้วลดลง)"
     ],
     answer: 0,
     hint: "The heart pumps harder to supply more blood to working muscles.",
@@ -60,10 +70,10 @@ const questions = [
     q: "What is the Frank-Starling law of the heart?",
     th: "กฎของ Frank-Starling คืออะไร?",
     options: [
-      "Greater venous return stretches the myocardium, increasing contraction force and stroke volume",
-      "Heart rate increases proportionally with blood pressure",
-      "Cardiac output remains constant regardless of venous return",
-      "Sympathetic stimulation is the only mechanism to increase stroke volume"
+      "Greater venous return stretches the myocardium, increasing contraction force and stroke volume (เลือดไหลกลับมากขึ้นยืดกล้ามเนื้อหัวใจ เพิ่มแรงบีบตัวและปริมาตรเลือดต่อครั้ง)",
+      "Heart rate increases proportionally with blood pressure (อัตราการเต้นหัวใจเพิ่มตามความดันเลือด)",
+      "Cardiac output remains constant regardless of venous return (ปริมาตรเลือดออกจากหัวใจคงที่ไม่ว่าเลือดไหลกลับเท่าใด)",
+      "Sympathetic stimulation is the only mechanism to increase stroke volume (การกระตุ้นซิมพาเทติกเป็นกลไกเดียวที่เพิ่มปริมาตรเลือดต่อครั้ง)"
     ],
     answer: 0,
     hint: "It relates how much the heart muscle is stretched to how forcefully it contracts.",
@@ -76,10 +86,10 @@ const questions = [
     q: "What is 'cardiovascular drift'?",
     th: "'Cardiovascular drift' คืออะไร?",
     options: [
-      "A progressive increase in HR during prolonged steady-state exercise despite constant intensity",
-      "A sudden drop in blood pressure at the start of exercise",
-      "The decrease in HR that occurs with endurance training",
-      "The redistribution of blood flow from muscles to the skin"
+      "A progressive increase in HR during prolonged steady-state exercise despite constant intensity (อัตราการเต้นหัวใจเพิ่มขึ้นเรื่อยๆ ขณะออกกำลังกายต่อเนื่องแม้ความหนักคงที่)",
+      "A sudden drop in blood pressure at the start of exercise (ความดันเลือดลดลงทันทีเมื่อเริ่มออกกำลังกาย)",
+      "The decrease in HR that occurs with endurance training (อัตราการเต้นหัวใจลดลงจากการฝึกแบบทนทาน)",
+      "The redistribution of blood flow from muscles to the skin (การกระจายเลือดจากกล้ามเนื้อไปยังผิวหนัง)"
     ],
     answer: 0,
     hint: "It happens during long exercise sessions even when intensity stays the same.",
@@ -92,10 +102,10 @@ const questions = [
     q: "What is ejection fraction (EF)?",
     th: "Ejection fraction (EF) คืออะไร?",
     options: [
-      "The percentage of end-diastolic volume ejected from the ventricle per beat",
-      "The total volume of blood in the heart at rest",
-      "The ratio of heart rate to stroke volume",
-      "The amount of blood remaining after systole"
+      "The percentage of end-diastolic volume ejected from the ventricle per beat (เปอร์เซ็นต์ของเลือดที่บีบออกจากหัวใจห้องล่างต่อครั้ง)",
+      "The total volume of blood in the heart at rest (ปริมาตรเลือดทั้งหมดในหัวใจขณะพัก)",
+      "The ratio of heart rate to stroke volume (อัตราส่วนของอัตราการเต้นหัวใจต่อปริมาตรเลือดต่อครั้ง)",
+      "The amount of blood remaining after systole (ปริมาณเลือดที่เหลือหลังระยะบีบตัว)"
     ],
     answer: 0,
     hint: "Normal value is 55-70%. It measures pumping efficiency.",
@@ -107,7 +117,12 @@ const questions = [
     diff: 2,
     q: "Which type of exercise classification is based on muscle contraction with constant joint angular velocity?",
     th: "การออกกำลังกายประเภทใดจำแนกตามการหดตัวของกล้ามเนื้อที่ความเร็วเชิงมุมของข้อต่อคงที่?",
-    options: ["Isokinetic exercise", "Isometric exercise", "Isotonic exercise", "Aerobic exercise"],
+    options: [
+      "Isokinetic exercise (การออกกำลังกายแบบไอโซคิเนติก)",
+      "Isometric exercise (การออกกำลังกายแบบไอโซเมตริก)",
+      "Isotonic exercise (การออกกำลังกายแบบไอโซโทนิก)",
+      "Aerobic exercise (การออกกำลังกายแบบแอโรบิก)"
+    ],
     answer: 0,
     hint: "The speed of movement stays the same throughout the range of motion.",
     explain: "Isokinetic exercise involves muscle contraction with a constant velocity of joint movement throughout the range of motion, with maximal muscle tension generated at all points. Isometric = no length change; Isotonic = length changes (concentric/eccentric).",
@@ -119,10 +134,10 @@ const questions = [
     q: "Why does stroke volume at rest differ between supine and upright positions?",
     th: "เหตุใด stroke volume ขณะพักจึงแตกต่างกันระหว่างท่านอนหงายกับท่ายืน?",
     options: [
-      "Supine position increases venous return due to reduced gravitational pooling, increasing EDV and SV",
-      "Upright position increases SV because the heart works harder against gravity",
-      "There is no difference in SV between positions",
-      "Supine SV is lower because the diaphragm compresses the heart"
+      "Supine position increases venous return due to reduced gravitational pooling, increasing EDV and SV (ท่านอนหงายเพิ่มเลือดไหลกลับเพราะแรงโน้มถ่วงไม่ดึงเลือดลง เพิ่ม EDV และ SV)",
+      "Upright position increases SV because the heart works harder against gravity (ท่ายืนเพิ่ม SV เพราะหัวใจทำงานหนักขึ้นต้านแรงโน้มถ่วง)",
+      "There is no difference in SV between positions (ไม่มีความแตกต่างของ SV ระหว่างท่าต่างๆ)",
+      "Supine SV is lower because the diaphragm compresses the heart (SV ท่านอนต่ำกว่าเพราะกะบังลมกดทับหัวใจ)"
     ],
     answer: 0,
     hint: "Gravity affects how much blood returns to the heart.",
@@ -135,10 +150,10 @@ const questions = [
     q: "Heart rate is regulated by which two divisions of the autonomic nervous system?",
     th: "อัตราการเต้นของหัวใจถูกควบคุมโดยระบบประสาทอัตโนมัติ 2 แขนงใด?",
     options: [
-      "Sympathetic (increases HR via catecholamines) and Parasympathetic (decreases HR via vagus nerve)",
-      "Somatic and Enteric nervous systems",
-      "Central and Peripheral nervous systems",
-      "Motor and Sensory nervous systems"
+      "Sympathetic (increases HR via catecholamines) and Parasympathetic (decreases HR via vagus nerve) (ซิมพาเทติก เพิ่ม HR ผ่านแคทีโคลามีน และพาราซิมพาเทติก ลด HR ผ่านเส้นประสาทเวกัส)",
+      "Somatic and Enteric nervous systems (ระบบประสาทโซมาติกและระบบประสาทลำไส้)",
+      "Central and Peripheral nervous systems (ระบบประสาทส่วนกลางและส่วนปลาย)",
+      "Motor and Sensory nervous systems (ระบบประสาทสั่งการและรับความรู้สึก)"
     ],
     answer: 0,
     hint: "One speeds the heart up, the other slows it down via the vagus nerve.",
@@ -150,7 +165,12 @@ const questions = [
     diff: 1,
     q: "Which formula estimates maximum heart rate based on age?",
     th: "สูตรใดใช้ประมาณอัตราการเต้นหัวใจสูงสุดจากอายุ?",
-    options: ["220 - age", "200 + age", "180 - (age/2)", "250 - age"],
+    options: [
+      "220 - age (220 - อายุ)",
+      "200 + age (200 + อายุ)",
+      "180 - (age/2) (180 - (อายุ/2))",
+      "250 - age (250 - อายุ)"
+    ],
     answer: 0,
     hint: "A simple subtraction from a fixed number.",
     explain: "The estimated maximum heart rate is calculated as 220 minus age. For example, a 20-year-old would have an estimated HRmax of 200 bpm. This value decreases with age.",
@@ -162,10 +182,10 @@ const questions = [
     q: "During isometric (static) exercise, heart rate increases primarily due to:",
     th: "ขณะออกกำลังกายแบบ isometric (static) อัตราการเต้นหัวใจเพิ่มขึ้นส่วนใหญ่จาก:",
     options: [
-      "Mechanisms other than increased VO2 (e.g., pressor reflex from muscle contraction)",
-      "Increased venous return from muscle pumping",
-      "Increased oxygen consumption proportional to workload",
-      "Decreased parasympathetic activity only"
+      "Mechanisms other than increased VO2 (e.g., pressor reflex from muscle contraction) (กลไกอื่นที่ไม่ใช่ VO2 เพิ่ม เช่น รีเฟล็กซ์ความดันจากการหดตัวของกล้ามเนื้อ)",
+      "Increased venous return from muscle pumping (เลือดไหลกลับเพิ่มจากการสูบของกล้ามเนื้อ)",
+      "Increased oxygen consumption proportional to workload (การใช้ออกซิเจนเพิ่มตามภาระงาน)",
+      "Decreased parasympathetic activity only (การลดลงของพาราซิมพาเทติกเท่านั้น)"
     ],
     answer: 0,
     hint: "Unlike dynamic exercise, it's not primarily driven by oxygen demand.",
@@ -179,7 +199,12 @@ const questions = [
     diff: 1,
     q: "What is the functional contractile unit of skeletal muscle?",
     th: "หน่วยหดตัวที่ทำงานได้ของกล้ามเนื้อโครงร่างคืออะไร?",
-    options: ["Sarcomere", "Myofibril", "Fascicle", "Motor unit"],
+    options: [
+      "Sarcomere (ซาร์โคเมียร์)",
+      "Myofibril (ไมโอไฟบริล)",
+      "Fascicle (มัดเส้นใยกล้ามเนื้อ)",
+      "Motor unit (หน่วยมอเตอร์)"
+    ],
     answer: 0,
     hint: "It extends from Z-line to Z-line.",
     explain: "The sarcomere is the functional contractile unit of muscle, extending from one Z-line to the next. It contains overlapping actin (thin) and myosin (thick) filaments that slide over each other during contraction.",
@@ -191,10 +216,10 @@ const questions = [
     q: "In the sliding filament theory, what role does calcium (Ca2+) play in muscle contraction?",
     th: "ในทฤษฎี sliding filament แคลเซียม (Ca2+) มีบทบาทอย่างไรในการหดตัวของกล้ามเนื้อ?",
     options: [
-      "Ca2+ binds to troponin C, causing tropomyosin to shift and expose active sites on actin",
-      "Ca2+ directly powers the myosin cross-bridge movement",
-      "Ca2+ breaks down ATP to provide energy for contraction",
-      "Ca2+ binds to myosin to initiate the power stroke"
+      "Ca2+ binds to troponin C, causing tropomyosin to shift and expose active sites on actin (Ca2+ จับกับโทรโปนิน C ทำให้โทรโปไมโอซินเลื่อนเปิด active site บนแอคติน)",
+      "Ca2+ directly powers the myosin cross-bridge movement (Ca2+ ให้พลังงานโดยตรงแก่การเคลื่อนที่ของ cross-bridge ไมโอซิน)",
+      "Ca2+ breaks down ATP to provide energy for contraction (Ca2+ สลาย ATP เพื่อให้พลังงานสำหรับการหดตัว)",
+      "Ca2+ binds to myosin to initiate the power stroke (Ca2+ จับกับไมโอซินเพื่อเริ่ม power stroke)"
     ],
     answer: 0,
     hint: "It involves the regulatory proteins on the thin filament.",
@@ -206,7 +231,12 @@ const questions = [
     diff: 2,
     q: "Which muscle fiber type has the highest resistance to fatigue and is suited for endurance activities?",
     th: "เส้นใยกล้ามเนื้อชนิดใดทนต่อความล้ามากที่สุดและเหมาะกับกิจกรรมแบบทนทาน?",
-    options: ["Type I (slow-oxidative)", "Type IIa (fast-oxidative glycolytic)", "Type IIx (fast-glycolytic)", "Type IIb"],
+    options: [
+      "Type I - slow-oxidative (ชนิดที่ 1 - ช้า-ใช้ออกซิเจน)",
+      "Type IIa - fast-oxidative glycolytic (ชนิดที่ 2a - เร็ว-ใช้ออกซิเจนและไกลโคลิติก)",
+      "Type IIx - fast-glycolytic (ชนิดที่ 2x - เร็ว-ไกลโคลิติก)",
+      "Type IIb (ชนิดที่ 2b)"
+    ],
     answer: 0,
     hint: "They are also called slow-twitch fibers with high mitochondrial volume.",
     explain: "Type I fibers (slow-oxidative/slow-twitch) have high mitochondrial volume, more capillaries, and high resistance to fatigue. They are more efficient but produce lower force than type II fibers. They are ideal for sustained, endurance activities.",
@@ -218,10 +248,10 @@ const questions = [
     q: "Which three energy systems does the body use to produce ATP for muscle contraction?",
     th: "ร่างกายใช้ระบบพลังงาน 3 ระบบใดในการผลิต ATP สำหรับการหดตัวของกล้ามเนื้อ?",
     options: [
-      "Phosphocreatine (PC), Glycolysis, Oxidative phosphorylation",
-      "Lipolysis, Gluconeogenesis, Beta-oxidation",
-      "Krebs cycle, Electron transport, Photosynthesis",
-      "Fermentation, Chemiosmosis, Substrate cycling"
+      "Phosphocreatine (PC), Glycolysis, Oxidative phosphorylation (ฟอสโฟครีเอทีน, ไกลโคลิซิส, ออกซิเดทีฟฟอสโฟรีเลชัน)",
+      "Lipolysis, Gluconeogenesis, Beta-oxidation (ไลโพลิซิส, กลูโคนีโอเจเนซิส, เบต้าออกซิเดชัน)",
+      "Krebs cycle, Electron transport, Photosynthesis (วัฏจักรเครบส์, ห่วงโซ่อิเล็กตรอน, การสังเคราะห์แสง)",
+      "Fermentation, Chemiosmosis, Substrate cycling (การหมัก, เคมิออสโมซิส, วัฏจักรสารตั้งต้น)"
     ],
     answer: 0,
     hint: "Two are anaerobic and one is aerobic.",
@@ -233,7 +263,12 @@ const questions = [
     diff: 2,
     q: "What is the connective tissue covering that surrounds each individual muscle fiber?",
     th: "เนื้อเยื่อเกี่ยวพันที่ห่อหุ้มเส้นใยกล้ามเนื้อแต่ละเส้นคืออะไร?",
-    options: ["Endomysium", "Perimysium", "Epimysium", "Sarcolemma"],
+    options: [
+      "Endomysium (เอนโดไมเซียม)",
+      "Perimysium (เพอริไมเซียม)",
+      "Epimysium (เอพิไมเซียม)",
+      "Sarcolemma (ซาร์โคเลมมา)"
+    ],
     answer: 0,
     hint: "Endo- means 'within', peri- means 'around a bundle', epi- means 'on top of'.",
     explain: "Endomysium covers each individual muscle fiber. Perimysium covers each fascicle (bundle of fibers). Epimysium covers the entire muscle. These connective tissue layers organize skeletal muscle structure.",
@@ -244,7 +279,12 @@ const questions = [
     diff: 3,
     q: "Which protein on the thin filament inhibits actin-myosin binding at rest by blocking active sites?",
     th: "โปรตีนใดบนเส้นใยบางที่ยับยั้งการจับกันของแอคตินและไมโอซินขณะพักโดยปิดกั้น active site?",
-    options: ["Tropomyosin", "Troponin C", "Troponin T", "Myosin ATPase"],
+    options: [
+      "Tropomyosin (โทรโปไมโอซิน)",
+      "Troponin C (โทรโปนิน C)",
+      "Troponin T (โทรโปนิน T)",
+      "Myosin ATPase (ไมโอซินเอทีพีเอส)"
+    ],
     answer: 0,
     hint: "It physically covers the binding sites and is moved aside when calcium binds to troponin.",
     explain: "Tropomyosin physically blocks the active sites on actin, preventing myosin from binding at rest. When Ca2+ binds to troponin C, the troponin complex shifts tropomyosin away, exposing the active sites for cross-bridge formation. Troponin I inhibits binding, Troponin T binds troponin to tropomyosin, Troponin C binds calcium.",
@@ -256,10 +296,10 @@ const questions = [
     q: "What is the primary adaptation of skeletal muscle to endurance (aerobic) training?",
     th: "การปรับตัวหลักของกล้ามเนื้อโครงร่างต่อการฝึกแบบทนทาน (แอโรบิก) คืออะไร?",
     options: [
-      "Increased capillary density and mitochondrial volume in muscle fibers",
-      "Muscle fiber hypertrophy and increased myofilaments",
-      "Increased phosphocreatine stores",
-      "Conversion of type I fibers to type IIx fibers"
+      "Increased capillary density and mitochondrial volume in muscle fibers (เพิ่มความหนาแน่นหลอดเลือดฝอยและปริมาตรไมโทคอนเดรียในเส้นใยกล้ามเนื้อ)",
+      "Muscle fiber hypertrophy and increased myofilaments (เส้นใยกล้ามเนื้อโตขึ้นและไมโอฟิลาเมนต์เพิ่ม)",
+      "Increased phosphocreatine stores (เพิ่มคลังฟอสโฟครีเอทีน)",
+      "Conversion of type I fibers to type IIx fibers (เปลี่ยนเส้นใยชนิด I เป็นชนิด IIx)"
     ],
     answer: 0,
     hint: "Think about improving oxygen delivery and utilization.",
@@ -272,10 +312,10 @@ const questions = [
     q: "Resistance training primarily increases muscle size through which mechanism?",
     th: "การฝึกด้วยแรงต้านทานเพิ่มขนาดกล้ามเนื้อส่วนใหญ่ผ่านกลไกใด?",
     options: [
-      "Hypertrophy (increase in size of existing fibers)",
-      "Hyperplasia (increase in number of fibers)",
-      "Increased mitochondrial density",
-      "Increased capillary density"
+      "Hypertrophy - increase in size of existing fibers (ไฮเปอร์โทรฟี - เพิ่มขนาดเส้นใยที่มีอยู่)",
+      "Hyperplasia - increase in number of fibers (ไฮเปอร์เพลเซีย - เพิ่มจำนวนเส้นใย)",
+      "Increased mitochondrial density (เพิ่มความหนาแน่นไมโทคอนเดรีย)",
+      "Increased capillary density (เพิ่มความหนาแน่นหลอดเลือดฝอย)"
     ],
     answer: 0,
     hint: "90-95% of muscle size increase comes from this mechanism.",
@@ -287,7 +327,12 @@ const questions = [
     diff: 2,
     q: "Delayed onset muscle soreness (DOMS) typically appears how long after exercise?",
     th: "อาการปวดกล้ามเนื้อหลังออกกำลังกาย (DOMS) มักเกิดขึ้นหลังออกกำลังกายนานเท่าไร?",
-    options: ["24-48 hours", "Immediately", "5-10 minutes", "7 days"],
+    options: [
+      "24-48 hours (24-48 ชั่วโมง)",
+      "Immediately (ทันที)",
+      "5-10 minutes (5-10 นาที)",
+      "7 days (7 วัน)"
+    ],
     answer: 0,
     hint: "It's called 'delayed' for a reason.",
     explain: "DOMS appears 24-48 hours after strenuous or unaccustomed exercise. It is caused by micro-trauma from excessive mechanical force on muscle and connective tissue, leading to protease activation, inflammation, and muscle edema. Eccentric exercise increases DOMS risk compared to concentric exercise.",
@@ -299,10 +344,10 @@ const questions = [
     q: "In early-phase resistance training (8-20 weeks), strength gains are primarily due to:",
     th: "ในช่วงต้นของการฝึกด้วยแรงต้านทาน (8-20 สัปดาห์) การเพิ่มความแข็งแรงเกิดจาก:",
     options: [
-      "Neural adaptations (improved motor unit recruitment, synchronization, and coordination)",
-      "Muscle hypertrophy",
-      "Increased glycogen stores",
-      "Tendon and ligament strengthening"
+      "Neural adaptations (improved motor unit recruitment, synchronization, and coordination) (การปรับตัวทางระบบประสาท - รับสมัคร motor unit ดีขึ้น ประสานงานดีขึ้น)",
+      "Muscle hypertrophy (กล้ามเนื้อโตขึ้น)",
+      "Increased glycogen stores (เพิ่มคลังไกลโคเจน)",
+      "Tendon and ligament strengthening (เอ็นและเอ็นยึดแข็งแรงขึ้น)"
     ],
     answer: 0,
     hint: "The nervous system adapts before the muscle gets visibly bigger.",
@@ -314,7 +359,12 @@ const questions = [
     diff: 1,
     q: "Which neurotransmitter is released at the neuromuscular junction to initiate muscle contraction?",
     th: "สารสื่อประสาทใดถูกปล่อยที่รอยต่อประสาท-กล้ามเนื้อเพื่อเริ่มการหดตัว?",
-    options: ["Acetylcholine (ACh)", "Norepinephrine", "Dopamine", "Serotonin"],
+    options: [
+      "Acetylcholine / ACh (อะเซทิลโคลีน)",
+      "Norepinephrine (นอร์อะดรีนาลิน)",
+      "Dopamine (โดพามีน)",
+      "Serotonin (เซโรโทนิน)"
+    ],
     answer: 0,
     hint: "It binds to receptors on the motor end plate.",
     explain: "Acetylcholine (ACh) is released from the motor neuron at the neuromuscular junction, binds to ACh receptors on the muscle fiber's motor end plate, and generates an end-plate potential (EPP) that triggers an action potential along the sarcolemma, initiating contraction.",
@@ -326,10 +376,10 @@ const questions = [
     q: "Exercise-associated muscle cramps are now understood to be primarily caused by:",
     th: "ตะคริวจากการออกกำลังกายปัจจุบันเข้าใจว่าเกิดจากสาเหตุหลักใด?",
     options: [
-      "Changes in the central nervous system (increased motor neuron excitability)",
-      "Dehydration and electrolyte imbalance",
-      "Lactic acid accumulation in muscle",
-      "Muscle fiber tearing"
+      "Changes in the central nervous system (increased motor neuron excitability) (การเปลี่ยนแปลงในระบบประสาทส่วนกลาง - motor neuron ถูกกระตุ้นมากเกิน)",
+      "Dehydration and electrolyte imbalance (ภาวะขาดน้ำและเกลือแร่ไม่สมดุล)",
+      "Lactic acid accumulation in muscle (กรดแลคติกสะสมในกล้ามเนื้อ)",
+      "Muscle fiber tearing (เส้นใยกล้ามเนื้อฉีกขาด)"
     ],
     answer: 0,
     hint: "Recent evidence shifted away from the dehydration theory.",
@@ -343,7 +393,12 @@ const questions = [
     diff: 1,
     q: "Which gland is considered the 'master gland' that controls other endocrine glands?",
     th: "ต่อมใดถูกเรียกว่า 'ต่อมหลัก' ที่ควบคุมต่อมไร้ท่ออื่นๆ?",
-    options: ["Pituitary gland", "Thyroid gland", "Adrenal gland", "Pancreas"],
+    options: [
+      "Pituitary gland (ต่อมใต้สมอง)",
+      "Thyroid gland (ต่อมไทรอยด์)",
+      "Adrenal gland (ต่อมหมวกไต)",
+      "Pancreas (ตับอ่อน)"
+    ],
     answer: 0,
     hint: "It sits at the base of the brain.",
     explain: "The pituitary gland (ต่อมใต้สมอง) is the master gland that controls other endocrine glands. It secretes hormones including growth hormone (GH) and ADH, and regulates thyroid, adrenal, and gonadal function.",
@@ -355,10 +410,10 @@ const questions = [
     q: "During exercise, what happens to catecholamine (epinephrine and norepinephrine) levels?",
     th: "ขณะออกกำลังกาย ระดับแคทีโคลามีน (อะดรีนาลินและนอร์อะดรีนาลิน) เปลี่ยนแปลงอย่างไร?",
     options: [
-      "They increase, stimulating glycogenolysis and lipolysis for energy production",
-      "They decrease to conserve energy",
-      "They remain unchanged during moderate exercise",
-      "They increase only during anaerobic exercise"
+      "They increase, stimulating glycogenolysis and lipolysis for energy production (เพิ่มขึ้น กระตุ้นการสลายไกลโคเจนและไขมันเพื่อผลิตพลังงาน)",
+      "They decrease to conserve energy (ลดลงเพื่อประหยัดพลังงาน)",
+      "They remain unchanged during moderate exercise (ไม่เปลี่ยนแปลงขณะออกกำลังกายระดับปานกลาง)",
+      "They increase only during anaerobic exercise (เพิ่มเฉพาะขณะออกกำลังกายแบบไม่ใช้ออกซิเจน)"
     ],
     answer: 0,
     hint: "They are the 'fight or flight' hormones released by the adrenal glands.",
@@ -371,10 +426,10 @@ const questions = [
     q: "How does insulin respond during exercise?",
     th: "อินซูลินตอบสนองอย่างไรขณะออกกำลังกาย?",
     options: [
-      "Insulin levels decrease during exercise",
-      "Insulin levels increase significantly",
-      "Insulin levels remain constant",
-      "Insulin is not involved in exercise metabolism"
+      "Insulin levels decrease during exercise (ระดับอินซูลินลดลงขณะออกกำลังกาย)",
+      "Insulin levels increase significantly (ระดับอินซูลินเพิ่มขึ้นอย่างมาก)",
+      "Insulin levels remain constant (ระดับอินซูลินคงที่)",
+      "Insulin is not involved in exercise metabolism (อินซูลินไม่เกี่ยวข้องกับเมตาบอลิซึมขณะออกกำลังกาย)"
     ],
     answer: 0,
     hint: "The body needs to mobilize glucose from storage, not store it.",
@@ -387,10 +442,10 @@ const questions = [
     q: "What is the primary role of cortisol during prolonged exercise?",
     th: "บทบาทหลักของคอร์ติซอลขณะออกกำลังกายเป็นเวลานานคืออะไร?",
     options: [
-      "Maintaining blood glucose levels by stimulating gluconeogenesis and protein breakdown",
-      "Directly increasing muscle contraction force",
-      "Decreasing heart rate to prevent cardiac fatigue",
-      "Promoting fat storage for future energy needs"
+      "Maintaining blood glucose levels by stimulating gluconeogenesis and protein breakdown (รักษาระดับน้ำตาลในเลือดโดยกระตุ้นกลูโคนีโอเจเนซิสและการสลายโปรตีน)",
+      "Directly increasing muscle contraction force (เพิ่มแรงหดตัวของกล้ามเนื้อโดยตรง)",
+      "Decreasing heart rate to prevent cardiac fatigue (ลดอัตราการเต้นหัวใจเพื่อป้องกันหัวใจล้า)",
+      "Promoting fat storage for future energy needs (ส่งเสริมการเก็บไขมันสำหรับพลังงานในอนาคต)"
     ],
     answer: 0,
     hint: "It's a stress hormone that helps maintain fuel supply.",
@@ -403,10 +458,10 @@ const questions = [
     q: "Growth hormone (GH) during exercise primarily helps to:",
     th: "Growth hormone (GH) ขณะออกกำลังกายช่วยในเรื่องใดเป็นหลัก?",
     options: [
-      "Maintain plasma glucose levels and promote fat utilization",
-      "Increase bone density immediately",
-      "Decrease protein synthesis",
-      "Reduce blood pressure"
+      "Maintain plasma glucose levels and promote fat utilization (รักษาระดับกลูโคสในเลือดและส่งเสริมการใช้ไขมัน)",
+      "Increase bone density immediately (เพิ่มความหนาแน่นกระดูกทันที)",
+      "Decrease protein synthesis (ลดการสังเคราะห์โปรตีน)",
+      "Reduce blood pressure (ลดความดันเลือด)"
     ],
     answer: 0,
     hint: "It's involved in maintaining blood sugar and using fat as fuel.",
@@ -418,7 +473,12 @@ const questions = [
     diff: 1,
     q: "Which organ produces both insulin and glucagon?",
     th: "อวัยวะใดผลิตทั้งอินซูลินและกลูคากอน?",
-    options: ["Pancreas", "Liver", "Adrenal gland", "Pituitary gland"],
+    options: [
+      "Pancreas (ตับอ่อน)",
+      "Liver (ตับ)",
+      "Adrenal gland (ต่อมหมวกไต)",
+      "Pituitary gland (ต่อมใต้สมอง)"
+    ],
     answer: 0,
     hint: "It's located behind the stomach.",
     explain: "The pancreas produces insulin (from beta cells) which lowers blood glucose, and glucagon (from alpha cells) which raises blood glucose. During exercise, insulin decreases and glucagon increases to maintain blood glucose for energy.",
@@ -430,10 +490,10 @@ const questions = [
     q: "The primary function of the sympathetic nervous system (SNS) during exercise includes all EXCEPT:",
     th: "หน้าที่หลักของระบบประสาทซิมพาเทติก (SNS) ขณะออกกำลังกายรวมทุกข้อยกเว้น:",
     options: [
-      "Stimulating digestion and nutrient absorption",
-      "Enhancing cardiovascular function",
-      "Controlling blood flow distribution and blood pressure",
-      "Increasing fuel mobilization for ATP production"
+      "Stimulating digestion and nutrient absorption (กระตุ้นการย่อยอาหารและการดูดซึมสารอาหาร)",
+      "Enhancing cardiovascular function (เพิ่มประสิทธิภาพระบบหัวใจและหลอดเลือด)",
+      "Controlling blood flow distribution and blood pressure (ควบคุมการกระจายเลือดและความดันเลือด)",
+      "Increasing fuel mobilization for ATP production (เพิ่มการระดมเชื้อเพลิงสำหรับผลิต ATP)"
     ],
     answer: 0,
     hint: "The SNS prepares the body for 'fight or flight', not 'rest and digest'.",
@@ -446,10 +506,10 @@ const questions = [
     q: "What is the primary purpose of the endocrine system?",
     th: "จุดประสงค์หลักของระบบต่อมไร้ท่อคืออะไร?",
     options: [
-      "To maintain homeostasis through hormonal communication",
-      "To generate action potentials for muscle contraction",
-      "To produce red blood cells",
-      "To filter waste products from the blood"
+      "To maintain homeostasis through hormonal communication (รักษาสภาวะธำรงดุลผ่านการสื่อสารด้วยฮอร์โมน)",
+      "To generate action potentials for muscle contraction (สร้างศักย์ไฟฟ้าสำหรับการหดตัวของกล้ามเนื้อ)",
+      "To produce red blood cells (ผลิตเม็ดเลือดแดง)",
+      "To filter waste products from the blood (กรองของเสียออกจากเลือด)"
     ],
     answer: 0,
     hint: "Hormones are chemical messengers that keep the body in balance.",
@@ -462,10 +522,10 @@ const questions = [
     q: "After chronic exercise training, what is the most common hormonal adaptation pattern?",
     th: "หลังฝึกออกกำลังกายเป็นประจำ รูปแบบการปรับตัวของฮอร์โมนที่พบบ่อยที่สุดคืออะไร?",
     options: [
-      "Reduced hormonal response to the same exercise intensity",
-      "Increased resting hormone levels",
-      "No change in hormonal responses",
-      "Increased hormonal response to the same exercise intensity"
+      "Reduced hormonal response to the same exercise intensity (การตอบสนองของฮอร์โมนลดลงต่อความหนักเท่าเดิม)",
+      "Increased resting hormone levels (ระดับฮอร์โมนพื้นฐานเพิ่มขึ้น)",
+      "No change in hormonal responses (ไม่มีการเปลี่ยนแปลงการตอบสนองของฮอร์โมน)",
+      "Increased hormonal response to the same exercise intensity (การตอบสนองของฮอร์โมนเพิ่มขึ้นต่อความหนักเท่าเดิม)"
     ],
     answer: 0,
     hint: "The body becomes more efficient at responding to the same workload.",
@@ -478,10 +538,10 @@ const questions = [
     q: "Which hormone from the posterior pituitary helps the body conserve water during exercise?",
     th: "ฮอร์โมนใดจาก posterior pituitary ช่วยร่างกายอนุรักษ์น้ำขณะออกกำลังกาย?",
     options: [
-      "Antidiuretic hormone (ADH / Vasopressin)",
-      "Growth hormone (GH)",
-      "Cortisol",
-      "Aldosterone"
+      "Antidiuretic hormone / ADH / Vasopressin (ฮอร์โมนต้านการขับปัสสาวะ / วาโซเพรสซิน)",
+      "Growth hormone / GH (ฮอร์โมนการเจริญเติบโต)",
+      "Cortisol (คอร์ติซอล)",
+      "Aldosterone (อัลโดสเตอโรน)"
     ],
     answer: 0,
     hint: "Its name literally means 'anti-urination hormone'.",
@@ -496,10 +556,10 @@ const questions = [
     q: "What are the two types of body temperature?",
     th: "อุณหภูมิร่างกายมีกี่ชนิดอะไรบ้าง?",
     options: [
-      "Core body temperature and Skin temperature",
-      "Internal temperature and External temperature",
-      "Arterial temperature and Venous temperature",
-      "Oral temperature and Axillary temperature"
+      "Core body temperature and Skin temperature (อุณหภูมิแกนกลางและอุณหภูมิผิวหนัง)",
+      "Internal temperature and External temperature (อุณหภูมิภายในและอุณหภูมิภายนอก)",
+      "Arterial temperature and Venous temperature (อุณหภูมิเลือดแดงและอุณหภูมิเลือดดำ)",
+      "Oral temperature and Axillary temperature (อุณหภูมิปากและอุณหภูมิรักแร้)"
     ],
     answer: 0,
     hint: "One is measured inside the body, the other at the surface.",
@@ -511,7 +571,12 @@ const questions = [
     diff: 1,
     q: "Which part of the brain serves as the thermoregulatory control center?",
     th: "สมองส่วนใดทำหน้าที่เป็นศูนย์ควบคุมอุณหภูมิ?",
-    options: ["Hypothalamus", "Cerebellum", "Medulla oblongata", "Cerebral cortex"],
+    options: [
+      "Hypothalamus (ไฮโปทาลามัส)",
+      "Cerebellum (ซีรีเบลลัม / สมองน้อย)",
+      "Medulla oblongata (เมดัลลาออบลองกาตา / ก้านสมอง)",
+      "Cerebral cortex (เปลือกสมองใหญ่)"
+    ],
     answer: 0,
     hint: "It's part of the diencephalon and controls many homeostatic functions.",
     explain: "The hypothalamus is the thermoregulatory control center. It receives input from both peripheral thermoreceptors (skin) and central thermoreceptors (spinal cord, abdominal organs, great veins) and coordinates heat production and heat loss mechanisms.",
@@ -523,10 +588,10 @@ const questions = [
     q: "What are the four mechanisms of heat loss from the body?",
     th: "กลไกการระบายความร้อนจากร่างกาย 4 วิธีคืออะไร?",
     options: [
-      "Conduction, Convection, Radiation, Evaporation",
-      "Shivering, Sweating, Vasodilation, Piloerection",
-      "Metabolism, Radiation, Insulation, Ventilation",
-      "Diffusion, Osmosis, Filtration, Active transport"
+      "Conduction, Convection, Radiation, Evaporation (การนำความร้อน, การพาความร้อน, การแผ่รังสี, การระเหย)",
+      "Shivering, Sweating, Vasodilation, Piloerection (การสั่น, เหงื่อออก, หลอดเลือดขยาย, ขนลุก)",
+      "Metabolism, Radiation, Insulation, Ventilation (เมตาบอลิซึม, การแผ่รังสี, ฉนวน, การระบายอากาศ)",
+      "Diffusion, Osmosis, Filtration, Active transport (การแพร่, ออสโมซิส, การกรอง, การขนส่งแบบใช้พลังงาน)"
     ],
     answer: 0,
     hint: "Think about direct contact, air movement, electromagnetic waves, and sweat.",
@@ -539,10 +604,10 @@ const questions = [
     q: "What is the correct order of heat illness severity from mild to life-threatening?",
     th: "ลำดับความรุนแรงของการเจ็บป่วยจากความร้อนจากน้อยไปมากคืออะไร?",
     options: [
-      "Heat cramps -> Heat exhaustion -> Heat stroke",
-      "Heat stroke -> Heat exhaustion -> Heat cramps",
-      "Heat exhaustion -> Heat cramps -> Heat stroke",
-      "Heat cramps -> Heat stroke -> Heat exhaustion"
+      "Heat cramps -> Heat exhaustion -> Heat stroke (ตะคริวจากความร้อน -> อ่อนเพลียจากความร้อน -> ลมแดด)",
+      "Heat stroke -> Heat exhaustion -> Heat cramps (ลมแดด -> อ่อนเพลียจากความร้อน -> ตะคริวจากความร้อน)",
+      "Heat exhaustion -> Heat cramps -> Heat stroke (อ่อนเพลียจากความร้อน -> ตะคริวจากความร้อน -> ลมแดด)",
+      "Heat cramps -> Heat stroke -> Heat exhaustion (ตะคริวจากความร้อน -> ลมแดด -> อ่อนเพลียจากความร้อน)"
     ],
     answer: 0,
     hint: "Cramps are least severe; stroke is an emergency.",
@@ -554,7 +619,12 @@ const questions = [
     diff: 2,
     q: "How long does heat acclimatization typically take?",
     th: "การปรับตัวต่อความร้อน (heat acclimatization) โดยทั่วไปใช้เวลานานเท่าไร?",
-    options: ["7-14 days", "1-2 days", "30-60 days", "3-6 months"],
+    options: [
+      "7-14 days (7-14 วัน)",
+      "1-2 days (1-2 วัน)",
+      "30-60 days (30-60 วัน)",
+      "3-6 months (3-6 เดือน)"
+    ],
     answer: 0,
     hint: "About 1-2 weeks of repeated heat exposure.",
     explain: "Heat acclimatization takes 7-14 days of repeated exercise in heat. Adaptations include: earlier sweating onset, more dilute sweat (less Na+ loss), increased plasma volume, lower heart rate during exercise, and lower core temperature - all improving heat tolerance.",
@@ -565,7 +635,12 @@ const questions = [
     diff: 2,
     q: "Normal sweat loss during exercise in the heat is approximately:",
     th: "การสูญเสียเหงื่อปกติขณะออกกำลังกายในที่ร้อนประมาณ:",
-    options: ["1-2 liters per hour", "100-200 mL per hour", "5-10 liters per hour", "50-100 mL per hour"],
+    options: [
+      "1-2 liters per hour (1-2 ลิตรต่อชั่วโมง)",
+      "100-200 mL per hour (100-200 มิลลิลิตรต่อชั่วโมง)",
+      "5-10 liters per hour (5-10 ลิตรต่อชั่วโมง)",
+      "50-100 mL per hour (50-100 มิลลิลิตรต่อชั่วโมง)"
+    ],
     answer: 0,
     hint: "Some individuals can lose up to 3 L/hr.",
     explain: "Normal sweat loss during exercise in the heat is 1-2 L/hr (some individuals up to 3 L/hr). This significant fluid loss carries electrolytes (Na+, Cl-, K+), can reduce plasma volume, increase blood viscosity, reduce venous return and stroke volume, and increase core temperature.",
@@ -577,10 +652,10 @@ const questions = [
     q: "What defines heat stroke as a medical emergency compared to heat exhaustion?",
     th: "อะไรที่ทำให้ลมแดด (heat stroke) เป็นภาวะฉุกเฉินเมื่อเทียบกับอ่อนเพลียจากความร้อน?",
     options: [
-      "Core temperature >40-40.5 degrees C with CNS dysfunction (confusion, coma)",
-      "Presence of muscle cramps",
-      "Heavy sweating and dizziness",
-      "Elevated heart rate above resting"
+      "Core temperature >40-40.5 degrees C with CNS dysfunction (confusion, coma) (อุณหภูมิแกนกลาง >40-40.5 องศาร่วมกับระบบประสาทส่วนกลางผิดปกติ สับสน โคม่า)",
+      "Presence of muscle cramps (มีตะคริวกล้ามเนื้อ)",
+      "Heavy sweating and dizziness (เหงื่อออกมากและเวียนศีรษะ)",
+      "Elevated heart rate above resting (อัตราการเต้นหัวใจสูงกว่าขณะพัก)"
     ],
     answer: 0,
     hint: "The brain starts to malfunction - that's what makes it life-threatening.",
@@ -592,7 +667,12 @@ const questions = [
     diff: 1,
     q: "Hypothermia is defined as a core body temperature below:",
     th: "ภาวะอุณหภูมิร่างกายต่ำกว่าปกติ (hypothermia) คือเมื่ออุณหภูมิแกนกลางต่ำกว่า:",
-    options: ["35 degrees C", "37 degrees C", "32 degrees C", "40 degrees C"],
+    options: [
+      "35 degrees C (35 องศาเซลเซียส)",
+      "37 degrees C (37 องศาเซลเซียส)",
+      "32 degrees C (32 องศาเซลเซียส)",
+      "40 degrees C (40 องศาเซลเซียส)"
+    ],
     answer: 0,
     hint: "Normal core temperature is around 37 degrees C.",
     explain: "Hypothermia is defined as core body temperature below 35 degrees C. Signs include decreased heart rate, breathing, and reflexes. It can occur during prolonged exercise in cold environments when heat production decreases and heat loss increases. A key problem is rapid heart rate decrease due to cooling of the SA node.",
@@ -604,10 +684,10 @@ const questions = [
     q: "What is the recommended fluid intake guideline before exercise to prevent dehydration?",
     th: "แนวทางการดื่มน้ำก่อนออกกำลังกายเพื่อป้องกันภาวะขาดน้ำคืออะไร?",
     options: [
-      "400-800 mL within 3 hours before exercise",
-      "50-100 mL immediately before exercise",
-      "2-3 liters the night before exercise",
-      "No water needed before exercise"
+      "400-800 mL within 3 hours before exercise (400-800 มล. ภายใน 3 ชั่วโมงก่อนออกกำลังกาย)",
+      "50-100 mL immediately before exercise (50-100 มล. ก่อนออกกำลังกายทันที)",
+      "2-3 liters the night before exercise (2-3 ลิตร คืนก่อนออกกำลังกาย)",
+      "No water needed before exercise (ไม่จำเป็นต้องดื่มน้ำก่อนออกกำลังกาย)"
     ],
     answer: 0,
     hint: "It's a moderate amount taken a few hours beforehand.",
@@ -620,10 +700,10 @@ const questions = [
     q: "In cold environments, the body's primary mechanisms to increase heat production include all EXCEPT:",
     th: "ในสภาพแวดล้อมเย็น กลไกหลักของร่างกายเพื่อเพิ่มการผลิตความร้อนรวมทุกข้อยกเว้น:",
     options: [
-      "Peripheral vasodilation to increase blood flow to the skin",
-      "Shivering thermogenesis",
-      "Non-shivering thermogenesis (brown fat metabolism)",
-      "Increased metabolic rate from hormones (catecholamines, thyroxine)"
+      "Peripheral vasodilation to increase blood flow to the skin (การขยายหลอดเลือดส่วนปลายเพื่อเพิ่มเลือดไปยังผิวหนัง)",
+      "Shivering thermogenesis (การผลิตความร้อนจากการสั่น)",
+      "Non-shivering thermogenesis - brown fat metabolism (การผลิตความร้อนโดยไม่สั่น - เมตาบอลิซึมไขมันน้ำตาล)",
+      "Increased metabolic rate from hormones - catecholamines, thyroxine (เพิ่มเมตาบอลิซึมจากฮอร์โมน - แคทีโคลามีน, ไทรอกซิน)"
     ],
     answer: 0,
     hint: "One of these would actually LOSE heat, not produce it.",
