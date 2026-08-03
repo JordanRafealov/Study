@@ -15,3 +15,8 @@ password-template.html
 *-slides-*.md
 *-slide-*.md
 *-lecture-slides.md
+
+# plaintext backups - NEVER commit (public repo)
+quiz.html.bak*
+*.bak
+*.bak2
